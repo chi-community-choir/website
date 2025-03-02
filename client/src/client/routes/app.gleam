@@ -21,7 +21,6 @@ pub fn app(model: Model) -> Element(Msg) {
         attribute.style([
           #("width", "full"),
           #("margin", "0 auto"),
-          #("padding", "2rem"),
         ]),
       ],
       [
