@@ -22,7 +22,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           attribute.style([
             #("background-color", "#2c5282"),
             #("color", "white"),
-            #("padding", "3rem 1rem"),
+            #("padding", "3rem 0"),
             #("text-align", "center"),
             #("margin-bottom", "2rem"),
           ]),
@@ -47,7 +47,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             ],
             [
               element.text(
-                "Join us for rehearsals or attend our performances. Here's where you can find the Chichester Community Choir.",
+                "Join us for rehearsals! Here's where you can find the Chichester Community Choir.",
               ),
             ],
           ),
@@ -71,7 +71,6 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             [
               attribute.style([
                 #("font-size", "2rem"),
-                #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
                 #("text-align", "center"),
               ]),
@@ -81,7 +80,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           html.div(
             [styles.aside_wrap()],
             [
-              // Map or image placeholder
+              // Map embed
               html.div(
                 [
                   attribute.style([
@@ -104,7 +103,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                     ],
                     [
                       html.iframe([
-                        attribute.src("https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d445.3519737708294!2d-0.7747135588194097!3d50.84429154622754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2suk!4v1740937216243!5m2!1sen!2suk"),
+                         attribute.src("https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1497.9585302692021!2d-0.7732953214085532!3d50.84494506711625!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48744d7d47c733ab%3A0x4fe7a9a44e3150fc!2sUniversity%20of%20Chichester!5e0!3m2!1sen!2suk!4v1740943878324!5m2!1sen!2suk"),
                         attribute.width(600),
                         attribute.height(450),
                         attribute.style([
@@ -131,7 +130,6 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                     [
                       attribute.style([
                         #("font-size", "1.5rem"),
-                        #("margin-bottom", "1rem"),
                         #("color", "#2c5282"),
                       ]),
                     ],
@@ -140,9 +138,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                   html.p(
                     [],
                     [
-                      element.text("College Ln"),
-                      html.br([]),
-                      element.text("Chichester, PO19 6PF"),
+                      element.text("College Ln, Chichester, PO19 6PF"),
                     ],
                   ),
                   html.p(
@@ -178,6 +174,17 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                         [],
                         [
                           html.li([], [element.text("Stagecoach Bus Routes: 50 and U7")]),
+                          html.a([
+                            attribute.href("https://www.stagecoachbus.com/timetables"),
+                            attribute.style([
+                              #("color", "#2c52FF"),
+                              #("text-decoration", "underline"),
+                              #("font-weight", "600"),
+                              #("padding", "1rem 4rem"), // Larger click target
+                            ]),
+                          ], [
+                            html.li([], [element.text("Click here to view bus timetables.")]),
+                          ])
                         ],
                       ),
                     ],
@@ -188,76 +195,6 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           ),
         ],
       ),
-
-      // // Performance venues section
-      // html.section(
-      //   [
-      //     attribute.style([
-      //       #("max-width", "1200px"),
-      //       #("margin", "0 auto 3rem auto"),
-      //       #("padding", "2rem"),
-      //       #("background-color", "white"),
-      //       #("border-radius", "8px"),
-      //       #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
-      //     ]),
-      //   ],
-      //   [
-      //     html.h2(
-      //       [
-      //         attribute.style([
-      //           #("font-size", "2rem"),
-      //           #("margin-bottom", "1.5rem"),
-      //           #("color", "#1a365d"),
-      //           #("text-align", "center"),
-      //         ]),
-      //       ],
-      //       [element.text("Performance Venues")],
-      //     ),
-      //     html.p(
-      //       [
-      //         attribute.style([
-      //           #("text-align", "center"),
-      //           #("margin-bottom", "2rem"),
-      //         ]),
-      //       ],
-      //       [
-      //         element.text(
-      //           "The Chichester Community Choir performs at various venues throughout the year. Here are some of our regular performance locations:",
-      //         ),
-      //       ],
-      //     ),
-      //     // Venue cards
-      //     html.div(
-      //       [
-      //         attribute.style([
-      //           #("display", "grid"),
-      //           #("grid-template-columns", "repeat(auto-fill, minmax(300px, 1fr))"),
-      //           #("gap", "2rem"),
-      //         ]),
-      //       ],
-      //       [
-      //         // Venue 1
-      //         venue_card(
-      //           "Harris Theater",
-      //           "205 E Randolph St, Chicago, IL 60601",
-      //           "Our annual holiday concert is typically held at this downtown venue.",
-      //         ),
-      //         // Venue 2
-      //         venue_card(
-      //           "Logan Center for the Arts",
-      //           "915 E 60th St, Chicago, IL 60637",
-      //           "We often perform our spring showcase at this University of Chicago venue.",
-      //         ),
-      //         // Venue 3
-      //         venue_card(
-      //           "Garfield Park Conservatory",
-      //           "300 N Central Park Ave, Chicago, IL 60624",
-      //           "Our summer series features performances in this beautiful garden setting.",
-      //         ),
-      //       ],
-      //     ),
-      //   ],
-      // ),
 
       // Access directions section
       html.section(
@@ -283,9 +220,41 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             ],
             [element.text("Accessing the rehearsal room")],
           ),
+          html.a([attribute.href("https://maps.chi.ac.uk/#room=C01-0-31")], [
+            html.div([
+              attribute.style([
+                #("background-color", "#b2babc"), 
+                #("padding", "1rem"),
+                #("border-radius", "8px"),
+                #("border", "1px solid #e2e8f0"),
+                #("transition", "background-color 0.2s ease"),
+                #("&:hover", "background-color: #edf2f7"),
+              ])
+            ], [
+              html.p(
+                [
+                  attribute.style([
+                    #("text-align", "center"),
+                    #("margin-bottom", "0"),
+                    #("max-width", "800px"), 
+                    #("margin-left", "auto"),
+                    #("margin-right", "auto"),
+                    #("color", "#2c52FF"),
+                    #("text-decoration", "underline"),
+                    #("font-weight", "600"),
+                  ]),
+                ],
+                [
+                  element.text(
+                    "Click here to see a detailed map of the university campus",
+                  ),
+                ],
+              ),
+            ]),
+          ]),
           html.img([
-            attribute.src("https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/walking_directions.png"),
-            styles.img_md(),
+            attribute.src("https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/better_directions.png"),
+            styles.img_full(),
           ]),
         ],
       ),
@@ -318,6 +287,22 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             [
               attribute.style([
                 #("text-align", "center"),
+                #("margin-bottom", "1rem"),
+                #("max-width", "800px"),
+                #("margin-left", "auto"),
+                #("margin-right", "auto"),
+              ]),
+            ],
+            [
+              element.text(
+                "Several parking options are available on the university grounds near our rehearsal space.",
+              ),
+            ],
+          ),
+          html.p(
+            [
+              attribute.style([
+                #("text-align", "center"),
                 #("margin-bottom", "2rem"),
                 #("max-width", "800px"),
                 #("margin-left", "auto"),
@@ -326,7 +311,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             ],
             [
               element.text(
-                "Several parking options are available near our rehearsal space. Please review the information below to plan your visit.",
+                "Please review the map above and the information below in order to plan your visit.",
               ),
             ],
           ),
@@ -341,7 +326,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
               ]),
             ],
             [
-              // On-site parking section
+              // Payment section
               html.div(
                 [
                   attribute.style([
@@ -368,7 +353,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                             #("font-size", "1.5rem"),
                           ]),
                         ],
-                        [element.text("On-site Parking")],
+                        [element.text("Paying to park")],
                       ),
                     ],
                   ),
@@ -384,7 +369,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                         [],
                         [
                           element.text(
-                            "[PLACEHOLDER: Description of on-site parking options, including location, capacity, and any special instructions]",
+                            "Parking at the university is managed by paybyphone. See below for details of how to park using their website:",
                           ),
                         ],
                       ),
@@ -398,20 +383,48 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                           ]),
                         ],
                         [
-                          // Hours
+                          // PayByPhone Link
+                          html.a([attribute.href("https://m2.paybyphone.co.uk/parking")], [
+                            parking_detail_box(
+                              "Link",
+                                html.p(
+                                  [
+                                    attribute.style([
+                                      #("margin", "0"),
+                                      #("color", "#2c52FF"),
+                                      #("text-decoration", "underline"),
+                                      #("font-weight", "600"),
+                                    ]),
+                                  ],
+                                  [element.text("m2.paybyphone.co.uk")]
+                                )
+                            ),
+                          ]),
+                          // Location number
                           parking_detail_box(
-                            "Hours",
-                            "[PLACEHOLDER: Operating hours for this parking option]",
+                            "Location Number",
+                            html.p(
+                              [
+                                attribute.style([
+                                  #("margin", "0"),
+                                  #("color", "#4a5568"),
+                                ]),
+                              ],
+                              [element.text("808365")]
+                            ),
                           ),
                           // Cost
                           parking_detail_box(
                             "Cost",
-                            "[PLACEHOLDER: Pricing information for this parking option]",
-                          ),
-                          // Payment Methods
-                          parking_detail_box(
-                            "Payment Methods",
-                            "[PLACEHOLDER: Accepted payment methods (cash, card, app, etc.)]",
+                            html.p(
+                              [
+                                attribute.style([
+                                  #("margin", "0"),
+                                  #("color", "#4a5568"),
+                                ]),
+                              ],
+                              [element.text("[costs]")],
+                            ),
                           ),
                         ],
                       ),
@@ -463,176 +476,25 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                         [],
                         [
                           element.text(
-                            "[PLACEHOLDER: Information about accessible parking spaces, including locations, quantity, and any special instructions]",
+                            "There is accessible parking available throughout the university campus.",
                           ),
                         ],
                       ),
-                      html.p(
-                        [
-                          attribute.style([
-                            #("margin-top", "1rem"),
-                          ]),
-                        ],
-                        [
-                          element.text(
-                            "[PLACEHOLDER: Information about accessible routes from parking to venue entrance]",
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-
-              // // Payment options section
-              // html.div(
-              //   [
-              //     attribute.style([
-              //       #("border", "1px solid #e2e8f0"),
-              //       #("border-radius", "8px"),
-              //       #("overflow", "hidden"),
-              //     ]),
-              //   ],
-              //   [
-              //     // Section header
-              //     html.div(
-              //       [
-              //         attribute.style([
-              //           #("background-color", "#2c5282"),
-              //           #("color", "white"),
-              //           #("padding", "1rem 1.5rem"),
-              //         ]),
-              //       ],
-              //       [
-              //         html.h3(
-              //           [
-              //             attribute.style([
-              //               #("margin", "0"),
-              //               #("font-size", "1.5rem"),
-              //             ]),
-              //           ],
-              //           [element.text("Payment Options")],
-              //         ),
-              //       ],
-              //     ),
-              //     // Section content
-              //     html.div(
-              //       [
-              //         attribute.style([
-              //           #("padding", "1.5rem"),
-              //         ]),
-              //       ],
-              //       [
-              //         html.p(
-              //           [],
-              //           [
-              //             element.text(
-              //               "[PLACEHOLDER: Overview of payment options for various parking facilities]",
-              //             ),
-              //           ],
-              //         ),
-              //         html.div(
-              //           [
-              //             attribute.style([
-              //               #("margin-top", "1.5rem"),
-              //               #("display", "flex"),
-              //               #("flex-wrap", "wrap"),
-              //               #("gap", "2rem"),
-              //               #("justify-content", "center"),
-              //             ]),
-              //           ],
-              //           [
-              //             // Cash
-              //             payment_method_card("Cash", "[PLACEHOLDER: Where cash is accepted]"),
-              //             // Credit/Debit Cards
-              //             payment_method_card(
-              //               "Credit/Debit Cards",
-              //               "[PLACEHOLDER: Where cards are accepted and any restrictions]",
-              //             ),
-              //             // Mobile Payment
-              //             payment_method_card(
-              //               "Mobile Payment",
-              //               "[PLACEHOLDER: Mobile payment options, apps, etc.]",
-              //             ),
-              //             // Prepaid Parking
-              //             payment_method_card(
-              //               "Prepaid Parking",
-              //               "[PLACEHOLDER: Information about prepaid parking options if available]",
-              //             ),
-              //           ],
-              //         ),
-              //       ],
-              //     ),
-              //   ],
-              // ),
-
-              // Tips and recommendations
-              html.div(
-                [
-                  attribute.style([
-                    #("margin-top", "2rem"),
-                    #("background-color", "#f8fafc"),
-                    #("border-radius", "8px"),
-                    #("padding", "1.5rem"),
-                    #("border-left", "4px solid #2c5282"),
-                  ]),
-                ],
-                [
-                  html.h3(
-                    [
-                      attribute.style([
-                        #("color", "#1a365d"),
-                        #("margin-top", "0"),
-                        #("margin-bottom", "1rem"),
+                      html.a([attribute.href("https://maps.chi.ac.uk/")], [
+                        html.p(
+                          [
+                            styles.styled_link(),
+                            attribute.style([
+                              #("margin-top", "1rem"),
+                            ]),
+                          ],
+                          [
+                            element.text(
+                              "See the campus map for more precise parking details",
+                            ),
+                          ],
+                        ),
                       ]),
-                    ],
-                    [element.text("Tips for Parking [Probably remove]")],
-                  ),
-                  html.ul(
-                    [
-                      attribute.style([
-                        #("margin", "0"),
-                        #("padding-left", "1.5rem"),
-                      ]),
-                    ],
-                    [
-                      html.li(
-                        [
-                          attribute.style([
-                            #("margin-bottom", "0.5rem"),
-                          ]),
-                        ],
-                        [
-                          element.text(
-                            "[PLACEHOLDER: Tip 1 about arriving early, best spots, etc.]",
-                          ),
-                        ],
-                      ),
-                      html.li(
-                        [
-                          attribute.style([
-                            #("margin-bottom", "0.5rem"),
-                          ]),
-                        ],
-                        [
-                          element.text(
-                            "[PLACEHOLDER: Tip 2 about peak times, avoiding congestion, etc.]",
-                          ),
-                        ],
-                      ),
-                      html.li(
-                        [
-                          attribute.style([
-                            #("margin-bottom", "0.5rem"),
-                          ]),
-                        ],
-                        [
-                          element.text(
-                            "[PLACEHOLDER: Tip 3 about payment preparation, apps to download, etc.]",
-                          ),
-                        ],
-                      ),
-                      html.li([], [element.text("[PLACEHOLDER: Tip 4, additional advice]")]),
                     ],
                   ),
                 ],
@@ -785,7 +647,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
 //   )
 // }
 
-fn parking_detail_box(title: String, content: String) -> Element(Msg) {
+fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
   html.div(
     [
       attribute.style([
@@ -807,15 +669,7 @@ fn parking_detail_box(title: String, content: String) -> Element(Msg) {
         ],
         [element.text(title)],
       ),
-      html.p(
-        [
-          attribute.style([
-            #("margin", "0"),
-            #("color", "#4a5568"),
-          ]),
-        ],
-        [element.text(content)],
-      ),
+      content
     ],
   )
 }

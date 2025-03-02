@@ -7,7 +7,7 @@ pub fn page_default() {
     #("flex-direction", "column"),
     #("min-height", "100vh"),
     #("padding", "1rem 0"),
-    #("margin", "0 2rem"),
+    #("margin", "0"),
   ])
 }
 /// Container with two items side by side, wrapping on small screens.
@@ -24,12 +24,28 @@ pub fn aside_wrap() {
   ])
 }
 
+pub fn styled_link() {
+  style([
+    #("color", "#2c52FF"),
+    #("text-decoration", "underline"),
+    #("font-weight", "600"),
+  ])
+}
+
 /// Limits the size of an image by its height
 pub fn img_md() {
   style([
     #("max-width", "100%"),
     #("height", "auto"),
     #("max-height", "400px"),
+    #("object-fit", "contain"),
+  ])
+}
+
+pub fn img_full() {
+  style([
+    #("max-width", "100%"),
+    #("height", "auto"),
     #("object-fit", "contain"),
   ])
 }
