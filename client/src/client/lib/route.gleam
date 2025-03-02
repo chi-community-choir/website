@@ -3,6 +3,7 @@ pub type Route {
 
   Index
   About
+  FindUs
   Songs
 
   Login
