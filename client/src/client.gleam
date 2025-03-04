@@ -139,6 +139,37 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, auth_user: None),
       effect.batch([modem.push("/", None, None), lib.get_auth_user()]),
     )
+    
+    // Dev-only auth state toggle handlers
+    msg.ToggleAuthState -> {
+      case model.auth_user {
+        // If logged in, log out
+        Some(_) -> #(
+          Model(..model, auth_user: None),
+          effect.none(),
+        )
+        // If logged out, log in (non-admin by default)
+        None -> #(
+          Model(..model, auth_user: Some(AuthUser(False))),
+          effect.none(),
+        )
+      }
+    }
+    
+    msg.ToggleAdminStatus -> {
+      case model.auth_user {
+        // Toggle admin status if logged in
+        Some(user) -> #(
+          Model(..model, auth_user: Some(AuthUser(!user.is_admin))),
+          effect.none(),
+        )
+        // If not logged in, log in as admin
+        None -> #(
+          Model(..model, auth_user: Some(AuthUser(True))),
+          effect.none(),
+        )
+      }
+    }
     msg.CreateSongUpdateTitle(value) -> #(
       Model(..model, create_song_title: value),
       effect.none(),

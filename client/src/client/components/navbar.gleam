@@ -35,60 +35,125 @@ pub fn navbar(model: Model) -> Element(Msg) {
           navbutton("/", "Home"),
           navbutton("about", "About"),
           navbutton("find-us", "Find Us"),
+          
         ]
-          |> list.append(case model.auth_user {
-            None -> [
-              // TODO: msg.RequestLogin event on enter
-              html.div([], [
-                ui.input([
-                  event.on_input(msg.LoginUpdatePassword),
-                  attribute.placeholder("Enter password"),
-                  attribute.style([
-                    // #("font-size", "1.1rem"),
-                    // #("padding", "0.5rem 1rem"),
-                    // #("margin", "0 1rem"),
-                    #("border-radius", "4px"),
-                    #("border", "2px solid #ccc"),
-                  ]),
+        |> list.append(case model.auth_user {
+          None -> [
+            // TODO: msg.RequestLogin event on enter
+            html.div([], [
+              ui.input([
+                event.on_input(msg.LoginUpdatePassword),
+                attribute.placeholder("Enter password"),
+                attribute.style([
+                  // #("font-size", "1.1rem"),
+                  // #("padding", "0.5rem 1rem"),
+                  // #("margin", "0 1rem"),
+                  #("border-radius", "4px"),
+                  #("border", "2px solid #ccc"),
                 ]),
-                ui.button([
-                  button.solid(),
-                  event.on_click(msg.RequestLogin),
-                  attribute.style([
-                    #("font-size", "1.1rem"),
-                    #("padding", "0.5rem 1.5rem"),
-                    #("background-color", "#2c5282"),
-                    #("border-radius", "4px"),
-                    #("transition", "all 0.2s ease-in-out"),
-                    #("cursor", "pointer"),
-                  ]),
-                ], [
-                  element.text("Login"),
+              ]),
+              ui.button([
+                button.solid(),
+                event.on_click(msg.RequestLogin),
+                attribute.style([
+                  #("font-size", "1.1rem"),
+                  #("padding", "0.5rem 1.5rem"),
+                  #("background-color", "#2c5282"),
+                  #("border-radius", "4px"),
+                  #("transition", "all 0.2s ease-in-out"),
+                  #("cursor", "pointer"),
                 ]),
-              ])
-            ]
-            Some(user) -> {
-              case user.is_admin {
-                False -> [
+              ], [
+                element.text("Login"),
+              ]),
+            ])
+          ]
+          Some(user) -> {
+            case user.is_admin {
+              False -> [
+                navbutton("songs", "Songs"),
+                ui.button(
+                  [button.solid(), event.on_click(msg.RequestLogout)],
+                  [element.text("Log out")],
+                ),
+              ]
+              True -> {
+                [
                   navbutton("songs", "Songs"),
+                  navbutton("create-post", "Create new post"),
                   ui.button(
                     [button.solid(), event.on_click(msg.RequestLogout)],
                     [element.text("Log out")],
                   ),
                 ]
-                True -> {
-                  [
-                    navbutton("songs", "Songs"),
-                    navbutton("create-post", "Create new post"),
-                    ui.button(
-                      [button.solid(), event.on_click(msg.RequestLogout)],
-                      [element.text("Log out")],
-                    ),
-                  ]
-                }
               }
             }
-          }),
+          }
+        })
+        |> list.append([
+          // Dev-only authentication toggle buttons
+          // WARN: Remove in prod
+          html.div([
+            attribute.style([
+              #("display", "flex"),
+              #("gap", "0.5rem"),
+              #("background-color", "#f8d7da"),
+              #("padding", "0.5rem"),
+              #("border-radius", "4px"),
+              #("border", "1px dashed #dc3545"),
+            ]),
+          ], [
+            html.div([], [
+              element.text("DEV: "),
+            ]),
+            ui.button([
+              button.solid(),
+              event.on_click(msg.ToggleAuthState),
+              attribute.style([
+                #("font-size", "0.8rem"),
+                #("padding", "0.25rem 0.5rem"),
+                #("background-color", case model.auth_user {
+                  None -> "#6c757d"
+                  Some(_) -> "#28a745"
+                }),
+                #("border-radius", "4px"),
+                #("color", "white"),
+                #("cursor", "pointer"),
+              ]),
+            ], [
+              element.text(case model.auth_user {
+                None -> "Login"
+                Some(_) -> "Logout"
+              }),
+            ]),
+            ui.button([
+              button.solid(),
+              event.on_click(msg.ToggleAdminStatus),
+              attribute.style([
+                #("font-size", "0.8rem"),
+                #("padding", "0.25rem 0.5rem"),
+                #("background-color", case model.auth_user {
+                  None -> "#6c757d"
+                  Some(user) -> case user.is_admin {
+                    True -> "#dc3545"
+                    False -> "#007bff"
+                  }
+                }),
+                #("border-radius", "4px"),
+                #("color", "white"),
+                #("cursor", "pointer"),
+              ]),
+            ], [
+              element.text(case model.auth_user {
+                None -> "Admin: Off"
+                Some(user) -> case user.is_admin {
+                  True -> "Admin: On"
+                  False -> "Admin: Off"
+                }
+              }),
+            ]),
+          ])
+        ])
       ),
       html.hr([attribute.style([#("opacity", "0")])]),
     ],

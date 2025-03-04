@@ -22,6 +22,10 @@ pub type Msg {
   LogoutResponded(
     resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
   )
+  
+  // Dev-only messages for auth state toggling
+  ToggleAuthState
+  ToggleAdminStatus
 
   CreateSongUpdateTitle(value: String)
   CreateSongUpdateHref(value: String)
