@@ -35,6 +35,7 @@ pub fn navbar(model: Model) -> Element(Msg) {
           navbutton("/", "Home"),
           navbutton("about", "About"),
           navbutton("find-us", "Find Us"),
+          navbutton("membership", "Membership"),
           
         ]
         |> list.append(case model.auth_user {

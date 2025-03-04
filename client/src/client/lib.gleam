@@ -1,7 +1,7 @@
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/lib/route.{
-  type Route, About, FindUs, CreateSong, Index, NotFound, ShowSong, Songs,
+  type Route, About, FindUs, CreateSong, Index, Membership, NotFound, ShowSong, Songs,
 }
 import gleam/dynamic/decode
 import gleam/int
@@ -21,6 +21,7 @@ pub fn get_route() -> Route {
     [] -> Index
     ["about"] -> About
     ["find-us"] -> FindUs
+    ["membership"] -> Membership
     ["songs"] -> Songs
     ["create-song"] -> CreateSong
     ["song", song_id] ->

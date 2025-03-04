@@ -6,7 +6,7 @@ pub fn page_default() {
     #("display", "flex"),
     #("flex-direction", "column"),
     #("min-height", "100vh"),
-    #("padding", "1rem 0"),
+    #("padding", "0"),
     #("margin", "0"),
   ])
 }
