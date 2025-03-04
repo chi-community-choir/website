@@ -20,10 +20,3 @@ pub type AuthUser {
     is_admin: Bool,
   )
 }
-
-pub fn is_admin_to_int(is_admin: Bool) {
-  case is_admin {
-    True -> 1
-    False -> 0
-  }
-}

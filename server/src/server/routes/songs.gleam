@@ -3,7 +3,6 @@ import cake/select
 import cake/where
 import gleam/bool
 import gleam/dynamic.{type Dynamic}
-import gleam/dynamic/decode
 import gleam/http.{Get, Post}
 import gleam/json
 import gleam/list
@@ -67,15 +66,16 @@ type CreateSong {
   )
 }
 
-fn decode_create_song(json: Dynamic) -> Result(CreateSong, List(decode.DecodeError)) {
-  let decoder = {
-    use title <- decode.field("title", decode.string)
-    use href <- decode.field("href", decode.optional(decode.string))
-    use filepath <- decode.field("filepath", decode.optional(decode.string))
-    use tags <- decode.field("tags", decode.list(decode.int))
-    decode.success(CreateSong(title, href, filepath, tags))
-  }
-  decode.run(json, decoder)
+fn decode_create_song(json: Dynamic) -> Result(CreateSong, dynamic.DecodeErrors) {
+  let decoder =
+    dynamic.decode4(
+      CreateSong,
+      dynamic.field("title", dynamic.string),
+      dynamic.optional_field("href", dynamic.string),
+      dynamic.optional_field("filepath", dynamic.string),
+      dynamic.field("tags", dynamic.list(dynamic.int)),
+    )
+  decoder(json)
 }
 
 fn insert_song_to_db(_req: Request, song: CreateSong) {
@@ -149,11 +149,7 @@ fn does_song_with_href_exist(song: CreateSong) {
           None -> panic as "Unreachable due to guard"
         }),
       ],
-      {
-        use str1 <- decode.field(0, decode.string)
-        use str2 <- decode.field(1, decode.string)
-        decode.success(#(str1, str2))
-      }
+      dynamic.tuple2(dynamic.string, dynamic.string),
     )
   {
     Ok(songs) -> Ok(list.length(songs) > 0)

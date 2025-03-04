@@ -3,13 +3,14 @@ import client/lib/msg.{type Msg}
 import client/lib/route.{
   type Route, About, CreateSong, Index, NotFound, ShowSong, Songs,
 }
-import gleam/dynamic/decode
+import decode
+import gleam/dynamic
 import gleam/int
 import gleam/json
 import gleam/uri
 import lustre/effect.{type Effect}
 import lustre_http
-import shared.{type Song, AuthUser, Song}
+import shared.{type Song, Song, AuthUser}
 
 @external(javascript, "../ffi.mjs", "get_route")
 fn do_get_route() -> String
@@ -37,10 +38,10 @@ pub fn set_url(url: String) -> String
 pub fn get_auth_user() -> Effect(Msg) {
   let url = "https://dev.chicommunitychoir.com/api/auth/validate"
 
-  let decoder = {
-    use is_admin <- decode.field("is_admin", decode.bool)
-    decode.success(AuthUser(is_admin: is_admin))
-  }
+  let decoder = dynamic.decode1(
+    AuthUser,
+    dynamic.field("is_admin", dynamic.bool)
+  )
 
   lustre_http.get(url, lustre_http.expect_json(decoder, msg.AuthUserReceived))
 }
@@ -48,15 +49,17 @@ pub fn get_auth_user() -> Effect(Msg) {
 pub fn get_songs() -> Effect(Msg) {
   let url = "/api/posts"
 
-  let response_decoder = {
-    use songs <- decode.field("songs", decode.list(song_decoder()))
-    decode.success(msg.GetSongsResponse(songs))
-  }
+  let response_decoder =
+    decode.into({
+      use songs <- decode.parameter
+      msg.GetSongsResponse(songs)
+    })
+    |> decode.field("songs", decode.list(song_decoder()))
 
   lustre_http.get(
     url,
     lustre_http.expect_json(
-      response_decoder,
+      fn(data) { response_decoder |> decode.from(data) },
       msg.SongsReceived,
     ),
   )
@@ -68,7 +71,7 @@ pub fn get_show_song() -> Effect(Msg) {
   lustre_http.get(
     url,
     lustre_http.expect_json(
-      song_decoder(),
+      fn(data) { decode.from(song_decoder(), data) },
       msg.ShowSongReceived,
     ),
   )
@@ -104,11 +107,20 @@ pub fn create_song(model: Model) {
 }
 
 pub fn song_decoder() {
-  use id <- decode.field("id", decode.int)
-  use title <- decode.field("title", decode.string)
-  use href <- decode.field("href", decode.optional(decode.string))
-  use filepath <- decode.field("filepath", decode.optional(decode.string))
-  use tags <- decode.field("tags", decode.list(decode.string))
-  use created_at <- decode.field("created_at", decode.int)
-  decode.success(Song(id, title, href, filepath, tags, created_at))
+  decode.into({
+    use id <- decode.parameter
+    use title <- decode.parameter
+    use href <- decode.parameter
+    use filepath <- decode.parameter
+    use tags <- decode.parameter
+    use created_at <- decode.parameter
+
+    Song(id, title, href, filepath, tags, created_at)
+  })
+  |> decode.field("id", decode.int)
+  |> decode.field("title", decode.string)
+  |> decode.field("href", decode.optional(decode.string))
+  |> decode.field("filepath", decode.optional(decode.string))
+  |> decode.field("tags", decode.list(decode.string))
+  |> decode.field("created_at", decode.int)
 }
