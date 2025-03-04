@@ -1,7 +1,7 @@
 import client/lib/model.{type Model}
 import client/styles
 import lustre/element.{text}
-import lustre/element/html.{div, img, section, p, h1, h2, a}
+import lustre/element/html.{div, img, section, p, h1, h2, a, br}
 import lustre/attribute.{alt, src, style, class}
 
 pub fn index(_model: Model) {
@@ -45,7 +45,7 @@ pub fn index(_model: Model) {
           #("text-align", "center"),
         ]),
       ], [
-        html.h1([
+        h1([
           style([
             #("color", "#1a365d"),
             #("font-size", "2.5rem"),
@@ -55,7 +55,7 @@ pub fn index(_model: Model) {
         ], [
           text("Welcome to Chichester Community Choir"),
         ]),
-        html.p([
+        p([
           style([
             #("font-size", "1.25rem"),
             #("color", "#2d3748"),
@@ -87,7 +87,7 @@ pub fn index(_model: Model) {
             #("text-align", "center"),
           ]),
         ], [
-          html.h2([
+          h2([
             style([
               #("color", "#1a365d"),
               #("font-size", "1.5rem"),
@@ -95,17 +95,33 @@ pub fn index(_model: Model) {
               #("font-weight", "bold"),
             ]),
           ], [text("Next Rehearsal")]),
-          html.p([
+          p([
             style([
               #("font-size", "1.25rem"),
               #("color", "#2d3748"),
             ]),
           ], [
             text("Every Tuesday"),
-            html.br([]),
+            br([]),
             text("7:30 PM - 9:30 PM"),
-            html.br([]),
-            text("[LOCATION]"),
+            br([]),
+            text("University of Chichester"),
+            br([]),
+            a([
+              attribute.href("/find-us"),
+              style([
+                #("display", "inline-block"),
+                #("background-color", "#2c5282"),
+                #("color", "#ffffff"),
+                #("padding", "0.75rem 1.5rem"),
+                #("border-radius", "8px"),
+                #("font-size", "1.2rem"),
+                #("text-decoration", "none"),
+                #("margin-top", "1rem"),
+                #("transition", "background-color 0.2s ease"),
+                #("&:hover", "background-color: #2a4365"),
+              ]),
+            ], [text("Find Us")]),
           ]),
         ]),
 
@@ -119,7 +135,7 @@ pub fn index(_model: Model) {
             #("text-align", "center"),
           ]),
         ], [
-          html.h2([
+          h2([
             style([
               #("color", "#1a365d"),
               #("font-size", "1.5rem"),
@@ -127,7 +143,7 @@ pub fn index(_model: Model) {
               #("font-weight", "bold"),
             ]),
           ], [text("Want to Join?")]),
-          html.p([
+          p([
             style([
               #("font-size", "1.25rem"),
               #("color", "#2d3748"),
@@ -136,7 +152,7 @@ pub fn index(_model: Model) {
           ], [
             text("Your first session is free! Come along and give it a try."),
           ]),
-          html.a([
+          a([
             attribute.href("mailto:caroline@chicommunitychoir.com"),
             style([
               #("display", "inline-block"),
@@ -163,7 +179,7 @@ pub fn index(_model: Model) {
             #("text-align", "center"),
           ]),
         ], [
-          html.h2([
+          h2([
             style([
               #("color", "#1a365d"),
               #("font-size", "1.5rem"),
@@ -171,15 +187,13 @@ pub fn index(_model: Model) {
               #("font-weight", "bold"),
             ]),
           ], [text("Latest News")]),
-          html.p([
+          p([
             style([
               #("font-size", "1.25rem"),
               #("color", "#2d3748"),
             ]),
           ], [
             text("Stay tuned for upcoming performances and events!"),
-            html.br([]),
-            text("Members: Check your email for the latest updates."),
           ]),
         ]),
       ]),
@@ -195,7 +209,7 @@ pub fn index(_model: Model) {
           #("margin", "0 auto 3rem"),
         ]),
       ], [
-        html.h2([
+        h2([
           style([
             #("color", "#1a365d"),
             #("font-size", "1.8rem"),
@@ -203,7 +217,7 @@ pub fn index(_model: Model) {
             #("font-weight", "bold"),
           ]),
         ], [text("Come Sing With Us!")]),
-        html.p([
+        p([
           style([
             #("font-size", "1.25rem"),
             #("color", "#2d3748"),

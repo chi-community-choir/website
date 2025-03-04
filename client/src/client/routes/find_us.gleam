@@ -779,39 +779,39 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //   )
 // }
 
-fn payment_method_card(title: String, description: String) -> Element(Msg) {
-  html.div(
-    [
-      attribute.style([
-        #("background-color", "#f8fafc"),
-        #("border-radius", "8px"),
-        #("padding", "1.2rem"),
-        #("width", "220px"),
-        #("text-align", "center"),
-        #("box-shadow", "0 2px 4px rgba(0, 0, 0, 0.05)"),
-      ]),
-    ],
-    [
-      html.h4(
-        [
-          attribute.style([
-            #("margin", "0 0 0.8rem 0"),
-            #("color", "#2c5282"),
-            #("font-size", "1.1rem"),
-          ]),
-        ],
-        [element.text(title)],
-      ),
-      html.p(
-        [
-          attribute.style([
-            #("margin", "0"),
-            #("color", "#4a5568"),
-            #("font-size", "0.9rem"),
-          ]),
-        ],
-        [element.text(description)],
-      ),
-    ],
-  )
-}
+// fn payment_method_card(title: String, description: String) -> Element(Msg) {
+//   html.div(
+//     [
+//       attribute.style([
+//         #("background-color", "#f8fafc"),
+//         #("border-radius", "8px"),
+//         #("padding", "1.2rem"),
+//         #("width", "220px"),
+//         #("text-align", "center"),
+//         #("box-shadow", "0 2px 4px rgba(0, 0, 0, 0.05)"),
+//       ]),
+//     ],
+//     [
+//       html.h4(
+//         [
+//           attribute.style([
+//             #("margin", "0 0 0.8rem 0"),
+//             #("color", "#2c5282"),
+//             #("font-size", "1.1rem"),
+//           ]),
+//         ],
+//         [element.text(title)],
+//       ),
+//       html.p(
+//         [
+//           attribute.style([
+//             #("margin", "0"),
+//             #("color", "#4a5568"),
+//             #("font-size", "0.9rem"),
+//           ]),
+//         ],
+//         [element.text(description)],
+//       ),
+//     ],
+//   )
+// }
