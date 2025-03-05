@@ -1,11 +1,11 @@
 import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
-import client/lib/route.{
-  About, CreateSong, Index, NotFound, ShowSong, Songs,
-}
+import client/lib/route.{About, CreateSong, FindUs, Index, Membership, NotFound, ShowSong, Songs}
 import client/routes/about
+import client/routes/find_us
 import client/routes/index
+import client/routes/membership
 import client/routes/songs
 import gleam/option.{Some, None}
 import lustre/attribute
@@ -23,7 +23,6 @@ pub fn app(model: Model) -> Element(Msg) {
         attribute.style([
           #("width", "full"),
           #("margin", "0 auto"),
-          #("padding", "2rem"),
         ]),
       ],
       [
@@ -31,6 +30,8 @@ pub fn app(model: Model) -> Element(Msg) {
           // pages
           Index, _ -> index.index(model)
           About, _ -> about.about(model)
+          FindUs, _ -> find_us.find_us(model)
+          Membership, _ -> membership.membership(model)
           Songs, _ -> songs.songs(model)
           CreateSong, Some(_) -> songs.create_song(model)
           CreateSong, None -> element.text("403 forbidden")

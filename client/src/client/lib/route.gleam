@@ -3,6 +3,8 @@ pub type Route {
 
   Index
   About
+  FindUs
+  Membership
   Songs
 
   Login
