@@ -36,7 +36,8 @@ pub fn navbar(model: Model) -> Element(Msg) {
           navbutton("about", "About"),
           navbutton("find-us", "Find Us"),
           navbutton("membership", "Membership"),
-          
+          navbutton("events", "Events"),
+          navbutton("repertoire", "Repertoire"),
         ]
         |> list.append(case model.auth_user {
           None -> [
@@ -72,7 +73,6 @@ pub fn navbar(model: Model) -> Element(Msg) {
           Some(user) -> {
             case user.is_admin {
               False -> [
-                navbutton("songs", "Songs"),
                 ui.button(
                   [button.solid(), event.on_click(msg.RequestLogout)],
                   [element.text("Log out")],
@@ -80,8 +80,6 @@ pub fn navbar(model: Model) -> Element(Msg) {
               ]
               True -> {
                 [
-                  navbutton("songs", "Songs"),
-                  navbutton("create-post", "Create new post"),
                   ui.button(
                     [button.solid(), event.on_click(msg.RequestLogout)],
                     [element.text("Log out")],

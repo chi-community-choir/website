@@ -6,11 +6,11 @@ import lustre/element
 import lustre/element/html
 import lustre/ui/classes
 
-pub fn songs(model: Model) {
+pub fn repertoire(model: Model) {
   html.div([], [
     html.div(
       [attribute.style([#("display", "flex"), #("justify-content", "center")])],
-      [html.p([classes.font_alt()], [element.text("Songs")])],
+      [html.p([classes.font_alt()], [element.text("Repertoire")])],
     ),
     html.div(
       [

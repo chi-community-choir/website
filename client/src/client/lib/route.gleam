@@ -5,7 +5,7 @@ pub type Route {
   About
   FindUs
   Membership
-  Songs
+  Repertoire
 
   Login
   Signup(auth_code: String)
