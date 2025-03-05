@@ -35,6 +35,7 @@ fn init(_) -> #(Model, Effect(Msg)) {
       login_error: None,
       auth_user: None,
       songs: [],
+      posts: [],
       show_song: None,
     )
   let effect =

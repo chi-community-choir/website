@@ -1,6 +1,6 @@
 import client
 import client/lib/model.{Model}
-import client/lib/route.{About, CreateSong, Index, NotFound, FindUs, Membership, ShowSong, Repertoire}
+import client/lib/route.{About, CreateSong, Index, NotFound, FindUs, Membership, ShowSong, Repertoire, Events}
 import cors_builder as cors
 import gleam/erlang/process.{type Subject}
 import gleam/http
@@ -13,6 +13,8 @@ import server/routes/auth/login
 import server/routes/auth/logout
 import server/routes/auth/validate
 import server/routes/cache/session_cache.{type CacheMessage}
+import server/routes/post
+import server/routes/posts
 import server/routes/song
 import server/routes/songs
 import server/scaffold
@@ -46,6 +48,21 @@ fn api_routes(
   cache_subject: Subject(CacheMessage),
 ) -> Response {
   case route_segments {
+    ["api", "posts"] ->
+      case user_session.get_user_from_session(req, cache_subject) {
+        Ok(_) -> posts.posts(req)
+        Error(_) -> response.error("Unauthorized - please log in")
+      }
+    ["api", "post", post_id] -> {
+      case user_session.get_user_from_session(req, cache_subject) {
+        Ok(_) ->
+          case int.parse(post_id) {
+            Ok(id) -> post.post(req, id)
+            Error(_) -> response.error("Invalid post_id for post, must be int")
+          }
+        Error(_) -> response.error("Unauthorized - please log in")
+      }
+    }
     ["api", "songs"] ->
       case user_session.get_user_from_session(req, cache_subject) {
         Ok(_) -> songs.songs(req)
@@ -96,7 +113,7 @@ fn page_routes(
     ["repertoire"] -> #(Repertoire, 200)
     ["find-us"] -> #(FindUs, 200)
     ["membership"] -> #(Membership, 200)
-    // ["auth", "login"] -> #(Login, 200)
+    ["events"] -> #(Events, 200)
     ["create-song"] ->
       protected_route(req, #(CreateSong, 200), True, cache_subject)
     ["song", song_id] ->
@@ -125,6 +142,10 @@ fn page_routes(
       },
       songs: case songs.list_songs(req) {
         Ok(songs) -> songs
+        Error(_) -> []
+      },
+      posts: case posts.list_posts(req) {
+        Ok(posts) -> posts
         Error(_) -> []
       },
       show_song: case route {

@@ -6,6 +6,7 @@ pub type Route {
   FindUs
   Membership
   Repertoire
+  Events
 
   Login
   Signup(auth_code: String)

@@ -1,11 +1,12 @@
 import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
-import client/lib/route.{About, CreateSong, FindUs, Index, Membership, NotFound, ShowSong, Repertoire}
+import client/lib/route.{About, CreateSong, FindUs, Index, Membership, NotFound, ShowSong, Repertoire, Events}
 import client/routes/about
 import client/routes/find_us
 import client/routes/index
 import client/routes/membership
+import client/routes/events
 import client/routes/repertoire
 import gleam/option.{Some, None}
 import lustre/attribute
@@ -32,6 +33,7 @@ pub fn app(model: Model) -> Element(Msg) {
           About, _ -> about.about(model)
           FindUs, _ -> find_us.find_us(model)
           Membership, _ -> membership.membership(model)
+          Events, _ -> events.events(model)
           Repertoire, _ -> repertoire.repertoire(model)
           CreateSong, Some(_) -> repertoire.create_song(model)
           CreateSong, None -> element.text("403 forbidden")

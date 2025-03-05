@@ -11,6 +11,16 @@ pub type Song {
   )
 }
 
+pub type Post {
+  Post(
+    id: Int,
+    title: String,
+    content: String,
+    tags: List(String),
+    created_at: Int,
+  )
+}
+
 pub type Tag {
   Tag(id: Int, name: String)
 }
