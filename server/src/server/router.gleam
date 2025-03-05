@@ -1,6 +1,6 @@
 import client
 import client/lib/model.{Model}
-import client/lib/route.{About, CreateSong, Index, NotFound, ShowSong, Songs}
+import client/lib/route.{About, CreateSong, Index, NotFound, FindUs, Membership, ShowSong, Songs}
 import cors_builder as cors
 import gleam/erlang/process.{type Subject}
 import gleam/http
@@ -94,6 +94,8 @@ fn page_routes(
     [] -> #(Index, 200)
     ["about"] -> #(About, 200)
     ["songs"] -> protected_route(req, #(Songs, 200), False, cache_subject)
+    ["find-us"] -> #(FindUs, 200)
+    ["membership"] -> #(Membership, 200)
     // ["auth", "login"] -> #(Login, 200)
     ["create-song"] ->
       protected_route(req, #(CreateSong, 200), True, cache_subject)
