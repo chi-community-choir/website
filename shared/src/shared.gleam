@@ -16,8 +16,11 @@ pub type Post {
     id: Int,
     title: String,
     content: String,
+    excerpt: String,
+    author: String,
+    created_at: String,
+    updated_at: String,
     tags: List(String),
-    created_at: Int,
   )
 }
 

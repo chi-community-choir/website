@@ -13,7 +13,10 @@ pub type ListPostDBRow {
     post_id: Int,
     post_title: String,
     post_content: String,
-    created_at: Int,
+    post_excerpt: String,
+    post_author: String,
+    created_at: String,
+    updated_at: String,
   )
 }
 
@@ -32,8 +35,11 @@ pub fn run_post_query(select: Select, params: List(Value)) {
     use post_id <- decode.field(0, decode.int)
     use post_title <- decode.field(1, decode.string)
     use post_content <- decode.field(2, decode.string)
-    use created_at <- decode.field(3, decode.int)
-    decode.success(ListPostDBRow(post_id, post_title, post_content, created_at))
+    use post_excerpt <- decode.field(3, decode.string)
+    use post_author <- decode.field(4, decode.string)
+    use created_at <- decode.field(5, decode.string)
+    use updated_at <- decode.field(6, decode.string)
+    decode.success(ListPostDBRow(post_id, post_title, post_content, post_excerpt, post_author, created_at, updated_at))
     }
   )
 }
@@ -44,8 +50,11 @@ pub fn post_rows_to_post(_req: Request, rows: List(ListPostDBRow)) {
     id: row.post_id,
     title: row.post_title,
     content: row.post_content,
-    tags: [],
+    excerpt: row.post_excerpt,
+    author: row.post_author,
     created_at: row.created_at,
+    updated_at: row.updated_at,
+    tags: [],
   )
 }
 
@@ -54,7 +63,10 @@ pub fn post_to_json(post: Post) {
     #("id", json.int(post.id)),
     #("title", json.string(post.title)),
     #("content", json.string(post.content)),
+    #("excerpt", json.string(post.excerpt)),
+    #("author", json.string(post.author)),
+    #("created_at", json.string(post.created_at)),
+    #("updated_at", json.string(post.updated_at)),
     #("tags", json.array(post.tags, fn(tag) { json.string(tag) })),
-    #("created_at", json.int(post.created_at)),
   ])
 }

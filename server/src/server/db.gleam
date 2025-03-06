@@ -48,25 +48,34 @@ pub fn init() {
       token varchar(255) not null unique,
       is_admin bool
     );
+  "
+    |> sqlight.exec(conn)
 
+  let assert Ok(Nil) =
+    "
     create table if not exists song (
       id integer primary key,
       title text not null,
+      slug text not null,
       href varchar(255),
       filepath varchar(255),
-      created_at datetime default current_timestamp,
+      created_at int
     );
+    "
+    |> sqlight.exec(conn)
 
+  let assert Ok(Nil) =
+    "
     create table if not exists posts (
       id integer primary key autoincrement,
       title text not null,
       content text not null,
       excerpt text,
       author text,
-      slug text unique,
-      created_at datetime default current_timestamp,
-      updated_at datetime default current_timestamp
+      slug text not null,
+      created_at int,
+      updated_at int
     );
-  "
+    "
     |> sqlight.exec(conn)
 }

@@ -62,6 +62,8 @@ type CreatePost {
   CreatePost(
     title: String,
     content: String,
+    excerpt: String,
+    author: String,
     tags: List(Int),
   )
 }
@@ -70,8 +72,10 @@ fn decode_create_post(json: Dynamic) -> Result(CreatePost, List(decode.DecodeErr
   let decoder = {
     use title <- decode.field("title", decode.string)
     use content <- decode.field("content", decode.string)
+    use excerpt <- decode.field("excerpt", decode.string)
+    use author <- decode.field("author", decode.string)
     use tags <- decode.field("tags", decode.list(decode.int))
-    decode.success(CreatePost(title, content, tags))
+    decode.success(CreatePost(title, content, excerpt, author, tags))
   }
   decode.run(json, decoder)
 }
@@ -82,16 +86,22 @@ fn insert_post_to_db(_req: Request, post: CreatePost) {
       insert.row([
         insert.string(post.title),
         insert.string(post.content),
+        insert.string(post.excerpt),
+        insert.string(post.author),
       ]),
     ]
     |> insert.from_values(table_name: "post", columns: [
       "title",
       "content",
+      "excerpt",
+      "author",
     ])
     |> insert.to_query
     |> db.execute_write([
       sqlight.text(post.title),
-      sqlight.text(post.content)
+      sqlight.text(post.content),
+      sqlight.text(post.excerpt),
+      sqlight.text(post.author),
     ])
 
   Ok(Nil)
@@ -110,6 +120,11 @@ pub fn create_post(req: Request) -> Response {
     use <- bool.guard(
       when: post.title == "",
       return: Error("No title provided"),
+    )
+
+    use <- bool.guard(
+      when: post.content == "",
+      return: Error("No post body provided"),
     )
 
     use _ <- result.try(case insert_post_to_db(req, post) {

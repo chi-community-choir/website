@@ -4,5 +4,8 @@ import lustre/element/html
 import shared.{type Post}
 
 pub fn post(post: Post) -> Element(Msg) {
-  html.div([], [html.p([], [element.text(post.title)])])
+  html.div([], [
+    html.p([], [element.text(post.title)]),
+    html.p([], [element.text(post.content)]),
+  ])
 }

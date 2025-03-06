@@ -1,9 +1,14 @@
+import client/styles
 import client/components/post
 import client/lib/model.{type Model}
+import client/lib/msg
 import gleam/list
+import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element
 import lustre/element/html
+import lustre/ui
+import lustre/ui/button
 import lustre/ui/classes
 
 pub fn events(model: Model) {
@@ -20,10 +25,38 @@ pub fn events(model: Model) {
           #("justify-content", "center"),
         ]),
       ],
-      case model.posts {
-        [] -> [element.text("no posts found")]
-        posts -> list.map(posts, post.post)
-      },
+      [
+        // search bar, admin "create post" button
+      ]
+      |> list.append(
+        case model.posts {
+          [] -> [element.text("no posts found")]
+          posts -> {
+            // list.map(posts, post.post)
+            use post <- list.map(posts)
+            html.div([
+              styles.aside_wrap()
+            ], [
+              html.div([], [
+                post.post(post),
+              ]),
+              html.div([], case model.auth_user {
+                Some(user) if user.is_admin -> [
+                  ui.button(
+                    [
+                      button.solid(), 
+                      // event.on_click(msg.DeletePost(post))
+                    ],
+                    [element.text("DELETE")],
+                  ),
+                ]
+                _ -> []
+              }
+              )
+            ])
+          }
+        },
+      ),
     ),
   ])
 }
