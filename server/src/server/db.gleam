@@ -51,10 +51,21 @@ pub fn init() {
 
     create table if not exists song (
       id integer primary key,
-      title varchar(255) not null,
+      title text not null,
       href varchar(255),
       filepath varchar(255),
-      created_at integer not null
+      created_at datetime default current_timestamp,
+    );
+
+    create table if not exists posts (
+      id integer primary key autoincrement,
+      title text not null,
+      content text not null,
+      excerpt text,
+      author text,
+      slug text unique,
+      created_at datetime default current_timestamp,
+      updated_at datetime default current_timestamp
     );
   "
     |> sqlight.exec(conn)
