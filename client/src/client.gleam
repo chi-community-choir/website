@@ -43,8 +43,8 @@ fn init(_) -> #(Model, Effect(Msg)) {
       // [lib.get_auth_user()]
       []
       |> list.append(case lib.get_route() {
-        Repertoire -> [lib.get_songs()]
-        route.Events -> [lib.get_posts()]
+        // Repertoire -> [lib.get_songs()]
+        // route.Events -> [lib.get_posts()]
         // ShowSong(_) -> [get_show_song()]
         _ -> []
       }),
