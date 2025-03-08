@@ -18,6 +18,7 @@ pub type Post {
     content: String,
     excerpt: String,
     author: String,
+    slug: String,
     created_at: String,
     updated_at: String,
     tags: List(String),

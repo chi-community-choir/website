@@ -12,6 +12,7 @@ import gleam/regexp
 import gleam/result
 import server/db
 import server/db/post
+import server/lib
 import server/response
 import shared
 import sqlight
@@ -38,7 +39,7 @@ pub fn list_posts(req: Request) -> Result(List(shared.Post), String) {
 pub fn list_posts_res(req: Request) -> Response {
   let query = case post.get_post_query() |> post.run_post_query([]) {
     Ok(rows) -> Ok(rows)
-    Error(_) -> Error("Selecting posts")
+    Error(_) -> Error("Selecting posts - RES")
   }
 
   case query {
@@ -81,6 +82,7 @@ fn decode_create_post(json: Dynamic) -> Result(CreatePost, List(decode.DecodeErr
 }
 
 fn insert_post_to_db(_req: Request, post: CreatePost) {
+  let slug = post.title |> lib.title_to_slug
   let _ =
     [
       insert.row([
@@ -88,13 +90,15 @@ fn insert_post_to_db(_req: Request, post: CreatePost) {
         insert.string(post.content),
         insert.string(post.excerpt),
         insert.string(post.author),
+        insert.string(slug)
       ]),
     ]
-    |> insert.from_values(table_name: "post", columns: [
+    |> insert.from_values(table_name: "posts", columns: [
       "title",
       "content",
       "excerpt",
       "author",
+      "slug",
     ])
     |> insert.to_query
     |> db.execute_write([
@@ -102,8 +106,8 @@ fn insert_post_to_db(_req: Request, post: CreatePost) {
       sqlight.text(post.content),
       sqlight.text(post.excerpt),
       sqlight.text(post.author),
+      sqlight.text(slug),
     ])
-
   Ok(Nil)
 }
 

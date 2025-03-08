@@ -1,4 +1,5 @@
 import cake/select.{type Select}
+import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
 import gleam/json
 import gleam/list
@@ -15,6 +16,7 @@ pub type ListPostDBRow {
     post_content: String,
     post_excerpt: String,
     post_author: String,
+    post_slug: String,
     created_at: String,
     updated_at: String,
   )
@@ -23,9 +25,9 @@ pub type ListPostDBRow {
 pub fn get_post_query() -> Select {
   select.new()
   |> select.selects([])
-  |> select.from_table("post")
-  |> select.group_by("post.id")
-  |> select.order_by_desc("post.created_at")
+  |> select.from_table("posts")
+  |> select.group_by("posts.id")
+  |> select.order_by_desc("posts.created_at")
 }
 
 pub fn run_post_query(select: Select, params: List(Value)) {
@@ -37,9 +39,10 @@ pub fn run_post_query(select: Select, params: List(Value)) {
     use post_content <- decode.field(2, decode.string)
     use post_excerpt <- decode.field(3, decode.string)
     use post_author <- decode.field(4, decode.string)
-    use created_at <- decode.field(5, decode.string)
-    use updated_at <- decode.field(6, decode.string)
-    decode.success(ListPostDBRow(post_id, post_title, post_content, post_excerpt, post_author, created_at, updated_at))
+    use post_slug <- decode.field(5, decode.string)
+    use created_at <- decode.field(6, decode.string)
+    use updated_at <- decode.field(7, decode.string)
+    decode.success(ListPostDBRow(post_id, post_title, post_content, post_excerpt, post_author, post_slug, created_at, updated_at))
     }
   )
 }
@@ -52,6 +55,7 @@ pub fn post_rows_to_post(_req: Request, rows: List(ListPostDBRow)) {
     content: row.post_content,
     excerpt: row.post_excerpt,
     author: row.post_author,
+    slug: row.post_slug,
     created_at: row.created_at,
     updated_at: row.updated_at,
     tags: [],

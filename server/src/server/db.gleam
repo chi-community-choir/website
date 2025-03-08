@@ -56,7 +56,7 @@ pub fn init() {
     create table if not exists song (
       id integer primary key,
       title text not null,
-      slug text not null,
+      slug text unique not null,
       href varchar(255),
       filepath varchar(255),
       created_at int
@@ -72,7 +72,7 @@ pub fn init() {
       content text not null,
       excerpt text,
       author text,
-      slug text not null,
+      slug text unique not null,
       created_at int,
       updated_at int
     );
