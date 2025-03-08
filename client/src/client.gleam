@@ -17,7 +17,8 @@ import modem
 
 pub fn main() {
   let app = lustre.application(init, update, view)
-  let assert Ok(_) = lustre.start(app, "#app", Nil)
+  // let assert Ok(_) = lustre.start(app, "#app", Nil)
+  let assert Ok(_) = lustre.register(app, "#app")
 
   Nil
 }
