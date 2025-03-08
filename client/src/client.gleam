@@ -17,7 +17,7 @@ import modem
 
 pub fn main() {
   let app = lustre.application(init, update, view)
-  // let assert Ok(_) = lustre.start(app, "#app", Nil)
+  // let assert Ok(_) = lustre.start(app, "#app", Nil) // client-side only
   let assert Ok(_) = lustre.register(app, "#app")
 
   Nil
@@ -35,14 +35,15 @@ fn init(_) -> #(Model, Effect(Msg)) {
       login_password: "",
       login_error: None,
       auth_user: None,
-      songs: [shared.Song(60, "bad load", "bad-load", None, None, [], "Never")],
+      songs: [],
       posts: [],
       show_song: None,
     )
   let effect =
     effect.batch(
-      // [lib.get_auth_user()]
-      []
+      [
+        lib.get_auth_user(),
+      ]
       |> list.append(case lib.get_route() {
         // Repertoire -> [lib.get_songs()]
         // route.Events -> [lib.get_posts()]
