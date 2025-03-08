@@ -1,6 +1,6 @@
 import lustre/attribute.{attribute, href, name, rel, src}
 import lustre/element
-import lustre/element/html.{head, html, link, meta, script, title}
+import lustre/element/html.{body, head, html, link, meta, script, title}
 
 pub fn page_scaffold(content: element.Element(a)) {
   html([], [
@@ -10,33 +10,33 @@ pub fn page_scaffold(content: element.Element(a)) {
         attribute("content", "width=device-width, initial-scale=1.0"),
         name("viewport"),
       ]),
-      title([], "Lustre-Fullstack"),
+      title([], "Chichester Community Choir"),
       meta([
-        attribute("content", "Test fullstack app with lustre"),
+        attribute("content", "Official Home of the Chichester Community Choir"),
         name("description"),
       ]),
       meta([attribute("content", "max-image-preview:large"), name("robots")]),
       meta([attribute("content", "en_US"), attribute("property", "og:locale")]),
       meta([
-        attribute("content", "Lustre-Fullstack"),
+        attribute("content", "Chichester Community Choir"),
         attribute("property", "og:site_name"),
       ]),
       meta([attribute("content", "website"), attribute("property", "og:type")]),
       meta([
-        attribute("content", "Lustre_Fullstack"),
+        attribute("content", "Chichester Community Choir"),
         attribute("property", "og:title"),
       ]),
       meta([
-        attribute("content", "Test fullstack app with lustre"),
+        attribute("content", "Official Home of the Chichester Community Choir"),
         attribute("property", "og:description"),
       ]),
       meta([attribute("content", ""), attribute("property", "og:url")]),
       meta([
-        attribute("content", "Test fullstack app with lustre"),
+        attribute("content", "Official Home of the Chichester Community Choir"),
         name("twitter:description"),
       ]),
       link([
-        href("/priv/static/favicon.ico"),
+        href("/priv/static/favicon.ico"), // TODO: Replace with crm favicon link
         attribute.type_("image/x-icon"),
         rel("icon"),
       ]),
@@ -54,6 +54,8 @@ pub fn page_scaffold(content: element.Element(a)) {
     //   "",
     // ),
     ]),
-    html.body([], [html.div([attribute.id("#app")], [content])]),
+    body([], [
+      element.element("chi-choir-app", [], [content])
+    ]),
   ])
 }

@@ -28,7 +28,6 @@ pub fn app(model: Model) -> Element(Msg) {
       ],
       [
         case model.route, model.auth_user {
-          // pages
           Index, _ -> index.index(model)
           About, _ -> about.about(model)
           FindUs, _ -> find_us.find_us(model)
