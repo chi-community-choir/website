@@ -57,16 +57,12 @@ pub fn get_user_from_session(
             case user_result {
               Ok(user) -> {
                 let #(id, is_admin_int) = user
-                let is_admin = case is_admin_int {
-                  0 -> True
-                  _ -> False
-                }
                 io.println("Validated user from db, putting in cache.")
                 session_cache.cache_put(
                   cache_subject,
                   req_session_token,
                   id,
-                  is_admin,
+                  is_admin_int |> shared.int_to_is_admin,
                 )
               }
               Error(_) -> io.println("User result was error??")

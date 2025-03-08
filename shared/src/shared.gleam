@@ -42,3 +42,10 @@ pub fn is_admin_to_int(is_admin: Bool) {
     False -> 0
   }
 }
+
+pub fn int_to_is_admin(is_admin_int: Int) {
+  case is_admin_int {
+    1 -> True
+    _ -> False
+  }
+}

@@ -1,3 +1,4 @@
+import shared
 import gleam/erlang/process.{type Subject}
 import gleam/http.{Get}
 import gleam/int
@@ -28,15 +29,11 @@ fn validate_session(
       user_session.get_user_from_session(req, cache_subject),
     )
     io.println("id:" <> int.to_string(user_id))
-    let is_admin = case is_admin_int {
-      1 -> True
-      _ -> False
-    }
 
     Ok(
       json.object([
         #("user_id", json.int(user_id)),
-        #("is_admin", json.bool(is_admin)),
+        #("is_admin", json.bool(is_admin_int |> shared.int_to_is_admin)),
       ])
       |> json.to_string_tree,
     )
