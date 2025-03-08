@@ -34,7 +34,7 @@ fn init(_) -> #(Model, Effect(Msg)) {
       login_password: "",
       login_error: None,
       auth_user: None,
-      songs: [],
+      songs: [shared.Song(60, "bad load", "bad-load", None, None, [], "Never")],
       posts: [],
       show_song: None,
     )
