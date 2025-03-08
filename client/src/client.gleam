@@ -43,6 +43,7 @@ fn init(_) -> #(Model, Effect(Msg)) {
       [lib.get_auth_user()]
       |> list.append(case lib.get_route() {
         Repertoire() -> [lib.get_songs()]
+        route.Events() -> [lib.get_posts()]
         // ShowSong(_) -> [get_show_song()]
         _ -> []
       }),
@@ -72,7 +73,11 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       case auth_user_result {
         Ok(auth_user) -> #(
           Model(..model, auth_user: Some(auth_user)),
-          effect.none(),
+          case model.route {
+            Repertoire() -> lib.get_songs()
+            route.Events() -> lib.get_posts()
+            _ -> effect.none()
+          },
         )
         Error(_) -> #(model, effect.none())
       }
@@ -80,6 +85,15 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       case get_songs_result {
         Ok(get_songs) -> #(
           Model(..model, songs: get_songs.songs),
+          effect.none(),
+        )
+        Error(_) -> #(model, effect.none())
+      }
+    }
+    msg.PostsReceived(get_posts_result) -> {
+      case get_posts_result {
+        Ok(get_posts) -> #(
+          Model(..model, posts: get_posts.posts),
           effect.none(),
         )
         Error(_) -> #(model, effect.none())

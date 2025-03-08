@@ -49,7 +49,7 @@ pub fn get_auth_user() -> Effect(Msg) {
 }
 
 pub fn get_songs() -> Effect(Msg) {
-  let url = "/api/posts"
+  let url = "/api/songs"
 
   let response_decoder = {
     use songs <- decode.field("songs", decode.list(song_decoder()))
@@ -61,6 +61,23 @@ pub fn get_songs() -> Effect(Msg) {
     lustre_http.expect_json(
       response_decoder,
       msg.SongsReceived,
+    ),
+  )
+}
+
+pub fn get_posts() -> Effect(Msg) {
+  let url = "/api/posts"
+
+  let response_decoder = {
+    use posts <- decode.field("posts", decode.list(post_decoder()))
+    decode.success(msg.GetPostsResponse(posts))
+  }
+
+  lustre_http.get(
+    url,
+    lustre_http.expect_json(
+      response_decoder,
+      msg.PostsReceived,
     ),
   )
 }
@@ -115,4 +132,27 @@ pub fn song_decoder() {
   use tags <- decode.field("tags", decode.list(decode.string))
   use created_at <- decode.field("created_at", decode.string)
   decode.success(Song(id, title, slug, href, filepath, tags, created_at))
+}
+
+pub fn post_decoder() {
+  use id <- decode.field("id", decode.int)
+  use title <- decode.field("title", decode.string)
+  use content <- decode.field("content", decode.string)
+  use excerpt <- decode.field("excerpt", decode.string)
+  use author <- decode.field("author", decode.string)
+  use slug <- decode.field("slug", decode.string)
+  use tags <- decode.field("tags", decode.list(decode.string))
+  use created_at <- decode.field("created_at", decode.string)
+  use updated_at <- decode.field("updated_at", decode.string)
+  decode.success(shared.Post(
+    id: id,
+    title: title,
+    content: content,
+    excerpt: excerpt,
+    author: author,
+    slug: slug,
+    created_at: created_at,
+    updated_at: updated_at,
+    tags: tags
+  ))
 }

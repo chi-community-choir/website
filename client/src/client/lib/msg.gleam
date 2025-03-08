@@ -10,6 +10,7 @@ pub type Msg {
   AuthUserReceived(Result(AuthUser, lustre_http.HttpError))
 
   SongsReceived(Result(GetSongsResponse, lustre_http.HttpError))
+  PostsReceived(Result(GetPostsResponse, lustre_http.HttpError))
   ShowSongReceived(Result(Song, lustre_http.HttpError))
 
   LoginUpdatePassword(value: String)
@@ -39,6 +40,10 @@ pub type Msg {
 
 pub type GetSongsResponse {
   GetSongsResponse(songs: List(Song))
+}
+
+pub type GetPostsResponse {
+  GetPostsResponse(posts: List(shared.Post))
 }
 
 pub type MessageErrorResponse {
