@@ -4,10 +4,11 @@ pub type Song {
   Song(
     id: Int,
     title: String,
+    slug: String,
     href: Option(String),
     filepath: Option(String),
     tags: List(String),
-    created_at: Int,
+    created_at: String,
   )
 }
 

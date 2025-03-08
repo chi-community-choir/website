@@ -12,9 +12,10 @@ pub type ListSongsDBRow {
   ListSongsDBRow(
     song_id: Int,
     song_title: String,
+    song_slug: String,
     song_href: Option(String),
     song_filepath: Option(String),
-    created_at: Int,
+    created_at: String,
   )
 }
 
@@ -32,10 +33,11 @@ pub fn run_song_query(select: Select, params: List(Value)) {
     {
     use song_id <- decode.field(0, decode.int)
     use song_title <- decode.field(1, decode.string)
-    use song_href <- decode.field(2, decode.optional(decode.string))
-    use song_filepath <- decode.field(3, decode.optional(decode.string))
-    use created_at <- decode.field(4, decode.int)
-    decode.success(ListSongsDBRow(song_id, song_title, song_href, song_filepath, created_at))
+    use song_slug <- decode.field(2, decode.string)
+    use song_href <- decode.field(3, decode.optional(decode.string))
+    use song_filepath <- decode.field(4, decode.optional(decode.string))
+    use created_at <- decode.field(5, decode.string)
+    decode.success(ListSongsDBRow(song_id, song_title, song_slug, song_href, song_filepath, created_at))
     }
   )
 }
@@ -45,6 +47,7 @@ pub fn song_rows_to_song(_req: Request, rows: List(ListSongsDBRow)) {
   Song(
     id: row.song_id,
     title: row.song_title,
+    slug: row.song_slug,
     href: row.song_href,
     filepath: row.song_filepath,
     tags: [],
@@ -56,15 +59,16 @@ pub fn song_to_json(song: Song) {
   json.object([
     #("id", json.int(song.id)),
     #("title", json.string(song.title)),
+    #("slug", json.string(song.slug)),
     case song.href {
       Some(href) -> #("href", json.string(href))
       None ->
         case song.filepath {
           Some(filepath) -> #("filepath", json.string(filepath))
-          None -> panic as "Invalid State"
+          None -> #("href", json.string("no link provided"))
         }
     },
     #("tags", json.array(song.tags, fn(tag) { json.string(tag) })),
-    #("created_at", json.int(song.created_at)),
+    #("created_at", json.string(song.created_at)),
   ])
 }

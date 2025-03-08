@@ -109,9 +109,10 @@ pub fn create_song(model: Model) {
 pub fn song_decoder() {
   use id <- decode.field("id", decode.int)
   use title <- decode.field("title", decode.string)
+  use slug <- decode.field("slug", decode.string)
   use href <- decode.field("href", decode.optional(decode.string))
   use filepath <- decode.field("filepath", decode.optional(decode.string))
   use tags <- decode.field("tags", decode.list(decode.string))
-  use created_at <- decode.field("created_at", decode.int)
-  decode.success(Song(id, title, href, filepath, tags, created_at))
+  use created_at <- decode.field("created_at", decode.string)
+  decode.success(Song(id, title, slug, href, filepath, tags, created_at))
 }

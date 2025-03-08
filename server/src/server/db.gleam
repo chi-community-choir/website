@@ -59,7 +59,7 @@ pub fn init() {
       slug text unique not null,
       href varchar(255),
       filepath varchar(255),
-      created_at int
+      created_at datetime default current_timestamp
     );
     "
     |> sqlight.exec(conn)
@@ -73,8 +73,8 @@ pub fn init() {
       excerpt text,
       author text,
       slug text unique not null,
-      created_at int,
-      updated_at int
+      created_at datetime default current_timestamp,
+      updated_at datetime default current_timestamp
     );
     "
     |> sqlight.exec(conn)
