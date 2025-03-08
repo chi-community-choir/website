@@ -7,7 +7,7 @@ import lustre/element.{type Element}
 import client/lib
 import client/lib/model.{type Model, Model}
 import client/lib/msg.{type Msg}
-import client/lib/route
+import client/lib/route.{Repertoire}
 import client/routes/app
 import client/routes/auth
 
@@ -42,6 +42,7 @@ fn init(_) -> #(Model, Effect(Msg)) {
     effect.batch(
       [lib.get_auth_user()]
       |> list.append(case lib.get_route() {
+        Repertoire() -> [lib.get_songs()]
         // ShowSong(_) -> [get_show_song()]
         _ -> []
       }),
