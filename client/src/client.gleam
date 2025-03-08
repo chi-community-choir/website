@@ -40,7 +40,8 @@ fn init(_) -> #(Model, Effect(Msg)) {
     )
   let effect =
     effect.batch(
-      [lib.get_auth_user()]
+      // [lib.get_auth_user()]
+      []
       |> list.append(case lib.get_route() {
         Repertoire() -> [lib.get_songs()]
         route.Events() -> [lib.get_posts()]
@@ -74,8 +75,6 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
         Ok(auth_user) -> #(
           Model(..model, auth_user: Some(auth_user)),
           case model.route {
-            Repertoire() -> lib.get_songs()
-            route.Events() -> lib.get_posts()
             _ -> effect.none()
           },
         )
@@ -137,7 +136,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
               effect.batch([
                 // TODO: Things that happen when you successfully login
                 modem.push("#", None, None),
-                lib.get_auth_user(),
+                // lib.get_auth_user(),
               ]),
             )
           }
@@ -153,33 +152,31 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     msg.RequestLogout -> #(model, auth.logout(model))
     msg.LogoutResponded(_) -> #(
       Model(..model, auth_user: None),
-      effect.batch([modem.push("/", None, None), lib.get_auth_user()]),
+      effect.batch([
+        modem.push("/", None, None), 
+        // lib.get_auth_user(),
+      ]),
     )
     
     // Dev-only auth state toggle handlers
     msg.ToggleAuthState -> {
       case model.auth_user {
-        // If logged in, log out
         Some(_) -> #(
           Model(..model, auth_user: None),
           effect.none(),
         )
-        // If logged out, log in (non-admin by default)
         None -> #(
           Model(..model, auth_user: Some(AuthUser(False))),
           effect.none(),
         )
       }
     }
-    
     msg.ToggleAdminStatus -> {
       case model.auth_user {
-        // Toggle admin status if logged in
         Some(user) -> #(
           Model(..model, auth_user: Some(AuthUser(!user.is_admin))),
           effect.none(),
         )
-        // If not logged in, log in as admin
         None -> #(
           Model(..model, auth_user: Some(AuthUser(True))),
           effect.none(),
