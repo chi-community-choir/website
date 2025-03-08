@@ -1,15 +1,16 @@
-import client/lib/model.{type Model}
+import client/lib/model.{type Model, Model}
 import client/lib/msg.{type Msg}
 import client/lib/route.{
   type Route, About, FindUs, CreateSong, Index, Membership, NotFound, ShowSong, Repertoire, Events,
 }
 import gleam/dynamic/decode
 import gleam/int
+import gleam/option.{None}
 import gleam/json
 import gleam/uri
 import lustre/effect.{type Effect}
 import lustre_http
-import shared.{type Song, AuthUser, Song}
+import shared.{type Song, type Post, AuthUser, Song, Post}
 
 @external(javascript, "../ffi.mjs", "get_route")
 fn do_get_route() -> String
@@ -37,15 +38,15 @@ pub fn get_route() -> Route {
 @external(javascript, "../ffi.mjs", "set_url")
 pub fn set_url(url: String) -> String
 
+fn auth_user_decoder() {
+  use is_admin <- decode.field("is_admin", decode.bool)
+  decode.success(AuthUser(is_admin: is_admin))
+}
+
 pub fn get_auth_user() -> Effect(Msg) {
   let url = "https://dev.chicommunitychoir.com/api/auth/validate"
 
-  let decoder = {
-    use is_admin <- decode.field("is_admin", decode.bool)
-    decode.success(AuthUser(is_admin: is_admin))
-  }
-
-  lustre_http.get(url, lustre_http.expect_json(decoder, msg.AuthUserReceived))
+  lustre_http.get(url, lustre_http.expect_json(auth_user_decoder(), msg.AuthUserReceived))
 }
 
 pub fn get_songs() -> Effect(Msg) {
@@ -123,6 +124,26 @@ pub fn create_song(model: Model) {
   )
 }
 
+pub fn model_decoder() {
+  use auth_user <- decode.field("auth_user", decode.optional(auth_user_decoder()))
+  use songs <- decode.field("songs", decode.list(song_decoder()))
+  use posts <- decode.field("posts", decode.list(post_decoder()))
+  decode.success(Model(
+    Index,
+    "",
+    "",
+    "",
+    False,
+    None,
+    "",
+    None,
+    auth_user,
+    songs,
+    posts,
+    None,
+  ))
+}
+
 pub fn song_decoder() {
   use id <- decode.field("id", decode.int)
   use title <- decode.field("title", decode.string)
@@ -144,7 +165,7 @@ pub fn post_decoder() {
   use tags <- decode.field("tags", decode.list(decode.string))
   use created_at <- decode.field("created_at", decode.string)
   use updated_at <- decode.field("updated_at", decode.string)
-  decode.success(shared.Post(
+  decode.success(Post(
     id: id,
     title: title,
     content: content,

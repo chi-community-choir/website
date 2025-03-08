@@ -1,3 +1,4 @@
+import server/lib
 import client
 import client/lib/model.{Model}
 import client/lib/route.{About, CreateSong, Index, NotFound, FindUs, Membership, ShowSong, Repertoire, Events}
@@ -163,7 +164,7 @@ fn page_routes(
   |> wisp.set_header("Content-Type", "text-html")
   |> wisp.html_body(
     client.view(model)
-    |> scaffold.page_scaffold()
+    |> scaffold.page_scaffold(lib.initial_state_encoder(model))
     |> element.to_document_string_builder(),
   )
 }

@@ -1,5 +1,7 @@
+import gleam/json
 import gleam/list
 import gleam/option.{None, Some}
+import gleam/result
 import lustre
 import lustre/effect.{type Effect}
 import lustre/element.{type Element}
@@ -11,34 +13,43 @@ import client/lib/route.{Repertoire}
 import client/routes/app
 import client/routes/auth
 
+import plinth/browser/document
+import plinth/browser/element as browser_element
+
 import shared.{type AuthUser, AuthUser}
 
 import modem
 
 pub fn main() {
+  let assert Ok(json_string) = document.query_selector("#model")
+  |> result.map(browser_element.inner_text)
+
+  let initial_model = case json.parse(json_string, lib.model_decoder()) {
+    Ok(model) -> model
+    Error(_) ->
+      Model(
+        route: lib.get_route(),
+        create_song_title: "",
+        create_song_href: "",
+        create_song_filepath: "",
+        create_song_use_filepath: False,
+        create_song_error: None,
+        login_password: "",
+        login_error: None,
+        auth_user: None,
+        songs: [shared.Song(60, "init updated it, this shouldn't happen", "", None, None, [], "")],
+        posts: [],
+        show_song: None,
+      )
+  }
+
   let app = lustre.application(init, update, view)
-  // let assert Ok(_) = lustre.start(app, "#app", Nil) // client-side only
-  let assert Ok(_) = lustre.register(app, "chi-choir-app")
+  let assert Ok(_) = lustre.start(app, "#app", initial_model)
 
   Nil
 }
 
-fn init(_) -> #(Model, Effect(Msg)) {
-  let model =
-    Model(
-      route: lib.get_route(),
-      create_song_title: "",
-      create_song_href: "",
-      create_song_filepath: "",
-      create_song_use_filepath: False,
-      create_song_error: None,
-      login_password: "",
-      login_error: None,
-      auth_user: None,
-      songs: [shared.Song(60, "init updated it", "asnrteit", None, None, [], "")],
-      posts: [],
-      show_song: None,
-    )
+fn init(model: Model) -> #(_, Effect(Msg)) {
   let effect =
     effect.batch(
       [

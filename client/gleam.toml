@@ -21,7 +21,7 @@ lustre = ">= 4.6.3 and < 5.0.0"
 lustre_http = ">= 0.6.0 and < 1.0.0"
 gleam_json = ">= 2.1.0 and < 3.0.0"
 modem = ">= 2.0.1 and < 3.0.0"
-plinth = ">= 0.5.5 and < 1.0.0"
+plinth = ">= 0.5.7 and < 1.0.0"
 filepath = ">= 1.1.0 and < 2.0.0"
 shared = { path = "../shared" }
 lustre_ui = ">= 0.4.0 and < 1.0.0"

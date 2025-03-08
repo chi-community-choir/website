@@ -1,8 +1,11 @@
 import lustre/attribute.{attribute, href, name, rel, src}
 import lustre/element
-import lustre/element/html.{body, head, html, link, meta, script, title}
+import lustre/element/html.{body, head, html, div, link, meta, script, title}
 
-pub fn page_scaffold(content: element.Element(a)) {
+pub fn page_scaffold(
+  content: element.Element(a),
+  init_json: String,
+) {
   html([], [
     head([], [
       meta([attribute("charset", "UTF-8")]),
@@ -42,6 +45,7 @@ pub fn page_scaffold(content: element.Element(a)) {
       ]),
       // WARN: Minify when deploying to prod
       script([src("/static/client.mjs"), attribute.type_("module")], ""),
+      script([attribute.type_("application/json"), attribute.id("model")], init_json)
       // TODO: Custom CSS
     // link([href("/static/client.min.css"), rel("stylesheet")]),
     // TODO: Custom JS
@@ -55,7 +59,7 @@ pub fn page_scaffold(content: element.Element(a)) {
     // ),
     ]),
     body([], [
-      element.element("chi-choir-app", [], [content])
+      div([attribute.id("app")], [content]),
     ]),
   ])
 }
