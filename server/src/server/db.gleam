@@ -53,15 +53,14 @@ pub fn init() {
 
   let assert Ok(Nil) =
     "
-    create table if not exists song (
+    create table if not exists songs (
       id integer primary key,
       title text not null,
       slug text unique not null,
       href varchar(255),
-      filepath varchar(255),
       created_at datetime default current_timestamp
     );
-    "
+    " // TODO: Switch href for linked table of large file links, in crm
     |> sqlight.exec(conn)
 
   let assert Ok(Nil) =
