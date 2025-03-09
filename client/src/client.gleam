@@ -107,11 +107,13 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
         Ok(auth_user) -> #(
           Model(..model, auth_user: Some(auth_user)),
           case model.route {
-            _ -> effect.none()
+            // admin route options maybe
+            _ -> effect.batch([
+              modem.push("#", None, None),
+            ])
           },
         )
         Error(_) -> {
-          io.println("Auth user received but result was error?")
           #(model, effect.none())
         }
       }
