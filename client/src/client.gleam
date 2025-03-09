@@ -1,5 +1,3 @@
-import lustre_http
-import gleam/dynamic
 import gleam/string
 import gleam/io
 import gleam/json
@@ -13,7 +11,7 @@ import lustre/element.{type Element}
 import client/lib
 import client/lib/model.{type Model, Model}
 import client/lib/msg.{type Msg}
-import client/lib/route.{Repertoire}
+import client/lib/route
 import client/routes/app
 import client/routes/auth
 
@@ -21,8 +19,6 @@ import plinth/browser/document
 import plinth/browser/element as browser_element
 
 import shared.{type AuthUser, AuthUser}
-
-import modem
 
 pub fn main() {
   let assert Ok(json_string) = document.query_selector("#model")
@@ -61,6 +57,7 @@ pub fn main() {
         songs: [shared.Song(60, "init updated it, this shouldn't happen", "", None, None, [], "")],
         posts: [],
         show_song: None,
+        show_post: None,
       )
     }
   }
@@ -97,7 +94,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       ),
       case route {
         route.ShowSong(_) -> lib.get_show_song()
-        route.CreateSong -> effect.none()
+        route.ShowPost(_) -> lib.get_show_post()
         //  TODO: tags
         _ -> effect.none()
       },
@@ -138,6 +135,15 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       case get_song_result {
         Ok(get_song) -> #(
           Model(..model, show_song: Some(get_song)),
+          effect.none(),
+        )
+        Error(_) -> #(model, effect.none())
+      }
+    }
+    msg.ShowPostReceived(get_post_result) -> {
+      case get_post_result {
+        Ok(get_post) -> #(
+          Model(..model, show_post: Some(get_post)),
           effect.none(),
         )
         Error(_) -> #(model, effect.none())

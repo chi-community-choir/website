@@ -1,9 +1,8 @@
 import client/styles
 import client/components/post
 import client/lib/model.{type Model}
-import client/lib/msg
 import gleam/list
-import gleam/option.{None, Some}
+import gleam/option.{Some}
 import lustre/attribute
 import lustre/element
 import lustre/element/html

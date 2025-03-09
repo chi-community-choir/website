@@ -2,7 +2,7 @@ import client/lib/route.{type Route}
 import gleam/dynamic/decode
 import gleam/option.{type Option}
 import lustre_http
-import shared.{type AuthUser, type Song, Song}
+import shared.{type AuthUser, type Song, type Post, Song, Post}
 
 pub type Msg {
   OnRouteChange(Route)
@@ -12,6 +12,7 @@ pub type Msg {
   SongsReceived(Result(GetSongsResponse, lustre_http.HttpError))
   PostsReceived(Result(GetPostsResponse, lustre_http.HttpError))
   ShowSongReceived(Result(Song, lustre_http.HttpError))
+  ShowPostReceived(Result(Post, lustre_http.HttpError))
 
   LoginUpdatePassword(value: String)
   LoginUpdateError(value: Option(String))

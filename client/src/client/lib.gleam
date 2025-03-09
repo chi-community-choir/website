@@ -79,7 +79,7 @@ pub fn get_posts() -> Effect(Msg) {
 }
 
 pub fn get_show_song() -> Effect(Msg) {
-  let url = "/api/songs/" <> get_song_id()
+  let url = "/api/songs/" <> get_song_slug()
 
   lustre_http.get(
     url,
@@ -90,14 +90,38 @@ pub fn get_show_song() -> Effect(Msg) {
   )
 }
 
-fn get_song_id() -> String {
+pub fn get_show_post() -> Effect(Msg) {
+  let url = "/api/posts/" <> get_post_slug()
+
+  lustre_http.get(
+    url,
+    lustre_http.expect_json(
+      post_decoder(),
+      msg.ShowPostReceived,
+    ),
+  )
+}
+
+fn get_song_slug() -> String {
   let uri = case do_get_route() |> uri.parse {
     Ok(uri) -> uri
     _ -> panic as "Invalid uri"
   }
 
   case uri.path |> uri.path_segments {
-    ["song", song_id] -> song_id
+    ["repertoire", song_slug] -> song_slug
+    _ -> ""
+  }
+}
+
+fn get_post_slug() -> String {
+  let uri = case do_get_route() |> uri.parse {
+    Ok(uri) -> uri
+    _ -> panic as "Invalid uri"
+  }
+
+  case uri.path |> uri.path_segments {
+    ["events", post_slug] -> post_slug
     _ -> ""
   }
 }
@@ -135,6 +159,7 @@ pub fn model_decoder() {
     auth_user,
     songs,
     posts,
+    None,
     None,
   ))
 }

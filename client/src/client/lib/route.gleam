@@ -10,6 +10,9 @@ pub type Route {
 
   Login
   Signup(auth_code: String)
+
+  CreatePost
+  ShowPost(post_slug: String)
   CreateSong
   ShowSong(song_slug: String)
 }

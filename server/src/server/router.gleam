@@ -1,11 +1,10 @@
 import server/lib
 import client
 import client/lib/model.{Model}
-import client/lib/route.{About, CreateSong, Index, NotFound, FindUs, Membership, ShowSong, Repertoire, Events}
+import client/lib/route.{About, CreateSong, Index, NotFound, FindUs, Membership, ShowSong, Repertoire, Events, ShowPost, CreatePost}
 import cors_builder as cors
 import gleam/erlang/process.{type Subject}
 import gleam/http
-import gleam/int
 import gleam/option.{None, Some}
 import lustre/element
 import server/db/user_session
@@ -54,13 +53,9 @@ fn api_routes(
         Ok(_) -> posts.posts(req)
         Error(_) -> response.error("Unauthorized - please log in")
       }
-    ["api", "post", post_id] -> {
+    ["api", "posts", post_slug] -> {
       case user_session.get_user_from_session(req, cache_subject) {
-        Ok(_) ->
-          case int.parse(post_id) {
-            Ok(id) -> post.post(req, id)
-            Error(_) -> response.error("Invalid post_id for post, must be int")
-          }
+        Ok(_) -> post.post(req, post_slug)
         Error(_) -> response.error("Unauthorized - please log in")
       }
     }
@@ -107,12 +102,14 @@ fn page_routes(
   let #(route, response) = case route_segments {
     [] -> #(Index, 200)
     ["about"] -> #(About, 200)
-    ["repertoire"] -> #(Repertoire, 200)
     ["find-us"] -> #(FindUs, 200)
     ["membership"] -> #(Membership, 200)
     ["events"] -> #(Events, 200)
-    ["songs", "create-song"] -> protected_route(req, #(CreateSong, 200), True, cache_subject)
-    ["songs", song_slug] -> protected_route(req, #(ShowSong(song_slug), 200), False, cache_subject)
+    ["events", "create-event"] -> protected_route(req, #(CreatePost, 200), True, cache_subject)
+    ["events", post_slug] -> protected_route(req, #(ShowPost(post_slug), 200), False, cache_subject)
+    ["repertoire"] -> #(Repertoire, 200)
+    ["repertoire", "create-song"] -> protected_route(req, #(CreateSong, 200), True, cache_subject)
+    ["repertoire", song_slug] -> protected_route(req, #(ShowSong(song_slug), 200), False, cache_subject)
     _ -> #(NotFound, 404)
   }
 
@@ -149,6 +146,15 @@ fn page_routes(
         route.ShowSong(slug) -> {
           case song.show_song(req, slug) {
             Ok(song) -> Some(song)
+            Error(_) -> None
+          }
+        }
+        _ -> None
+      },
+      show_post: case route {
+        route.ShowPost(slug) -> {
+          case post.show_post(req, slug) {
+            Ok(post) -> Some(post)
             Error(_) -> None
           }
         }

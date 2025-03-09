@@ -16,5 +16,6 @@ pub type Model {
     songs: List(Song),
     posts: List(Post),
     show_song: Option(Song),
+    show_post: Option(Post),
   )
 }
