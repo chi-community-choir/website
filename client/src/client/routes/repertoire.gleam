@@ -32,7 +32,7 @@ pub fn repertoire(model: Model) {
 
 pub fn song(song: Song) -> Element(Msg) {
   html.div([], [
-    html.a([attribute.href("/events/" <> song.slug)], [
+    html.a([attribute.href("/repertoire/" <> song.slug)], [
       html.h1([], [element.text(song.title)]),
     ]),
   ])
