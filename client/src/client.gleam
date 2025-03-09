@@ -77,9 +77,6 @@ fn init(model: Model) -> #(_, Effect(Msg)) {
         lib.get_auth_user(),
       ]
       |> list.append(case lib.get_route() {
-        // Repertoire -> [lib.get_songs()]
-        // route.Events -> [lib.get_posts()]
-        // ShowSong(_) -> [get_show_song()]
         _ -> []
       }),
     )
@@ -170,7 +167,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
               effect.batch([
                 // TODO: Things that happen when you successfully login
                 modem.push("#", None, None),
-                // lib.get_auth_user(),
+                lib.get_auth_user(),
               ]),
             )
           }
@@ -188,7 +185,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, auth_user: None),
       effect.batch([
         modem.push("/", None, None), 
-        // lib.get_auth_user(),
+        lib.get_auth_user(),
       ]),
     )
     
