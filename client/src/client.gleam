@@ -109,7 +109,6 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
           case model.route {
             // admin route options maybe
             _ -> effect.batch([
-              modem.push("#", None, None),
             ])
           },
         )
@@ -172,7 +171,6 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
               ),
               effect.batch([
                 // TODO: Things that happen when you successfully login
-                modem.push("#", None, None),
                 lib.get_auth_user(),
               ]),
             )
@@ -190,7 +188,6 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     msg.LogoutResponded(_) -> #(
       Model(..model, auth_user: None),
       effect.batch([
-        modem.push("/", None, None), 
         lib.get_auth_user(),
       ]),
     )
@@ -255,7 +252,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
                 create_song_filepath: "",
                 create_song_error: None,
               ),
-              effect.batch([modem.push("/", None, None), lib.get_songs()]),
+              effect.batch([lib.get_songs()]),
             )
           }
         }
