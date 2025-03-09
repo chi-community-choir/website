@@ -1,7 +1,7 @@
 import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
-import client/lib/route.{About, CreateSong, FindUs, Index, Membership, NotFound, ShowSong, Repertoire, Events}
+import client/lib/route.{About, CreateSong, FindUs, Index, Membership, NotFound, ShowSong, Repertoire, Events, CreatePost}
 import client/routes/about
 import client/routes/find_us
 import client/routes/index
@@ -36,6 +36,8 @@ pub fn app(model: Model) -> Element(Msg) {
           Repertoire, _ -> repertoire.repertoire(model)
           CreateSong, Some(_) -> repertoire.create_song(model)
           CreateSong, None -> element.text("403 forbidden")
+          CreatePost, Some(_) -> events.create_post(model)
+          CreatePost, None -> element.text("403 forbidden")
           ShowSong(_), _ -> repertoire.show_song(model)
           NotFound, _ -> element.text("404 not found")
           _, _ -> element.text("404 not found")

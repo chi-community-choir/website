@@ -59,3 +59,7 @@ pub fn events(model: Model) {
     ),
   ])
 }
+
+pub fn create_post(model: Model) {
+  todo as "create_post"
+}
