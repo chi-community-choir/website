@@ -19,7 +19,7 @@ pub type Route {
   ShowSong(song_slug: String)
 }
 
-@external(javascript, "../ffi.mjs", "get_route")
+@external(javascript, "../../ffi.mjs", "get_route")
 pub fn do_get_route() -> String
 
 pub fn get_route() -> Route {
