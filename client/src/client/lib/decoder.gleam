@@ -8,20 +8,22 @@ pub fn model_decoder() {
   use auth_user <- decode.field("auth_user", decode.optional(auth_user_decoder()))
   use songs <- decode.field("songs", decode.list(song_decoder()))
   use posts <- decode.field("posts", decode.list(post_decoder()))
+  use show_song <- decode.field("show_song", decode.optional(song_decoder()))
+  use show_post <- decode.field("show_post", decode.optional(post_decoder()))
   decode.success(Model(
-    route.get_route(),
-    "",
-    "",
-    "",
-    False,
-    None,
-    "",
-    None,
-    auth_user,
-    songs,
-    posts,
-    None,
-    None,
+    route: route.get_route(),
+    create_song_title: "",
+    create_song_href: "",
+    create_song_filepath: "",
+    create_song_use_filepath: False,
+    create_song_error: None,
+    login_password: "",
+    login_error: None,
+    auth_user: auth_user,
+    songs: songs,
+    posts: posts,
+    show_song: show_song,
+    show_post: show_post,
   ))
 }
 

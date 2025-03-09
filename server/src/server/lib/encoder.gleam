@@ -3,7 +3,7 @@ import gleam/list
 import gleam/json.{type Json}
 import gleam/option.{None, Some}
 import client/lib/model.{type Model}
-import shared.{type AuthUser, type Song, type Post, AuthUser, Song, Post}
+import shared.{type Song, type Post, Song, Post}
 
 fn songs_encoder(songs: List(Song)) -> List(Json) {
   songs
@@ -53,8 +53,11 @@ pub fn initial_state_encoder(model: Model) -> String {
       Some(song) -> song_encoder(song)
       None -> json.null()
     }),
+    #("show_post", case model.show_post {
+      Some(post) -> post_encoder(post)
+      None -> json.null()
+    }),
   ]
   |> json.object
   |> json.to_string
 }
-
