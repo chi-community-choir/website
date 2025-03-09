@@ -7,8 +7,6 @@ pub type Model {
     route: Route,
     create_song_title: String,
     create_song_href: String,
-    create_song_filepath: String,
-    create_song_use_filepath: Bool,
     create_song_error: Option(String),
     login_password: String,
     login_error: Option(String),

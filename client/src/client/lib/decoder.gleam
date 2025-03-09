@@ -14,8 +14,6 @@ pub fn model_decoder() {
     route: route.get_route(),
     create_song_title: "",
     create_song_href: "",
-    create_song_filepath: "",
-    create_song_use_filepath: False,
     create_song_error: None,
     login_password: "",
     login_error: None,

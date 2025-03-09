@@ -49,8 +49,6 @@ pub fn main() {
         route: route.get_route(),
         create_song_title: "",
         create_song_href: "",
-        create_song_filepath: "",
-        create_song_use_filepath: False,
         create_song_error: None,
         login_password: "",
         login_error: None,
@@ -232,10 +230,6 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, create_song_href: value),
       effect.none(),
     )
-    msg.CreateSongUpdateFilePath(value) -> #(
-      Model(..model, create_song_filepath: value),
-      effect.none(),
-    )
     msg.CreateSongUpdateError(value) -> #(
       Model(..model, create_song_error: value),
       effect.none(),
@@ -256,7 +250,6 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
                 ..model,
                 create_song_title: "",
                 create_song_href: "",
-                create_song_filepath: "",
                 create_song_error: None,
               ),
               effect.batch([lib.get_songs()]),

@@ -31,7 +31,6 @@ pub type Msg {
 
   CreateSongUpdateTitle(value: String)
   CreateSongUpdateHref(value: String)
-  CreateSongUpdateFilePath(value: String)
   CreateSongUpdateError(value: Option(String))
   RequestCreateSong
   CreateSongResponded(

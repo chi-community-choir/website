@@ -104,10 +104,7 @@ pub fn create_song(model: Model) {
     "/api/songs",
     json.object([
       #("title", json.string(model.create_song_title)),
-      case model.create_song_use_filepath {
-        True -> #("filepath", json.string(model.create_song_filepath))
-        False -> #("href", json.string(model.create_song_href))
-      },
+      #("href", json.string(model.create_song_href)),
     ]),
     lustre_http.expect_json(
       msg.message_error_decoder(),
