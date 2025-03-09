@@ -71,13 +71,23 @@ fn error_page(message: String) {
         ],
         [element.text(message)],
       ),
+      html.p(
+        [
+          attribute.style([
+            #("font-size", "1.1rem"),
+            #("color", "#666"),
+            #("margin", "1rem 0"),
+          ]),
+        ],
+        [element.text("Please log in to view this content")],
+      ),
       html.a(
         [
           attribute.href("/"),
           attribute.style([
             #("color", "#0066cc"),
             #("text-decoration", "underline"),
-            #("font-size", "1.1rem"),
+            #("font-size", "1.5rem"),
             #("margin-top", "1rem"),
           ]),
         ],

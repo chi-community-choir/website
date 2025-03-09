@@ -110,8 +110,7 @@ fn page_routes(
     ["events"] -> #(Events, 200)
     ["events", "create-event"] ->
       protected_route(req, #(CreatePost, 200), True, cache_subject)
-    ["events", post_slug] ->
-      protected_route(req, #(ShowPost(post_slug), 200), False, cache_subject)
+    ["events", post_slug] -> #(ShowPost(post_slug), 200)
     ["repertoire"] -> #(Repertoire, 200)
     ["repertoire", "create-song"] ->
       protected_route(req, #(CreateSong, 200), True, cache_subject)
