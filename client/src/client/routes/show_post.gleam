@@ -1,10 +1,17 @@
+import gleam/option.{None, Some}
 import lustre/element
 import lustre/element/html
 import client/lib/model.{type Model}
-import shared.{type Post}
 
-pub fn show_post(_model: Model, post: Post) {
-  html.div([], [
-    html.h1([], [element.text(post.title)])
-  ])
+pub fn show_post(model: Model) {
+  case model.show_post {
+    Some(post) ->
+      html.div([], [
+        html.h1([], [element.text(post.title)])
+      ])
+    None ->
+      html.div([], [
+        html.p([], [element.text("No post found")])
+      ])
+  }
 }
