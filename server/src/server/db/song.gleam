@@ -60,14 +60,8 @@ pub fn song_to_json(song: Song) {
     #("id", json.int(song.id)),
     #("title", json.string(song.title)),
     #("slug", json.string(song.slug)),
-    case song.href {
-      Some(href) -> #("href", json.string(href))
-      None ->
-        case song.filepath {
-          Some(filepath) -> #("filepath", json.string(filepath))
-          None -> #("href", json.string("no link provided"))
-        }
-    },
+    #("href", json.nullable(song.href, json.string)),
+    #("href", json.nullable(song.filepath, json.string)),
     #("tags", json.array(song.tags, fn(tag) { json.string(tag) })),
     #("created_at", json.string(song.created_at)),
   ])

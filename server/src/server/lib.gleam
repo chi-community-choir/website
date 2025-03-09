@@ -1,6 +1,8 @@
+import gleam/function
 import client/lib/model.{type Model}
 import gleam/int
-import gleam/json
+import gleam/dict
+import gleam/json.{type Json}
 import gleam/dynamic.{type Dynamic}
 import gleam/list
 import gleam/option.{type Option, None, Some}
@@ -14,22 +16,19 @@ pub fn title_to_slug(title: String) -> String {
   |> string.replace(" ", "-")
 }
 
-fn auth_user_encoder(auth_user: Option(AuthUser)) -> Option(Bool) {
-  case auth_user {
-    Some(auth_user) -> case auth_user {
-      AuthUser(is_admin) -> Some(is_admin)
-    }
-    None -> None
-  }
+fn auth_user_encoder(auth_user: AuthUser) -> Json {
+  json.object([
+    #("is_admin", json.bool(auth_user.is_admin)),
+  ])
 }
 
-fn songs_encoder(songs: List(Song)) -> List(String) {
+fn songs_encoder(songs: List(Song)) -> List(Json) {
   songs
   |> list.map(song_encoder)
 }
 
-fn song_encoder(song: Song) -> String {
-  [
+fn song_encoder(song: Song) -> Json {
+  json.object([
     #("id", json.int(song.id)),
     #("title", json.string(song.title)),
     #("slug", json.string(song.slug)),
@@ -37,33 +36,40 @@ fn song_encoder(song: Song) -> String {
     #("filepath", json.nullable(song.filepath, json.string)),
     #("tags", json.array(song.tags, json.string)),
     #("created_at", json.string(song.created_at)),
-  ] |> json.object |> json.to_string
+  ])
 }
 
-fn posts_encoder(posts: List(Post)) -> List(String) {
+fn posts_encoder(posts: List(Post)) -> List(Json) {
   posts
   |> list.map(post_encoder)
 }
 
-fn post_encoder(post: Post) -> String {
-    [
-      #("id", json.int(post.id)),
-      #("title", json.string(post.title)),
-      #("content", json.string(post.content)),
-      #("author", json.string(post.author)),
-      #("excerpt", json.string(post.excerpt)),
-      #("slug", json.string(post.slug)),
-      #("tags", json.array(post.tags, json.string)),
-      #("created_at", json.string(post.created_at)),
-      #("updated_at", json.string(post.updated_at)),
-    ] |> json.object |> json.to_string
+fn post_encoder(post: Post) -> Json {
+  json.object([
+    #("id", json.int(post.id)),
+    #("title", json.string(post.title)),
+    #("content", json.string(post.content)),
+    #("excerpt", json.string(post.excerpt)),
+    #("author", json.string(post.author)),
+    #("slug", json.string(post.slug)),
+    #("tags", json.array(post.tags, json.string)),
+    #("created_at", json.string(post.created_at)),
+    #("updated_at", json.string(post.updated_at)),
+  ])
 }
 
 pub fn initial_state_encoder(model: Model) -> String {
   [
-    #("auth_user", json.nullable(model.auth_user |> auth_user_encoder, json.bool)),
-    #("songs", json.array(model.songs |> songs_encoder, json.string)),
-    #("posts", json.array(model.posts |> posts_encoder, json.string)),
+    #("auth_user", case model.auth_user {
+      Some(auth_user) -> json.object([#("is_admin", json.bool(auth_user.is_admin))])
+      None -> json.null()
+    }),
+    #("songs", json.array(model.songs |> songs_encoder, function.identity)),
+    #("posts", json.array(model.posts |> posts_encoder, function.identity)),
+    #("show_song", case model.show_song {
+      Some(song) -> song_encoder(song)
+      None -> json.null()
+    }),
   ]
   |> json.object
   |> json.to_string

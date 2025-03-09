@@ -1,3 +1,6 @@
+import gleam/dynamic
+import gleam/string
+import gleam/io
 import gleam/json
 import gleam/list
 import gleam/option.{None, Some}
@@ -24,9 +27,26 @@ pub fn main() {
   let assert Ok(json_string) = document.query_selector("#model")
   |> result.map(browser_element.inner_text)
 
+  io.println(json_string)
+
+  // maybe split whole model parsing up into routes? idk
+
   let initial_model = case json.parse(json_string, lib.model_decoder()) {
     Ok(model) -> model
-    Error(_) ->
+    Error(err) -> {
+      case err {
+        json.UnexpectedEndOfInput -> io.println("json.UnexpectedEndOfInput")
+        json.UnableToDecode(err_list) -> {
+          io.println("json.UnableToDecode")
+          err_list |> list.each(fn(err) {
+            io.println("Decode error:")
+            io.println("Path: " <> err.path |> string.join(", "))
+            io.println("Expected: " <> err.expected)
+            io.println("Found: " <> err.found)
+          })
+        }
+        _ -> io.println("other error")
+      }
       Model(
         route: lib.get_route(),
         create_song_title: "",
@@ -41,6 +61,7 @@ pub fn main() {
         posts: [],
         show_song: None,
       )
+    }
   }
 
   let app = lustre.application(init, update, view)

@@ -141,13 +141,19 @@ fn page_routes(
         Ok(_) -> Some(AuthUser(is_admin: False))
         Error(_) -> None
       },
-      songs: case songs.list_songs(req) {
-        Ok(songs) -> songs
-        Error(_) -> []
+      songs: case route {
+        route.Repertoire -> case songs.list_songs(req) {
+          Ok(songs) -> songs
+          Error(_) -> []
+        }
+        _ -> []
       },
-      posts: case posts.list_posts(req) {
-        Ok(posts) -> posts
-        Error(_) -> []
+      posts: case route {
+        route.Events -> case posts.list_posts(req) {
+          Ok(posts) -> posts
+          Error(_) -> []
+        }
+        _ -> []
       },
       show_song: case route {
         route.ShowSong(id) -> {

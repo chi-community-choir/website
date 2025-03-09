@@ -129,7 +129,7 @@ pub fn model_decoder() {
   use songs <- decode.field("songs", decode.list(song_decoder()))
   use posts <- decode.field("posts", decode.list(post_decoder()))
   decode.success(Model(
-    Index,
+    get_route(),
     "",
     "",
     "",
