@@ -2,7 +2,7 @@ import cake/select.{type Select}
 import gleam/dynamic/decode
 import gleam/json
 import gleam/list
-import gleam/option.{type Option, None, Some}
+import gleam/option.{type Option}
 import server/db
 import shared.{type Song, Song}
 import sqlight.{type Value}

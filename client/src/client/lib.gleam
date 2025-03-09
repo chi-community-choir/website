@@ -4,7 +4,6 @@ import client/lib/route.{
   type Route, About, FindUs, CreateSong, Index, Membership, NotFound, ShowSong, Repertoire, Events,
 }
 import gleam/dynamic/decode
-import gleam/int
 import gleam/option.{None}
 import gleam/json
 import gleam/uri

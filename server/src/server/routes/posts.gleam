@@ -1,14 +1,9 @@
 import cake/insert
-import cake/select
-import cake/where
 import gleam/bool
 import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
 import gleam/http.{Get, Post}
 import gleam/json
-import gleam/list
-import gleam/option.{type Option, None, Some}
-import gleam/regexp
 import gleam/result
 import server/db
 import server/db/post

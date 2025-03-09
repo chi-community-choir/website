@@ -1,25 +1,16 @@
 import gleam/function
 import client/lib/model.{type Model}
-import gleam/int
-import gleam/dict
 import gleam/json.{type Json}
-import gleam/dynamic.{type Dynamic}
 import gleam/list
-import gleam/option.{type Option, None, Some}
+import gleam/option.{None, Some}
 import gleam/string
-import shared.{type AuthUser, type Post, type Song, AuthUser, Song}
+import shared.{type Post, type Song, Song}
 
 pub fn title_to_slug(title: String) -> String {
   title
   |> string.trim()
   |> string.lowercase()
   |> string.replace(" ", "-")
-}
-
-fn auth_user_encoder(auth_user: AuthUser) -> Json {
-  json.object([
-    #("is_admin", json.bool(auth_user.is_admin)),
-  ])
 }
 
 fn songs_encoder(songs: List(Song)) -> List(Json) {
