@@ -31,9 +31,11 @@ pub fn get_route() -> Route {
     ["find-us"] -> FindUs
     ["membership"] -> Membership
     ["events"] -> Events
+    ["events", "create-post"] -> CreatePost
+    ["events", post_slug] -> ShowPost(post_slug)
     ["repertoire"] -> Repertoire
-    ["create-song"] -> CreateSong
-    ["songs", song_slug] -> ShowSong(song_slug)
+    ["repertoire", "create-song"] -> CreateSong
+    ["repertoire", song_slug] -> ShowSong(song_slug)
     _ -> NotFound
   }
 }

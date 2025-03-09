@@ -44,7 +44,7 @@ pub fn events(model: Model) {
                   ui.button(
                     [
                       button.solid(), 
-                      // event.on_click(msg.DeletePost(post))
+                      // event.on_click(msg.DeletePost(post)) TODO: implement post deletion
                     ],
                     [element.text("DELETE")],
                   ),
