@@ -11,5 +11,5 @@ pub type Route {
   Login
   Signup(auth_code: String)
   CreateSong
-  ShowSong(song_id: Int)
+  ShowSong(song_slug: String)
 }

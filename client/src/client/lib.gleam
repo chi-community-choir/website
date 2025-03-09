@@ -25,11 +25,7 @@ pub fn get_route() -> Route {
     ["events"] -> Events
     ["repertoire"] -> Repertoire
     ["create-song"] -> CreateSong
-    ["song", song_id] ->
-      case int.parse(song_id) {
-        Ok(id) -> ShowSong(id)
-        Error(_) -> NotFound
-      }
+    ["songs", song_slug] -> ShowSong(song_slug)
     _ -> NotFound
   }
 }

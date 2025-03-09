@@ -69,13 +69,9 @@ fn api_routes(
         Ok(_) -> songs.songs(req)
         Error(_) -> response.error("Unauthorized - please log in")
       }
-    ["api", "songs", song_id] -> {
+    ["api", "songs", song_slug] -> {
       case user_session.get_user_from_session(req, cache_subject) {
-        Ok(_) ->
-          case int.parse(song_id) {
-            Ok(id) -> song.song(req, id)
-            Error(_) -> response.error("Invalid song_id for song, must be int")
-          }
+        Ok(_) -> song.song(req, song_slug)
         Error(_) -> response.error("Unauthorized - please log in")
       }
     }
@@ -94,10 +90,10 @@ fn protected_route(
 ) -> #(route.Route, Int) {
   case user_session.get_user_from_session(req, cache_subject) {
     Ok(user) ->
-      case user, admin_only {
-        #(_, 1), True -> route
-        _, False -> route
-        _, True -> #(Index, 401)
+      case shared.int_to_is_admin(user.1), admin_only {
+        True, _ -> route
+        False, False -> route
+        False, True -> #(Index, 401)
       }
     Error(_) -> #(Index, 401)
   }
@@ -115,14 +111,8 @@ fn page_routes(
     ["find-us"] -> #(FindUs, 200)
     ["membership"] -> #(Membership, 200)
     ["events"] -> #(Events, 200)
-    ["create-song"] ->
-      protected_route(req, #(CreateSong, 200), True, cache_subject)
-    ["song", song_id] ->
-      case int.parse(song_id) {
-        Ok(id) ->
-          protected_route(req, #(ShowSong(id), 200), False, cache_subject)
-        Error(_) -> #(NotFound, 404)
-      }
+    ["songs", "create-song"] -> protected_route(req, #(CreateSong, 200), True, cache_subject)
+    ["songs", song_slug] -> protected_route(req, #(ShowSong(song_slug), 200), False, cache_subject)
     _ -> #(NotFound, 404)
   }
 
@@ -156,8 +146,8 @@ fn page_routes(
         _ -> []
       },
       show_song: case route {
-        route.ShowSong(id) -> {
-          case song.show_song(req, id) {
+        route.ShowSong(slug) -> {
+          case song.show_song(req, slug) {
             Ok(song) -> Some(song)
             Error(_) -> None
           }
