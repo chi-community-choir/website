@@ -60,6 +60,6 @@ pub fn events(model: Model) {
   ])
 }
 
-pub fn create_post(model: Model) {
+pub fn create_post(_model: Model) {
   todo as "create_post"
 }

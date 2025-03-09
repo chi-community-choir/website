@@ -1,54 +1,27 @@
+import client/lib/decoder
 import client/lib/model.{type Model, Model}
 import client/lib/msg.{type Msg}
-import client/lib/route.{
-  type Route, About, FindUs, CreateSong, Index, Membership, NotFound, ShowSong, Repertoire, Events,
-}
+import client/lib/route
 import gleam/dynamic/decode
-import gleam/option.{None}
 import gleam/json
 import gleam/uri
 import lustre/effect.{type Effect}
 import lustre_http
-import shared.{type Song, type Post, AuthUser, Song, Post}
-
-@external(javascript, "../ffi.mjs", "get_route")
-fn do_get_route() -> String
-
-pub fn get_route() -> Route {
-  let assert Ok(uri) = do_get_route() |> uri.parse
-
-  case uri.path |> uri.path_segments {
-    [] -> Index
-    ["about"] -> About
-    ["find-us"] -> FindUs
-    ["membership"] -> Membership
-    ["events"] -> Events
-    ["repertoire"] -> Repertoire
-    ["create-song"] -> CreateSong
-    ["songs", song_slug] -> ShowSong(song_slug)
-    _ -> NotFound
-  }
-}
 
 @external(javascript, "../ffi.mjs", "set_url")
 pub fn set_url(url: String) -> String
 
-fn auth_user_decoder() {
-  use is_admin <- decode.field("is_admin", decode.bool)
-  decode.success(AuthUser(is_admin: is_admin))
-}
-
 pub fn get_auth_user() -> Effect(Msg) {
-  let url = "https://dev.chicommunitychoir.com/api/auth/validate"
+  let url = "/api/auth/validate"
 
-  lustre_http.get(url, lustre_http.expect_json(auth_user_decoder(), msg.AuthUserReceived))
+  lustre_http.get(url, lustre_http.expect_json(decoder.auth_user_decoder(), msg.AuthUserReceived))
 }
 
 pub fn get_songs() -> Effect(Msg) {
   let url = "/api/songs"
 
   let response_decoder = {
-    use songs <- decode.field("songs", decode.list(song_decoder()))
+    use songs <- decode.field("songs", decode.list(decoder.song_decoder()))
     decode.success(msg.GetSongsResponse(songs))
   }
 
@@ -65,7 +38,7 @@ pub fn get_posts() -> Effect(Msg) {
   let url = "/api/posts"
 
   let response_decoder = {
-    use posts <- decode.field("posts", decode.list(post_decoder()))
+    use posts <- decode.field("posts", decode.list(decoder.post_decoder()))
     decode.success(msg.GetPostsResponse(posts))
   }
 
@@ -84,7 +57,7 @@ pub fn get_show_song() -> Effect(Msg) {
   lustre_http.get(
     url,
     lustre_http.expect_json(
-      song_decoder(),
+      decoder.song_decoder(),
       msg.ShowSongReceived,
     ),
   )
@@ -96,14 +69,14 @@ pub fn get_show_post() -> Effect(Msg) {
   lustre_http.get(
     url,
     lustre_http.expect_json(
-      post_decoder(),
+      decoder.post_decoder(),
       msg.ShowPostReceived,
     ),
   )
 }
 
 fn get_song_slug() -> String {
-  let uri = case do_get_route() |> uri.parse {
+  let uri = case route.do_get_route() |> uri.parse {
     Ok(uri) -> uri
     _ -> panic as "Invalid uri"
   }
@@ -115,7 +88,7 @@ fn get_song_slug() -> String {
 }
 
 fn get_post_slug() -> String {
-  let uri = case do_get_route() |> uri.parse {
+  let uri = case route.do_get_route() |> uri.parse {
     Ok(uri) -> uri
     _ -> panic as "Invalid uri"
   }
@@ -141,59 +114,4 @@ pub fn create_song(model: Model) {
       msg.CreateSongResponded,
     ),
   )
-}
-
-pub fn model_decoder() {
-  use auth_user <- decode.field("auth_user", decode.optional(auth_user_decoder()))
-  use songs <- decode.field("songs", decode.list(song_decoder()))
-  use posts <- decode.field("posts", decode.list(post_decoder()))
-  decode.success(Model(
-    get_route(),
-    "",
-    "",
-    "",
-    False,
-    None,
-    "",
-    None,
-    auth_user,
-    songs,
-    posts,
-    None,
-    None,
-  ))
-}
-
-pub fn song_decoder() {
-  use id <- decode.field("id", decode.int)
-  use title <- decode.field("title", decode.string)
-  use slug <- decode.field("slug", decode.string)
-  use href <- decode.field("href", decode.optional(decode.string))
-  use filepath <- decode.field("filepath", decode.optional(decode.string))
-  use tags <- decode.field("tags", decode.list(decode.string))
-  use created_at <- decode.field("created_at", decode.string)
-  decode.success(Song(id, title, slug, href, filepath, tags, created_at))
-}
-
-pub fn post_decoder() {
-  use id <- decode.field("id", decode.int)
-  use title <- decode.field("title", decode.string)
-  use content <- decode.field("content", decode.string)
-  use excerpt <- decode.field("excerpt", decode.string)
-  use author <- decode.field("author", decode.string)
-  use slug <- decode.field("slug", decode.string)
-  use tags <- decode.field("tags", decode.list(decode.string))
-  use created_at <- decode.field("created_at", decode.string)
-  use updated_at <- decode.field("updated_at", decode.string)
-  decode.success(Post(
-    id: id,
-    title: title,
-    content: content,
-    excerpt: excerpt,
-    author: author,
-    slug: slug,
-    created_at: created_at,
-    updated_at: updated_at,
-    tags: tags
-  ))
 }

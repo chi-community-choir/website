@@ -1,3 +1,4 @@
+import client/lib/decoder
 import gleam/string
 import gleam/io
 import gleam/json
@@ -28,7 +29,7 @@ pub fn main() {
 
   // maybe split whole model parsing up into routes? idk
 
-  let initial_model = case json.parse(json_string, lib.model_decoder()) {
+  let initial_model = case json.parse(json_string, decoder.model_decoder()) {
     Ok(model) -> model
     Error(err) -> {
       case err {
@@ -45,7 +46,7 @@ pub fn main() {
         _ -> io.println("other error")
       }
       Model(
-        route: lib.get_route(),
+        route: route.get_route(),
         create_song_title: "",
         create_song_href: "",
         create_song_filepath: "",
@@ -74,7 +75,7 @@ fn init(model: Model) -> #(_, Effect(Msg)) {
       [
         lib.get_auth_user(),
       ]
-      |> list.append(case lib.get_route() {
+      |> list.append(case route.get_route() {
         _ -> []
       }),
     )
