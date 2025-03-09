@@ -9,6 +9,6 @@ pub fn post(post: Post) -> Element(Msg) {
     html.a([attribute.href("/events/" <> post.slug)], [
       html.h1([], [element.text(post.title)]),
     ]),
-    html.p([], [element.text(post.content)]),
+    html.p([], [element.text(post.excerpt)]),
   ])
 }

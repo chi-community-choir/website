@@ -45,7 +45,9 @@ fn do_login(req: Request, body: dynamic.Dynamic, is_admin: Bool) -> Response {
       return: Error("Passwords do not match"),
     )
 
-    use session_token <- result.try(user_session.create_user_session(is_admin))
+    // WARN: Make sure this is set properly in prod
+    // use session_token <- result.try(user_session.create_user_session(is_admin)) // TODO: actual admin login
+    use session_token <- result.try(user_session.create_user_session(True))
 
     Ok(session_token)
   }
