@@ -1,11 +1,12 @@
-import client/components/song
 import client/lib/model.{type Model}
 import gleam/list
 import gleam/option.{None, Some}
 import lustre/attribute
-import lustre/element
+import lustre/element.{type Element}
 import lustre/element/html
 import lustre/ui/classes
+import client/lib/msg.{type Msg}
+import shared.{type Song}
 
 pub fn repertoire(model: Model) {
   html.div([], [
@@ -23,9 +24,17 @@ pub fn repertoire(model: Model) {
       ],
       case model.songs {
         [] -> [element.text("no songs found")]
-        songs -> list.map(songs, song.song)
+        songs -> list.map(songs, song)
       },
     ),
+  ])
+}
+
+pub fn song(song: Song) -> Element(Msg) {
+  html.div([], [
+    html.a([attribute.href("/events/" <> song.slug)], [
+      html.h1([], [element.text(song.title)]),
+    ]),
   ])
 }
 

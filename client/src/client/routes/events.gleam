@@ -1,14 +1,15 @@
 import client/styles
-import client/components/post
 import client/lib/model.{type Model}
+import client/lib/msg.{type Msg}
 import gleam/list
 import gleam/option.{None, Some}
 import lustre/attribute
-import lustre/element
+import lustre/element.{type Element}
 import lustre/element/html
 import lustre/ui
 import lustre/ui/button
 import lustre/ui/classes
+import shared.{type Post}
 
 pub fn events(model: Model) {
   html.div([], [
@@ -31,13 +32,12 @@ pub fn events(model: Model) {
         case model.posts {
           [] -> [element.text("no posts found")]
           posts -> {
-            // list.map(posts, post.post)
-            use post <- list.map(posts)
+            use each_post <- list.map(posts)
             html.div([
               styles.aside_wrap()
             ], [
               html.div([], [
-                post.post(post),
+                post(each_post),
               ]),
               html.div([], case model.auth_user {
                 Some(user) if user.is_admin -> [
@@ -57,6 +57,15 @@ pub fn events(model: Model) {
         },
       ),
     ),
+  ])
+}
+
+pub fn post(post: Post) -> Element(Msg) {
+  html.div([], [
+    html.a([attribute.href("/events/" <> post.slug)], [
+      html.h1([], [element.text(post.title)]),
+    ]),
+    html.p([], [element.text(post.excerpt)]),
   ])
 }
 
