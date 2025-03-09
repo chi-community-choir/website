@@ -1,11 +1,14 @@
 import client/lib/model.{Model}
 import client/lib/route
-import shared.{AuthUser, Song, Post}
 import gleam/dynamic/decode
 import gleam/option.{None}
+import shared.{AuthUser, Post, Song}
 
 pub fn model_decoder() {
-  use auth_user <- decode.field("auth_user", decode.optional(auth_user_decoder()))
+  use auth_user <- decode.field(
+    "auth_user",
+    decode.optional(auth_user_decoder()),
+  )
   use songs <- decode.field("songs", decode.list(song_decoder()))
   use posts <- decode.field("posts", decode.list(post_decoder()))
   use show_song <- decode.field("show_song", decode.optional(song_decoder()))
@@ -41,7 +44,6 @@ pub fn song_decoder() {
   decode.success(Song(id, title, slug, href, filepath, tags, created_at))
 }
 
-
 pub fn post_decoder() {
   use id <- decode.field("id", decode.int)
   use title <- decode.field("title", decode.string)
@@ -61,6 +63,6 @@ pub fn post_decoder() {
     slug: slug,
     created_at: created_at,
     updated_at: updated_at,
-    tags: tags
+    tags: tags,
   ))
 }

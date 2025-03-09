@@ -33,7 +33,7 @@ fn decode_create_user(
   }
 }
 
-fn do_login(req: Request, body: dynamic.Dynamic, is_admin: Bool) -> Response {
+fn do_login(req: Request, body: dynamic.Dynamic, _is_admin: Bool) -> Response {
   let result = {
     use user <- result.try(case decode_create_user(body) {
       Ok(val) -> Ok(val)

@@ -30,8 +30,7 @@ pub fn get_post_query() -> Select {
 
 pub fn run_post_query(select: Select, params: List(Value)) {
   select.to_query(select)
-  |> db.execute_read(params,
-    {
+  |> db.execute_read(params, {
     use post_id <- decode.field(0, decode.int)
     use post_title <- decode.field(1, decode.string)
     use post_content <- decode.field(2, decode.string)
@@ -40,9 +39,17 @@ pub fn run_post_query(select: Select, params: List(Value)) {
     use post_slug <- decode.field(5, decode.string)
     use created_at <- decode.field(6, decode.string)
     use updated_at <- decode.field(7, decode.string)
-    decode.success(ListPostDBRow(post_id, post_title, post_content, post_excerpt, post_author, post_slug, created_at, updated_at))
-    }
-  )
+    decode.success(ListPostDBRow(
+      post_id,
+      post_title,
+      post_content,
+      post_excerpt,
+      post_author,
+      post_slug,
+      created_at,
+      updated_at,
+    ))
+  })
 }
 
 pub fn post_rows_to_post(_req: Request, rows: List(ListPostDBRow)) {

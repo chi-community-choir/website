@@ -64,7 +64,9 @@ type CreatePost {
   )
 }
 
-fn decode_create_post(json: Dynamic) -> Result(CreatePost, List(decode.DecodeError)) {
+fn decode_create_post(
+  json: Dynamic,
+) -> Result(CreatePost, List(decode.DecodeError)) {
   let decoder = {
     use title <- decode.field("title", decode.string)
     use content <- decode.field("content", decode.string)
@@ -85,15 +87,11 @@ fn insert_post_to_db(_req: Request, post: CreatePost) {
         insert.string(post.content),
         insert.string(post.excerpt),
         insert.string(post.author),
-        insert.string(slug)
+        insert.string(slug),
       ]),
     ]
     |> insert.from_values(table_name: "posts", columns: [
-      "title",
-      "content",
-      "excerpt",
-      "author",
-      "slug",
+      "title", "content", "excerpt", "author", "slug",
     ])
     |> insert.to_query
     |> db.execute_write([
@@ -105,7 +103,6 @@ fn insert_post_to_db(_req: Request, post: CreatePost) {
     ])
   Ok(Nil)
 }
-
 
 pub fn create_post(req: Request) -> Response {
   use body <- wisp.require_json(req)

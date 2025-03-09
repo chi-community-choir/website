@@ -9,7 +9,7 @@ import gleam/io
 pub fn execute_read(
   read_query: ReadQuery,
   params: List(Value),
-  decoder: decode.Decoder(a)
+  decoder: decode.Decoder(a),
 ) {
   let prepared_statement =
     read_query
@@ -60,7 +60,8 @@ pub fn init() {
       href varchar(255),
       created_at datetime default current_timestamp
     );
-    " // TODO: Switch href for linked table of large file links, in crm
+    "
+    // TODO: Switch href for linked table of large file links, in crm
     |> sqlight.exec(conn)
 
   let assert Ok(Nil) =

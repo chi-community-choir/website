@@ -67,7 +67,9 @@ type CreateSong {
   )
 }
 
-fn decode_create_song(json: Dynamic) -> Result(CreateSong, List(decode.DecodeError)) {
+fn decode_create_song(
+  json: Dynamic,
+) -> Result(CreateSong, List(decode.DecodeError)) {
   let decoder = {
     use title <- decode.field("title", decode.string)
     use href <- decode.field("href", decode.optional(decode.string))
@@ -153,7 +155,7 @@ fn does_song_with_href_exist(song: CreateSong) {
         use str1 <- decode.field(0, decode.string)
         use str2 <- decode.field(1, decode.string)
         decode.success(#(str1, str2))
-      }
+      },
     )
   {
     Ok(songs) -> Ok(list.length(songs) > 0)

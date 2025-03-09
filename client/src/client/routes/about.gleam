@@ -53,7 +53,6 @@ pub fn about(_model: Model) -> Element(Msg) {
           ),
         ],
       ),
-
       // Directors section
       html.section(
         [
@@ -78,88 +77,69 @@ pub fn about(_model: Model) -> Element(Msg) {
             ],
             [text("Our Directors")],
           ),
-          html.div(
-            [styles.aside_wrap()],
-            [
-              // Directors image
-              html.div(
-                [
+          html.div([styles.aside_wrap()], [
+            // Directors image
+            html.div(
+              [
+                attribute.style([#("flex", "1 1 3rem"), #("min-width", "300px")]),
+              ],
+              [
+                html.img([
+                  attribute.alt("Directors Caroline and John"),
+                  attribute.src(
+                    "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/Caroline-and-John-1.jpg",
+                  ),
                   attribute.style([
-                    #("flex", "1 1 3rem"),
-                    #("min-width", "300px"),
+                    #("max-width", "100%"),
+                    #("height", "auto"),
+                    #("max-height", "400px"),
+                    #("object-fit", "contain"),
+                    #("border-radius", "8px"),
+                    #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
                   ]),
-                ],
-                [
-                  html.img(
-                    [
-                      attribute.alt("Directors Caroline and John"),
-                      attribute.src("https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/Caroline-and-John-1.jpg"),
-                      attribute.style([
-                        #("max-width", "100%"),
-                        #("height", "auto"),
-                        #("max-height", "400px"),
-                        #("object-fit", "contain"),
-                        #("border-radius", "8px"),
-                        #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
-                      ]),
-                    ],
+                ]),
+              ],
+            ),
+            // Directors information
+            html.div(
+              [attribute.style([#("flex", "1 1 400px"), #("padding", "1rem")])],
+              [
+                html.p(
+                  [
+                    attribute.style([
+                      #("margin-bottom", "1.5rem"),
+                      #("font-size", "1.1rem"),
+                    ]),
+                  ],
+                  [
+                    text(
+                      "Both our choir leaders have extensive knowledge and years of experience in building fabulous vocal groups, and vast amounts of enthusiasm to get our local community singing!",
+                    ),
+                  ],
+                ),
+                html.p(
+                  [
+                    attribute.style([
+                      #("margin-bottom", "1.5rem"),
+                      #("font-size", "1.1rem"),
+                    ]),
+                  ],
+                  [
+                    text(
+                      "Caroline and John bring a blend of classical training and contemporary approaches to choral direction, creating an inclusive and dynamic environment for singers of all levels.",
+                    ),
+                  ],
+                ),
+                html.p([attribute.style([#("font-size", "1.1rem")])], [
+                  text(
+                    "With backgrounds in music education and performance, they specialize in helping choir members develop their vocal skills while fostering a strong sense of community and enjoyment.",
                   ),
-                ],
-              ),
-              // Directors information
-              html.div(
-                [
-                  attribute.style([
-                    #("flex", "1 1 400px"),
-                    #("padding", "1rem"),
-                  ]),
-                ],
-                [
-                  html.p(
-                    [
-                      attribute.style([
-                        #("margin-bottom", "1.5rem"),
-                        #("font-size", "1.1rem"),
-                      ]),
-                    ],
-                    [
-                      text(
-                        "Both our choir leaders have extensive knowledge and years of experience in building fabulous vocal groups, and vast amounts of enthusiasm to get our local community singing!",
-                      ),
-                    ],
-                  ),
-                  html.p(
-                    [
-                      attribute.style([
-                        #("margin-bottom", "1.5rem"),
-                        #("font-size", "1.1rem"),
-                      ]),
-                    ],
-                    [
-                      text(
-                        "Caroline and John bring a blend of classical training and contemporary approaches to choral direction, creating an inclusive and dynamic environment for singers of all levels.",
-                      ),
-                    ],
-                  ),
-                  html.p(
-                    [
-                      attribute.style([
-                        #("font-size", "1.1rem"),
-                      ]),
-                    ],
-                    [
-                      text(
-                        "With backgrounds in music education and performance, they specialize in helping choir members develop their vocal skills while fostering a strong sense of community and enjoyment.",
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ],
-          ),
+                ]),
+              ],
+            ),
+          ]),
         ],
       ),
-
       // Choir information section
       html.section(
         [
@@ -185,12 +165,7 @@ pub fn about(_model: Model) -> Element(Msg) {
             [text("Our Choir")],
           ),
           html.div(
-            [
-              attribute.style([
-                #("max-width", "900px"),
-                #("margin", "0 auto"),
-              ]),
-            ],
+            [attribute.style([#("max-width", "900px"), #("margin", "0 auto")])],
             [
               html.p(
                 [
@@ -235,7 +210,6 @@ pub fn about(_model: Model) -> Element(Msg) {
           ),
         ],
       ),
-
       // Rehearsal information
       html.section(
         [
@@ -259,9 +233,7 @@ pub fn about(_model: Model) -> Element(Msg) {
             ],
             [text("Rehearsal Information")],
           ),
-          html.div([
-            styles.aside_wrap()
-          ], [
+          html.div([styles.aside_wrap()], [
             // Rehearsal details
             html.div(
               [
@@ -284,49 +256,32 @@ pub fn about(_model: Model) -> Element(Msg) {
                   ],
                   [text("When & Where")],
                 ),
-                html.p(
-                  [
-                    attribute.style([
-                      #("margin-bottom", "1rem"),
-                    ]),
-                  ],
-                  [
-                    text("Tuesday Evenings"),
-                    html.br([]),
-                    text("7:30 PM - 9:30 PM"),
-                  ],
-                ),
-                html.p(
-                  [
-                    attribute.style([
-                      #("margin-bottom", "1.5rem"),
-                    ]),
-                  ],
-                  [
-                    text("University of Chichester"),
-                    html.br([]),
-                    text("College Ln"),
-                    html.br([]),
-                    text("PO19 6PF"),
-                  ],
-                ),
-                html.p(
-                  [],
-                  [
-                    text("For details on how to join us, email: "),
-                    html.a(
-                      [
-                        attribute.href("mailto:caroline@chicommunitychoir.com"),
-                        attribute.style([
-                          #("color", "#2c5282"),
-                          #("font-weight", "600"),
-                          #("text-decoration", "underline"),
-                        ]),
-                      ],
-                      [text("caroline@chicommunitychoir.com")],
-                    ),
-                  ],
-                ),
+                html.p([attribute.style([#("margin-bottom", "1rem")])], [
+                  text("Tuesday Evenings"),
+                  html.br([]),
+                  text("7:30 PM - 9:30 PM"),
+                ]),
+                html.p([attribute.style([#("margin-bottom", "1.5rem")])], [
+                  text("University of Chichester"),
+                  html.br([]),
+                  text("College Ln"),
+                  html.br([]),
+                  text("PO19 6PF"),
+                ]),
+                html.p([], [
+                  text("For details on how to join us, email: "),
+                  html.a(
+                    [
+                      attribute.href("mailto:caroline@chicommunitychoir.com"),
+                      attribute.style([
+                        #("color", "#2c5282"),
+                        #("font-weight", "600"),
+                        #("text-decoration", "underline"),
+                      ]),
+                    ],
+                    [text("caroline@chicommunitychoir.com")],
+                  ),
+                ]),
               ],
             ),
             // What to expect
@@ -359,38 +314,18 @@ pub fn about(_model: Model) -> Element(Msg) {
                     ]),
                   ],
                   [
-                    html.li(
-                      [
-                        attribute.style([
-                          #("margin-bottom", "0.5rem"),
-                        ]),
-                      ],
-                      [text("Warm-up exercises to prepare your voice")],
-                    ),
-                    html.li(
-                      [
-                        attribute.style([
-                          #("margin-bottom", "0.5rem"),
-                        ]),
-                      ],
-                      [text("Section practice for each voice part")],
-                    ),
-                    html.li(
-                      [
-                        attribute.style([
-                          #("margin-bottom", "0.5rem"),
-                        ]),
-                      ],
-                      [text("Full ensemble work on current repertoire")],
-                    ),
-                    html.li(
-                      [
-                        attribute.style([
-                          #("margin-bottom", "0.5rem"),
-                        ]),
-                      ],
-                      [text("A mix of sight-reading and learning by ear")],
-                    ),
+                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                      text("Warm-up exercises to prepare your voice"),
+                    ]),
+                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                      text("Section practice for each voice part"),
+                    ]),
+                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                      text("Full ensemble work on current repertoire"),
+                    ]),
+                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                      text("A mix of sight-reading and learning by ear"),
+                    ]),
                     html.li([], [text("Plenty of laughter and enjoyment!")]),
                   ],
                 ),
@@ -399,7 +334,6 @@ pub fn about(_model: Model) -> Element(Msg) {
           ]),
         ],
       ),
-
       // History section
       html.section(
         [
@@ -425,12 +359,7 @@ pub fn about(_model: Model) -> Element(Msg) {
             [text("Our History")],
           ),
           html.div(
-            [
-              attribute.style([
-                #("max-width", "800px"),
-                #("margin", "0 auto"),
-              ]),
-            ],
+            [attribute.style([#("max-width", "800px"), #("margin", "0 auto")])],
             [
               html.p(
                 [
@@ -450,7 +379,6 @@ pub fn about(_model: Model) -> Element(Msg) {
           ),
         ],
       ),
-
       // Join us call to action
       html.section(
         [
@@ -499,7 +427,10 @@ pub fn about(_model: Model) -> Element(Msg) {
                 #("font-size", "1.2rem"),
                 #("margin-top", "1rem"),
                 #("transition", "background-color 0.3s, transform 0.3s"),
-                #("&:hover", "background-color: #f0f4f8; transform: translateY(-2px)"),
+                #(
+                  "&:hover",
+                  "background-color: #f0f4f8; transform: translateY(-2px)",
+                ),
               ]),
             ],
             [text("Learn About Membership")],

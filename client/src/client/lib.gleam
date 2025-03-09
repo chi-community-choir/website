@@ -14,7 +14,10 @@ pub fn set_url(url: String) -> String
 pub fn get_auth_user() -> Effect(Msg) {
   let url = "/api/auth/validate"
 
-  lustre_http.get(url, lustre_http.expect_json(decoder.auth_user_decoder(), msg.AuthUserReceived))
+  lustre_http.get(
+    url,
+    lustre_http.expect_json(decoder.auth_user_decoder(), msg.AuthUserReceived),
+  )
 }
 
 pub fn get_songs() -> Effect(Msg) {
@@ -27,10 +30,7 @@ pub fn get_songs() -> Effect(Msg) {
 
   lustre_http.get(
     url,
-    lustre_http.expect_json(
-      response_decoder,
-      msg.SongsReceived,
-    ),
+    lustre_http.expect_json(response_decoder, msg.SongsReceived),
   )
 }
 
@@ -44,10 +44,7 @@ pub fn get_posts() -> Effect(Msg) {
 
   lustre_http.get(
     url,
-    lustre_http.expect_json(
-      response_decoder,
-      msg.PostsReceived,
-    ),
+    lustre_http.expect_json(response_decoder, msg.PostsReceived),
   )
 }
 
@@ -56,10 +53,7 @@ pub fn get_show_song() -> Effect(Msg) {
 
   lustre_http.get(
     url,
-    lustre_http.expect_json(
-      decoder.song_decoder(),
-      msg.ShowSongReceived,
-    ),
+    lustre_http.expect_json(decoder.song_decoder(), msg.ShowSongReceived),
   )
 }
 
@@ -68,10 +62,7 @@ pub fn get_show_post() -> Effect(Msg) {
 
   lustre_http.get(
     url,
-    lustre_http.expect_json(
-      decoder.post_decoder(),
-      msg.ShowPostReceived,
-    ),
+    lustre_http.expect_json(decoder.post_decoder(), msg.ShowPostReceived),
   )
 }
 

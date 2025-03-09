@@ -55,7 +55,6 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
         ],
       ),
-
       // Membership fees section
       html.section(
         [
@@ -108,85 +107,78 @@ pub fn membership(model: Model) -> Element(Msg) {
               ),
             ],
           ),
-
           html.div(
-          [
-            attribute.style([
-              #("max-width", "800px"),
-              #("margin", "0 auto 2rem"),
-              #("background-color", "white"),
-              #("border-radius", "8px"),
-              #("border", "1px solid #e2e8f0"),
-              #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
-              #("padding", "2rem"),
-            ]),
-          ],
-          [
-            html.h3(
-              [
-                attribute.style([
-                  #("margin", "0 0 1rem 0"),
-                  #("font-size", "1.5rem"),
-                  #("color", "#2c5282"),
-                  #("text-align", "center"),
-                ]),
-              ],
-              [element.text("Membership Information")],
-            ),
-            html.div(
-              [
-                attribute.style([
-                  #("text-align", "center"),
-                  #("margin-bottom", "1.5rem"),
-                  #("padding", "1rem"),
-                  #("background-color", "#f7fafc"),
-                  #("border-radius", "4px"),
-                ]),
-              ],
-              [
-                html.span(
-                  [
-                    attribute.style([
-                      #("font-size", "1.8rem"),
-                      #("font-weight", "bold"),
-                      #("color", "#2c5282"),
-                    ]),
-                  ],
-                  [element.text("£28")],
-                ),
-                html.span(
-                  [
-                    attribute.style([
-                      #("font-size", "1.2rem"),
-                      #("color", "#4a5568"),
-                      #("margin-left", "0.5rem"),
-                    ]),
-                  ],
-                  [element.text("per month")],
-                ),
-              ],
-            ),
-            html.p(
-              [
-                attribute.style([
-                  #("text-align", "center"),
-                  #("margin-bottom", "1.5rem"),
-                  #("color", "#4a5568"),
-                ]),
-              ],
-              [
-                element.text(
-                  "Your membership includes access to all choir activities and resources. We aim to make music accessible to everyone while maintaining the quality of our performances.",
-                ),
-              ],
-            ),
-            html.div(
-              [
-                attribute.style([
-                  #("margin-bottom", "1.5rem"),
-                ]),
-              ],
-              [
+            [
+              attribute.style([
+                #("max-width", "800px"),
+                #("margin", "0 auto 2rem"),
+                #("background-color", "white"),
+                #("border-radius", "8px"),
+                #("border", "1px solid #e2e8f0"),
+                #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
+                #("padding", "2rem"),
+              ]),
+            ],
+            [
+              html.h3(
+                [
+                  attribute.style([
+                    #("margin", "0 0 1rem 0"),
+                    #("font-size", "1.5rem"),
+                    #("color", "#2c5282"),
+                    #("text-align", "center"),
+                  ]),
+                ],
+                [element.text("Membership Information")],
+              ),
+              html.div(
+                [
+                  attribute.style([
+                    #("text-align", "center"),
+                    #("margin-bottom", "1.5rem"),
+                    #("padding", "1rem"),
+                    #("background-color", "#f7fafc"),
+                    #("border-radius", "4px"),
+                  ]),
+                ],
+                [
+                  html.span(
+                    [
+                      attribute.style([
+                        #("font-size", "1.8rem"),
+                        #("font-weight", "bold"),
+                        #("color", "#2c5282"),
+                      ]),
+                    ],
+                    [element.text("£28")],
+                  ),
+                  html.span(
+                    [
+                      attribute.style([
+                        #("font-size", "1.2rem"),
+                        #("color", "#4a5568"),
+                        #("margin-left", "0.5rem"),
+                      ]),
+                    ],
+                    [element.text("per month")],
+                  ),
+                ],
+              ),
+              html.p(
+                [
+                  attribute.style([
+                    #("text-align", "center"),
+                    #("margin-bottom", "1.5rem"),
+                    #("color", "#4a5568"),
+                  ]),
+                ],
+                [
+                  element.text(
+                    "Your membership includes access to all choir activities and resources. We aim to make music accessible to everyone while maintaining the quality of our performances.",
+                  ),
+                ],
+              ),
+              html.div([attribute.style([#("margin-bottom", "1.5rem")])], [
                 html.h4(
                   [
                     attribute.style([
@@ -215,21 +207,15 @@ pub fn membership(model: Model) -> Element(Msg) {
                     ],
                     fn(benefit) {
                       html.li(
-                        [
-                          attribute.style([
-                            #("margin-bottom", "0.5rem"),
-                          ]),
-                        ],
+                        [attribute.style([#("margin-bottom", "0.5rem")])],
                         [element.text(benefit)],
                       )
                     },
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
-
+              ]),
+            ],
+          ),
           // Payment options
           html.div(
             [
@@ -260,87 +246,85 @@ pub fn membership(model: Model) -> Element(Msg) {
                   ]),
                 ],
                 [
+                  html.li([], [element.text("Please pay via bank transfer.")]),
                   html.li([], [
-                    element.text("Please pay via bank transfer."),
-                  ]),
-                  html.li([], [
-                    element.text("Financial assistance available - please speak with Caroline in confidence"),
+                    element.text(
+                      "Financial assistance available - please speak with Caroline in confidence",
+                    ),
                   ]),
                 ],
               ),
-              html.p(
-                [
-                  attribute.style([
-                    #("font-style", "italic"),
-                  ]),
-                ],
-                [
-                  element.text(
-                    "Note: Membership fees are due on the 1st of each month.",
-                  ),
-                ],
-              ),
+              html.p([attribute.style([#("font-style", "italic")])], [
+                element.text(
+                  "Note: Membership fees are due on the 1st of each month.",
+                ),
+              ]),
             ]
-            |> list.append(case model.auth_user {
-              None -> [html.div([
-                attribute.style([
-                  #("text-align", "center"),
-                  #("background-color", "#4299e1"), 
-                  #("color", "white"),
-                  #("padding", "1.5rem"),
-                  #("border-radius", "8px"),
-                  #("margin-top", "1.5rem"),
-                  #("font-size", "1.2rem"),
-                  #("font-weight", "bold"),
-                  #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
-                  #("border", "2px solid #2c5282")
-                ])
-              ], [
-                element.text("⚠️ Please login to view our bank details")
-              ])]
-              Some(_) -> [
-                html.div([
-                  attribute.style([
-                    #("text-align", "center"),
-                    #("background-color", "#4299e1"),
-                    #("color", "white"), 
-                    #("padding", "1.5rem"),
-                    #("border-radius", "8px"),
-                    #("margin-top", "1.5rem"),
-                    #("font-size", "1.2rem"),
-                    #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
-                    #("border", "2px solid #2c5282")
-                  ])
-                ], [
-                  html.div([
-                    attribute.style([
-                      #("font-weight", "bold"),
-                      #("font-size", "1.3rem"),
-                      #("margin-bottom", "1rem")
-                    ])
-                  ], [
-                    element.text("Payment Details 💳")
-                  ]),
-                  html.div([
-                    attribute.style([#("font-size", "1.1rem")])
-                  ], [
-                    element.text("Sort code: 00-00-00")
-                  ]),
-                  html.div([
-                    attribute.style([
-                      #("margin-top", "0.5rem"),
-                      #("font-size", "1.1rem")
-                    ])
-                  ], [
-                    element.text("Account number: 12345678")
-                  ])
-                ])
-              ]
-            }),
+              |> list.append(case model.auth_user {
+                None -> [
+                  html.div(
+                    [
+                      attribute.style([
+                        #("text-align", "center"),
+                        #("background-color", "#4299e1"),
+                        #("color", "white"),
+                        #("padding", "1.5rem"),
+                        #("border-radius", "8px"),
+                        #("margin-top", "1.5rem"),
+                        #("font-size", "1.2rem"),
+                        #("font-weight", "bold"),
+                        #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
+                        #("border", "2px solid #2c5282"),
+                      ]),
+                    ],
+                    [element.text("⚠️ Please login to view our bank details")],
+                  ),
+                ]
+                Some(_) -> [
+                  html.div(
+                    [
+                      attribute.style([
+                        #("text-align", "center"),
+                        #("background-color", "#4299e1"),
+                        #("color", "white"),
+                        #("padding", "1.5rem"),
+                        #("border-radius", "8px"),
+                        #("margin-top", "1.5rem"),
+                        #("font-size", "1.2rem"),
+                        #("box-shadow", "0 4px 6px rgba(0, 0, 0, 0.1)"),
+                        #("border", "2px solid #2c5282"),
+                      ]),
+                    ],
+                    [
+                      html.div(
+                        [
+                          attribute.style([
+                            #("font-weight", "bold"),
+                            #("font-size", "1.3rem"),
+                            #("margin-bottom", "1rem"),
+                          ]),
+                        ],
+                        [element.text("Payment Details 💳")],
+                      ),
+                      html.div([attribute.style([#("font-size", "1.1rem")])], [
+                        element.text("Sort code: 00-00-00"),
+                      ]),
+                      html.div(
+                        [
+                          attribute.style([
+                            #("margin-top", "0.5rem"),
+                            #("font-size", "1.1rem"),
+                          ]),
+                        ],
+                        [element.text("Account number: 12345678")],
+                      ),
+                    ],
+                  ),
+                ]
+              }),
           ),
         ],
       ),
-
       html.section(
         [
           attribute.style([
@@ -364,30 +348,30 @@ pub fn membership(model: Model) -> Element(Msg) {
             ],
             [element.text("Where Your Membership Fees Go")],
           ),
-          html.div([
-            attribute.style([
-              #("text-align", "center"),
-              #("max-width", "800px"),
-              #("margin", "0 auto"),
-              #("line-height", "1.6"),
-            ]),
-          ], [
-            html.p([], [
-              element.text(
-                "Your membership fees help keep the choir running smoothly! They cover essentials like sheet music, venue hire for rehearsals, insurance, and concert production costs.",
-              ),
-            ]),
-            html.p([
-              attribute.style([#("margin-top", "1rem")])
-            ], [
-              element.text(
-                "Want more details about how we use the funds? Just ask - we're always happy to chat about our financial management.",
-              ),
-            ])
-          ])
+          html.div(
+            [
+              attribute.style([
+                #("text-align", "center"),
+                #("max-width", "800px"),
+                #("margin", "0 auto"),
+                #("line-height", "1.6"),
+              ]),
+            ],
+            [
+              html.p([], [
+                element.text(
+                  "Your membership fees help keep the choir running smoothly! They cover essentials like sheet music, venue hire for rehearsals, insurance, and concert production costs.",
+                ),
+              ]),
+              html.p([attribute.style([#("margin-top", "1rem")])], [
+                element.text(
+                  "Want more details about how we use the funds? Just ask - we're always happy to chat about our financial management.",
+                ),
+              ]),
+            ],
+          ),
         ],
       ),
-
       // FAQ section
       html.section(
         [
@@ -412,7 +396,6 @@ pub fn membership(model: Model) -> Element(Msg) {
             ],
             [element.text("Frequently Asked Questions")],
           ),
-
           faq_item(
             "Can I try out the choir before committing to membership?",
             "Absolutely! We invite potential members to attend one of our rehearsals free of charge before making a decision about joining. This gives you an opportunity to meet current members and experience our rehearsal process.",
@@ -431,7 +414,6 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
         ],
       ),
-
       // Contact section
       html.section(
         [
@@ -476,34 +458,26 @@ pub fn membership(model: Model) -> Element(Msg) {
               ]),
             ],
             [
-              html.div(
-                [],
-                [
-                  html.p(
-                    [
-                      attribute.style([
-                        #("font-weight", "bold"),
-                      ]),
-                    ],
-                    [element.text("Email")],
-                  ),
-                  html.p([], [element.text("caroline@chicommunitychoir.com")]),
-                ],
-              ),
+              html.div([], [
+                html.p([attribute.style([#("font-weight", "bold")])], [
+                  element.text("Email"),
+                ]),
+                html.p([], [element.text("caroline@chicommunitychoir.com")]),
+              ]),
               // html.div(
-              //   [],
-              //   [
-              //     html.p(
-              //       [
-              //         attribute.style([
-              //           #("font-weight", "bold"),
-              //         ]),
-              //       ],
-              //       [element.text("Phone")],
-              //     ),
-              //     html.p([], [element.text("(312) 555-0124")]),
-              //   ],
-              // ),
+            //   [],
+            //   [
+            //     html.p(
+            //       [
+            //         attribute.style([
+            //           #("font-weight", "bold"),
+            //         ]),
+            //       ],
+            //       [element.text("Phone")],
+            //     ),
+            //     html.p([], [element.text("(312) 555-0124")]),
+            //   ],
+            // ),
             ],
           ),
         ],
@@ -532,15 +506,9 @@ fn faq_item(question: String, answer: String) -> Element(Msg) {
         ],
         [element.text(question)],
       ),
-      html.p(
-        [
-          attribute.style([
-            #("margin", "0"),
-            #("color", "#4a5568"),
-          ]),
-        ],
-        [element.text(answer)],
-      ),
+      html.p([attribute.style([#("margin", "0"), #("color", "#4a5568")])], [
+        element.text(answer),
+      ]),
     ],
   )
 }

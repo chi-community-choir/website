@@ -10,6 +10,7 @@ pub fn page_default() {
     #("margin", "0"),
   ])
 }
+
 /// Container with two items side by side, wrapping on small screens.
 pub fn aside_wrap() {
   style([

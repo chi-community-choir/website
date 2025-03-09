@@ -1,10 +1,10 @@
 import client/lib/decoder
-import gleam/string
 import gleam/io
 import gleam/json
 import gleam/list
 import gleam/option.{None, Some}
 import gleam/result
+import gleam/string
 import lustre
 import lustre/effect.{type Effect}
 import lustre/element.{type Element}
@@ -22,8 +22,9 @@ import plinth/browser/element as browser_element
 import shared.{type AuthUser, AuthUser}
 
 pub fn main() {
-  let assert Ok(json_string) = document.query_selector("#model")
-  |> result.map(browser_element.inner_text)
+  let assert Ok(json_string) =
+    document.query_selector("#model")
+    |> result.map(browser_element.inner_text)
 
   io.println(json_string)
 
@@ -36,7 +37,8 @@ pub fn main() {
         json.UnexpectedEndOfInput -> io.println("json.UnexpectedEndOfInput")
         json.UnableToDecode(err_list) -> {
           io.println("json.UnableToDecode")
-          err_list |> list.each(fn(err) {
+          err_list
+          |> list.each(fn(err) {
             io.println("Decode error:")
             io.println("Path: " <> err.path |> string.join(", "))
             io.println("Expected: " <> err.expected)
@@ -53,7 +55,17 @@ pub fn main() {
         login_password: "",
         login_error: None,
         auth_user: None,
-        songs: [shared.Song(60, "init updated it, this shouldn't happen", "", None, None, [], "")],
+        songs: [
+          shared.Song(
+            60,
+            "init updated it, this shouldn't happen",
+            "",
+            None,
+            None,
+            [],
+            "",
+          ),
+        ],
         posts: [],
         show_song: None,
         show_post: None,
@@ -70,9 +82,7 @@ pub fn main() {
 fn init(model: Model) -> #(_, Effect(Msg)) {
   let effect =
     effect.batch(
-      [
-        lib.get_auth_user(),
-      ]
+      [lib.get_auth_user()]
       |> list.append(case route.get_route() {
         _ -> []
       }),
@@ -83,14 +93,10 @@ fn init(model: Model) -> #(_, Effect(Msg)) {
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
     msg.OnRouteChange(route) -> #(
-      Model(
-        ..model,
-        route: route,
-        show_song: case route {
-          route.ShowSong(_) -> None
-          _ -> model.show_song
-        },
-      ),
+      Model(..model, route: route, show_song: case route {
+        route.ShowSong(_) -> None
+        _ -> model.show_song
+      }),
       case route {
         route.ShowSong(_) -> lib.get_show_song()
         route.ShowPost(_) -> lib.get_show_post()
@@ -100,14 +106,12 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     )
     msg.AuthUserReceived(auth_user_result) ->
       case auth_user_result {
-        Ok(auth_user) -> #(
-          Model(..model, auth_user: Some(auth_user)),
-          case model.route {
-            // admin route options maybe
-            _ -> effect.batch([
-            ])
-          },
-        )
+        Ok(auth_user) -> #(Model(..model, auth_user: Some(auth_user)), case
+          model.route
+        {
+          // admin route options maybe
+          _ -> effect.batch([])
+        })
         Error(_) -> {
           #(model, effect.none())
         }
@@ -192,18 +196,13 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     msg.RequestLogout -> #(model, auth.logout(model))
     msg.LogoutResponded(_) -> #(
       Model(..model, auth_user: None),
-      effect.batch([
-        lib.get_auth_user(),
-      ]),
+      effect.batch([lib.get_auth_user()]),
     )
-    
+
     // Dev-only auth state toggle handlers
     msg.ToggleAuthState -> {
       case model.auth_user {
-        Some(_) -> #(
-          Model(..model, auth_user: None),
-          effect.none(),
-        )
+        Some(_) -> #(Model(..model, auth_user: None), effect.none())
         None -> #(
           Model(..model, auth_user: Some(AuthUser(False))),
           effect.none(),

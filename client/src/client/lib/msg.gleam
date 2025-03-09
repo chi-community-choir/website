@@ -2,7 +2,7 @@ import client/lib/route.{type Route}
 import gleam/dynamic/decode
 import gleam/option.{type Option}
 import lustre_http
-import shared.{type AuthUser, type Song, type Post, Song, Post}
+import shared.{type AuthUser, type Post, type Song, Post, Song}
 
 pub type Msg {
   OnRouteChange(Route)
@@ -24,7 +24,7 @@ pub type Msg {
   LogoutResponded(
     resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
   )
-  
+
   // Dev-only messages for auth state toggling
   ToggleAuthState
   ToggleAdminStatus

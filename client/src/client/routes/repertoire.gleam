@@ -1,11 +1,11 @@
 import client/lib/model.{type Model}
+import client/lib/msg.{type Msg}
 import gleam/list
 import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
 import lustre/ui/classes
-import client/lib/msg.{type Msg}
 import shared.{type Song}
 
 pub fn repertoire(model: Model) {
@@ -49,9 +49,6 @@ pub fn show_song(model: Model) {
         html.h1([], [element.text(song.title)]),
         html.p([], [element.text(song.created_at)]),
       ])
-    None ->
-      html.div([], [
-        html.p([], [element.text("No song found")])
-      ])
+    None -> html.div([], [html.p([], [element.text("No song found")])])
   }
 }

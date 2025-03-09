@@ -39,4 +39,3 @@ pub fn get_route() -> Route {
     _ -> NotFound
   }
 }
-

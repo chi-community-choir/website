@@ -10,9 +10,9 @@ import gleam/result
 import server/db
 import server/routes/cache/session_cache.{type CacheMessage, CacheEntry}
 import server/token.{generate_token}
+import shared
 import sqlight
 import wisp.{type Request}
-import shared
 
 pub fn get_user_from_session(
   req: Request,
@@ -43,14 +43,11 @@ pub fn get_user_from_session(
             where.string(req_session_token),
           ))
           |> select.to_query
-          |> db.execute_read(
-            [sqlight.text(req_session_token)],
-            {
-              use int1 <- decode.field(0, decode.int)
-              use int2 <- decode.field(1, decode.int)
-              decode.success(#(int1, int2))
-            }
-          )
+          |> db.execute_read([sqlight.text(req_session_token)], {
+            use int1 <- decode.field(0, decode.int)
+            use int2 <- decode.field(1, decode.int)
+            decode.success(#(int1, int2))
+          })
         {
           Ok(users) -> {
             let user_result = list.first(users)

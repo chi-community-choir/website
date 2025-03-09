@@ -1,13 +1,16 @@
-import server/lib/encoder
 import client
 import client/lib/model.{Model}
-import client/lib/route.{About, CreateSong, Index, NotFound, FindUs, Membership, ShowSong, Repertoire, Events, ShowPost, CreatePost}
+import client/lib/route.{
+  About, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
+  Repertoire, ShowPost, ShowSong,
+}
 import cors_builder as cors
 import gleam/erlang/process.{type Subject}
 import gleam/http
 import gleam/option.{None, Some}
 import lustre/element
 import server/db/user_session
+import server/lib/encoder
 import server/response
 import server/routes/auth/login
 import server/routes/auth/logout
@@ -105,11 +108,15 @@ fn page_routes(
     ["find-us"] -> #(FindUs, 200)
     ["membership"] -> #(Membership, 200)
     ["events"] -> #(Events, 200)
-    ["events", "create-event"] -> protected_route(req, #(CreatePost, 200), True, cache_subject)
-    ["events", post_slug] -> protected_route(req, #(ShowPost(post_slug), 200), False, cache_subject)
+    ["events", "create-event"] ->
+      protected_route(req, #(CreatePost, 200), True, cache_subject)
+    ["events", post_slug] ->
+      protected_route(req, #(ShowPost(post_slug), 200), False, cache_subject)
     ["repertoire"] -> #(Repertoire, 200)
-    ["repertoire", "create-song"] -> protected_route(req, #(CreateSong, 200), True, cache_subject)
-    ["repertoire", song_slug] -> protected_route(req, #(ShowSong(song_slug), 200), False, cache_subject)
+    ["repertoire", "create-song"] ->
+      protected_route(req, #(CreateSong, 200), True, cache_subject)
+    ["repertoire", song_slug] ->
+      protected_route(req, #(ShowSong(song_slug), 200), False, cache_subject)
     _ -> #(NotFound, 404)
   }
 
@@ -127,17 +134,19 @@ fn page_routes(
         Error(_) -> None
       },
       songs: case route {
-        route.Repertoire -> case songs.list_songs(req) {
-          Ok(songs) -> songs
-          Error(_) -> []
-        }
+        route.Repertoire ->
+          case songs.list_songs(req) {
+            Ok(songs) -> songs
+            Error(_) -> []
+          }
         _ -> []
       },
       posts: case route {
-        route.Events -> case posts.list_posts(req) {
-          Ok(posts) -> posts
-          Error(_) -> []
-        }
+        route.Events ->
+          case posts.list_posts(req) {
+            Ok(posts) -> posts
+            Error(_) -> []
+          }
         _ -> []
       },
       show_song: case route {

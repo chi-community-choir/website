@@ -1,4 +1,3 @@
-import shared
 import gleam/erlang/process.{type Subject}
 import gleam/http.{Get}
 import gleam/int
@@ -8,6 +7,7 @@ import gleam/result
 import server/db/user_session
 import server/response
 import server/routes/cache/session_cache.{type CacheMessage}
+import shared
 import wisp.{type Request, type Response}
 
 pub fn validate(req: Request, cache_subject: Subject(CacheMessage)) -> Response {

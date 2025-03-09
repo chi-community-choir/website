@@ -20,9 +20,9 @@ fn get_user_base_query() {
 }
 
 fn user_db_decoder() {
-    use id <- decode.field(0, decode.int)
-    use is_admin <- decode.field(1, decode.bool)
-    decode.success(User(id, is_admin))
+  use id <- decode.field(0, decode.int)
+  use is_admin <- decode.field(1, decode.bool)
+  decode.success(User(id, is_admin))
 }
 
 pub fn get_user_by_id(user_id: Int) -> Result(User, String) {
@@ -54,13 +54,11 @@ pub fn is_user_admin(user_id: Int) -> Bool {
     |> select.from_table("user_session")
     |> select.where(where.eq(where.col("user_session.id"), where.int(user_id)))
     |> select.to_query
-    |> db.execute_read([sqlight.int(user_id)],
-      {
+    |> db.execute_read([sqlight.int(user_id)], {
       use id <- decode.field(0, decode.int)
       use _token <- decode.field(1, decode.int)
       decode.success(UserAdmin(id, user_id))
-      }
-    )
+    })
 
   case result {
     Ok(result) -> {

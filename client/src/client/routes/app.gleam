@@ -1,14 +1,17 @@
 import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
-import client/lib/route.{About, CreateSong, FindUs, Index, Membership, NotFound, ShowSong, Repertoire, Events, CreatePost, ShowPost}
+import client/lib/route.{
+  About, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
+  Repertoire, ShowPost, ShowSong,
+}
 import client/routes/about
+import client/routes/events
 import client/routes/find_us
 import client/routes/index
 import client/routes/membership
-import client/routes/events
 import client/routes/repertoire
-import gleam/option.{Some, None}
+import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
@@ -19,36 +22,28 @@ pub fn app(model: Model) -> Element(Msg) {
   html.div([], [
     styles.elements(),
     navbar.navbar(model),
-    html.div(
-      [
-        attribute.style([
-          #("width", "full"),
-          #("margin", "0 auto"),
-        ]),
-      ],
-      [
-        case model.route, model.auth_user {
-          Index, _ -> index.index(model)
-          About, _ -> about.about(model)
-          FindUs, _ -> find_us.find_us(model)
-          Membership, _ -> membership.membership(model)
-          Events, _ -> events.events(model)
-          Repertoire, _ -> repertoire.repertoire(model)
-          CreateSong, Some(AuthUser(True)) -> repertoire.create_song(model)
-          CreateSong, Some(AuthUser(False)) -> error_page("403 Forbidden")
-          CreateSong, None -> error_page("401 Unauthorized")
-          CreatePost, Some(AuthUser(True)) -> events.create_post(model)
-          CreatePost, Some(AuthUser(False)) -> error_page("403 Forbidden")
-          CreatePost, None -> error_page("401 Unauthorized")
-          ShowSong(_), Some(_) -> repertoire.show_song(model)
-          ShowSong(_), None -> error_page("401 Unauthorized")
-          ShowPost(_), Some(_) -> events.show_post(model)
-          ShowPost(_), None -> error_page("401 Unauthorized")
-          NotFound, _ -> error_page("404 Not Found")
-          _, _ -> error_page("400 Bad Request")
-        },
-      ],
-    ),
+    html.div([attribute.style([#("width", "full"), #("margin", "0 auto")])], [
+      case model.route, model.auth_user {
+        Index, _ -> index.index(model)
+        About, _ -> about.about(model)
+        FindUs, _ -> find_us.find_us(model)
+        Membership, _ -> membership.membership(model)
+        Events, _ -> events.events(model)
+        Repertoire, _ -> repertoire.repertoire(model)
+        CreateSong, Some(AuthUser(True)) -> repertoire.create_song(model)
+        CreateSong, Some(AuthUser(False)) -> error_page("403 Forbidden")
+        CreateSong, None -> error_page("401 Unauthorized")
+        CreatePost, Some(AuthUser(True)) -> events.create_post(model)
+        CreatePost, Some(AuthUser(False)) -> error_page("403 Forbidden")
+        CreatePost, None -> error_page("401 Unauthorized")
+        ShowSong(_), Some(_) -> repertoire.show_song(model)
+        ShowSong(_), None -> error_page("401 Unauthorized")
+        ShowPost(_), Some(_) -> events.show_post(model)
+        ShowPost(_), None -> error_page("401 Unauthorized")
+        NotFound, _ -> error_page("404 Not Found")
+        _, _ -> error_page("400 Bad Request")
+      },
+    ]),
   ])
 }
 
