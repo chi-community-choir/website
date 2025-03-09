@@ -1,3 +1,4 @@
+import lustre_http
 import gleam/dynamic
 import gleam/string
 import gleam/io
@@ -109,7 +110,10 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
             _ -> effect.none()
           },
         )
-        Error(_) -> #(model, effect.none())
+        Error(_) -> {
+          io.println("Auth user received but result was error?")
+          #(model, effect.none())
+        }
       }
     msg.SongsReceived(get_songs_result) -> {
       case get_songs_result {
