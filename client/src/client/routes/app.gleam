@@ -1,4 +1,3 @@
-import client/routes/show_post
 import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
@@ -20,7 +19,6 @@ pub fn app(model: Model) -> Element(Msg) {
   html.div([], [
     styles.elements(),
     navbar.navbar(model),
-    // Routing
     html.div(
       [
         attribute.style([
@@ -37,19 +35,59 @@ pub fn app(model: Model) -> Element(Msg) {
           Events, _ -> events.events(model)
           Repertoire, _ -> repertoire.repertoire(model)
           CreateSong, Some(AuthUser(True)) -> repertoire.create_song(model)
-          CreateSong, Some(AuthUser(False)) -> element.text("403 Forbidden")
-          CreateSong, None -> element.text("401 Unauthorized")
+          CreateSong, Some(AuthUser(False)) -> error_page("403 Forbidden")
+          CreateSong, None -> error_page("401 Unauthorized")
           CreatePost, Some(AuthUser(True)) -> events.create_post(model)
-          CreatePost, Some(AuthUser(False)) -> element.text("403 Forbidden")
-          CreatePost, None -> element.text("401 Unauthorized")
+          CreatePost, Some(AuthUser(False)) -> error_page("403 Forbidden")
+          CreatePost, None -> error_page("401 Unauthorized")
           ShowSong(_), Some(_) -> repertoire.show_song(model)
-          ShowSong(_), None -> element.text("401 Unauthorized")
-          ShowPost(_), Some(_) -> show_post.show_post(model)
-          ShowPost(_), None -> element.text("401 Unauthorized")
-          NotFound, _ -> element.text("404 Not Found")
-          _, _ -> element.text("400 Bad Request")
+          ShowSong(_), None -> error_page("401 Unauthorized")
+          ShowPost(_), Some(_) -> events.show_post(model)
+          ShowPost(_), None -> error_page("401 Unauthorized")
+          NotFound, _ -> error_page("404 Not Found")
+          _, _ -> error_page("400 Bad Request")
         },
       ],
     ),
   ])
+}
+
+fn error_page(message: String) {
+  html.div(
+    [
+      attribute.style([
+        #("display", "flex"),
+        #("flex-direction", "column"),
+        #("align-items", "center"),
+        #("justify-content", "center"),
+        #("min-height", "50vh"),
+        #("text-align", "center"),
+      ]),
+    ],
+    [
+      html.h1(
+        [
+          attribute.style([
+            #("font-size", "2.5rem"),
+            #("font-weight", "bold"),
+            #("margin-bottom", "1rem"),
+            #("color", "#333"),
+          ]),
+        ],
+        [element.text(message)],
+      ),
+      html.a(
+        [
+          attribute.href("/"),
+          attribute.style([
+            #("color", "#0066cc"),
+            #("text-decoration", "underline"),
+            #("font-size", "1.1rem"),
+            #("margin-top", "1rem"),
+          ]),
+        ],
+        [element.text("Return to homepage")],
+      ),
+    ],
+  )
 }

@@ -2,7 +2,7 @@ import client/styles
 import client/components/post
 import client/lib/model.{type Model}
 import gleam/list
-import gleam/option.{Some}
+import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element
 import lustre/element/html
@@ -62,4 +62,18 @@ pub fn events(model: Model) {
 
 pub fn create_post(_model: Model) {
   todo as "create_post"
+}
+
+pub fn show_post(model: Model) {
+  case model.show_post {
+    Some(post) ->
+      html.div([], [
+        html.h1([], [element.text(post.title)]),
+        html.p([], [element.text(post.content)]),
+      ])
+    None ->
+      html.div([], [
+        html.p([], [element.text("No post found")])
+      ])
+  }
 }
