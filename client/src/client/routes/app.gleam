@@ -14,6 +14,7 @@ import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
 import lustre/ui/styles
+import shared.{AuthUser}
 
 pub fn app(model: Model) -> Element(Msg) {
   html.div([], [
@@ -35,14 +36,18 @@ pub fn app(model: Model) -> Element(Msg) {
           Membership, _ -> membership.membership(model)
           Events, _ -> events.events(model)
           Repertoire, _ -> repertoire.repertoire(model)
-          CreateSong, Some(_) -> repertoire.create_song(model)
-          CreateSong, None -> element.text("403 forbidden")
-          CreatePost, Some(_) -> events.create_post(model)
-          CreatePost, None -> element.text("403 forbidden")
-          ShowSong(_), _ -> repertoire.show_song(model)
-          ShowPost(_), _ -> show_post.show_post(model)
-          NotFound, _ -> element.text("404 not found")
-          _, _ -> element.text("404 not found")
+          CreateSong, Some(AuthUser(True)) -> repertoire.create_song(model)
+          CreateSong, Some(AuthUser(False)) -> element.text("403 Forbidden")
+          CreateSong, None -> element.text("401 Unauthorized")
+          CreatePost, Some(AuthUser(True)) -> events.create_post(model)
+          CreatePost, Some(AuthUser(False)) -> element.text("403 Forbidden")
+          CreatePost, None -> element.text("401 Unauthorized")
+          ShowSong(_), Some(_) -> repertoire.show_song(model)
+          ShowSong(_), None -> element.text("401 Unauthorized")
+          ShowPost(_), Some(_) -> show_post.show_post(model)
+          ShowPost(_), None -> element.text("401 Unauthorized")
+          NotFound, _ -> element.text("404 Not Found")
+          _, _ -> element.text("400 Bad Request")
         },
       ],
     ),
