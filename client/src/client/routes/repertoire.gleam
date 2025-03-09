@@ -1,6 +1,7 @@
 import client/components/song
 import client/lib/model.{type Model}
 import gleam/list
+import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element
 import lustre/element/html
@@ -32,6 +33,16 @@ pub fn create_song(_model: Model) {
   todo as "implement song creation"
 }
 
-pub fn show_song(_model: Model) {
-  todo as "implement show song"
+pub fn show_song(model: Model) {
+  case model.show_song {
+    Some(song) ->
+      html.div([], [
+        html.h1([], [element.text(song.title)]),
+        html.p([], [element.text(song.created_at)]),
+      ])
+    None ->
+      html.div([], [
+        html.p([], [element.text("No song found")])
+      ])
+  }
 }
