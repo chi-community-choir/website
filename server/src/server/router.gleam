@@ -33,7 +33,8 @@ pub fn handle_request(
   use req <- cors.wisp_middleware(
     req,
     cors.new()
-      |> cors.allow_origin("http://localhost:1234")
+      |> cors.allow_origin("http://127.0.0.1:8080")
+      |> cors.allow_origin("http://dev.chicommunitychoir.com")
       |> cors.allow_method(http.Get)
       |> cors.allow_method(http.Post)
       |> cors.allow_header("Content-Type"),
