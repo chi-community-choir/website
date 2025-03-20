@@ -55,17 +55,7 @@ pub fn main() {
         login_password: "",
         login_error: None,
         auth_user: None,
-        songs: [
-          shared.Song(
-            60,
-            "init updated it, this shouldn't happen",
-            "",
-            None,
-            None,
-            [],
-            "",
-          ),
-        ],
+        songs: [],
         posts: [],
         show_song: None,
         show_post: None,
@@ -84,6 +74,7 @@ fn init(model: Model) -> #(_, Effect(Msg)) {
     effect.batch(
       [lib.get_auth_user()]
       |> list.append(case route.get_route() {
+        // TODO: Route-dependent effects
         _ -> []
       }),
     )
