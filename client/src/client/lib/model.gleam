@@ -15,5 +15,6 @@ pub type Model {
     posts: List(Post),
     show_song: Option(Song),
     show_post: Option(Post),
+    show_post_html: String,
   )
 }

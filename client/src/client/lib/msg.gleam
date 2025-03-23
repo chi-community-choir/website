@@ -14,6 +14,9 @@ pub type Msg {
   ShowSongReceived(Result(Song, lustre_http.HttpError))
   ShowPostReceived(Result(Post, lustre_http.HttpError))
 
+  RenderPost(content: String)
+  PostRendered(rendered_post: String)
+
   LoginUpdatePassword(value: String)
   LoginUpdateError(value: Option(String))
   RequestLogin

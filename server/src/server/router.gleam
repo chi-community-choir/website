@@ -167,6 +167,7 @@ fn page_routes(
         }
         _ -> None
       },
+      show_post_html: "",
     )
 
   wisp.response(response)

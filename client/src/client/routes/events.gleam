@@ -1,4 +1,4 @@
-import lustre/ui/prose
+import lustre/event
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/styles
@@ -11,8 +11,6 @@ import lustre/ui
 import lustre/ui/button
 import lustre/ui/classes
 import shared.{type Post}
-
-import render_md
 
 pub fn events(model: Model) {
   html.div([], [
@@ -75,11 +73,12 @@ pub fn show_post(model: Model) {
     case model.show_post {
       Some(post) ->
         html.div([], [
+          styles.markdown(),
           html.h1(
             [attribute.style([#("text-align", "center"), #("color", "#333"), #("font-size", "2em"), #("margin", "20px 0")])],
             [element.text(post.title)]
           ),
-          element.element("markdown", [attribute.attribute("dangerous-unescaped-html", render_md.render(post.content))], []),
+          element.element("markdown", [attribute.attribute("dangerous-unescaped-html", model.show_post_html)], []),
         ])
       None -> html.div([], [html.p([attribute.style([#("font-size", "24px"), #("color", "red"), #("text-align", "center"), #("padding", "20px")])], [element.text("No post found")])])
     }

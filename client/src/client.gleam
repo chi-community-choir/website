@@ -59,6 +59,7 @@ pub fn main() {
         posts: [],
         show_song: None,
         show_post: None,
+        show_post_html: "",
       )
     }
   }
@@ -70,27 +71,44 @@ pub fn main() {
 }
 
 fn init(model: Model) -> #(_, Effect(Msg)) {
-  let effect =
-    effect.batch(
-      [lib.get_auth_user()]
-      |> list.append(case route.get_route() {
-        // TODO: Route-dependent effects
-        _ -> []
-      }),
-    )
-  #(model, effect)
+  #(
+    model,
+    effect.batch([
+      lib.get_auth_user(),
+      case route.get_route() {
+        route.ShowPost(_) -> case model.show_post {
+          Some(post) -> {
+            effect.from(fn(dispatch) {
+              dispatch(msg.RenderPost(post.content))
+            })
+          }
+          None -> effect.none()
+        }
+        _ -> effect.none()
+      },
+    ])
+  )
 }
 
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
     msg.OnRouteChange(route) -> #(
-      Model(..model, route: route, show_song: case route {
-        route.ShowSong(_) -> None
-        _ -> model.show_song
-      }),
+      Model(..model, route: route),
       case route {
         route.ShowSong(_) -> lib.get_show_song()
-        route.ShowPost(_) -> lib.get_show_post()
+        route.ShowPost(_) -> {
+          effect.batch([
+            lib.get_show_post(),
+            case model.show_post {
+              Some(post) -> {
+                effect.from(fn(dispatch) {
+                  dispatch(msg.RenderPost(post.content))
+                })
+              }
+              None -> effect.none()
+            }
+          ])
+        }
         //  TODO: tags
         _ -> effect.none()
       },
@@ -142,6 +160,15 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
         )
         Error(_) -> #(model, effect.none())
       }
+    }
+    msg.RenderPost(content) -> {
+      #(model, lib.render_post(content))
+    }
+    msg.PostRendered(rendered_post) -> {
+      #(
+        Model(..model, show_post_html: rendered_post),
+        effect.none(),
+      )
     }
     msg.LoginUpdatePassword(value) -> #(
       Model(..model, login_password: value),

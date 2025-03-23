@@ -1,3 +1,5 @@
+import lustre
+import gleam/option.{None, Some}
 import client/lib/decoder
 import client/lib/model.{type Model, Model}
 import client/lib/msg.{type Msg}
@@ -10,6 +12,19 @@ import lustre_http
 
 @external(javascript, "../ffi.mjs", "set_url")
 pub fn set_url(url: String) -> String
+
+@external(javascript, "../ffi.mjs", "render_markdown")
+pub fn render_markdown(text: String) -> String
+
+pub fn render_post(content: String) -> Effect(Msg) {
+  let msg = content
+  |> render_markdown
+  |> msg.PostRendered
+
+  effect.from(fn(dispatch) {
+    dispatch(msg)
+  })
+}
 
 pub fn get_auth_user() -> Effect(Msg) {
   let url = "/api/auth/validate"

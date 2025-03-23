@@ -25,6 +25,7 @@ pub fn model_decoder() {
     posts: posts,
     show_song: show_song,
     show_post: show_post,
+    show_post_html: "",
   ))
 }
 
