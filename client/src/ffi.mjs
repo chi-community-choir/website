@@ -11,7 +11,11 @@ export function set_clipboard(text) {
 }
 
 import markdownit from 'markdown-it'
-const md = markdownit()
+const md = markdownit({
+  html: true,
+  linkify: true,
+  typographer: true
+})
 
 export function render_markdown(text) {
   return md.render(text);
