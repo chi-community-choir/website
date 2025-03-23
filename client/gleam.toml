@@ -25,7 +25,6 @@ plinth = ">= 0.5.7 and < 1.0.0"
 filepath = ">= 1.1.0 and < 2.0.0"
 shared = { path = "../shared" }
 lustre_ui = ">= 0.4.0 and < 1.0.0"
-render_md = { git = "https://github.com/jknight-developer/gleam_md", ref = "main" }
 
 [dev-dependencies]
 gleeunit = ">= 1.0.0 and < 2.0.0"
