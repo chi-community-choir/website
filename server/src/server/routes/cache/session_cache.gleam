@@ -137,7 +137,6 @@ fn handle_message(
       actor.continue(dict.drop(cache, [token]))
     }
     Clean -> {
-      io.println("Cleaning cache!")
       actor.continue(
         dict.filter(cache, fn(_token, entry) {
           case entry {
