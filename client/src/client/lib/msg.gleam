@@ -39,6 +39,16 @@ pub type Msg {
   CreateSongResponded(
     resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
   )
+
+  CreatePostUpdateTitle(value: String)
+  CreatePostUpdateContent(value: String)
+  CreatePostUpdateExcerpt(value: String)
+  CreatePostUpdateAuthor(value: String)
+  CreatePostUpdateError(value: Option(String))
+  RequestCreatePost
+  CreatePostResponded(
+    resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
+  )
 }
 
 pub type GetSongsResponse {

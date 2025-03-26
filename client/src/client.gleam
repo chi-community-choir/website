@@ -52,6 +52,12 @@ pub fn main() {
         create_song_title: "",
         create_song_href: "",
         create_song_error: None,
+        create_post_title: "",
+        create_post_content: "",
+        create_post_excerpt: "",
+        create_post_author: "",
+        create_post_slug: "",
+        create_post_error: None,
         login_password: "",
         login_error: None,
         auth_user: None,
@@ -268,6 +274,58 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
                 create_song_title: "",
                 create_song_href: "",
                 create_song_error: None,
+              ),
+              effect.batch([lib.get_songs()]),
+            )
+          }
+        }
+        Error(_) -> #(
+          model,
+          effect.from(fn(dispatch) {
+            dispatch(msg.CreateSongUpdateError(Some("HTTP Error")))
+          }),
+        )
+      }
+    }
+    msg.CreatePostUpdateTitle(value) -> #(
+      Model(..model, create_post_title: value),
+      effect.none(),
+    )
+    msg.CreatePostUpdateContent(value) -> #(
+      Model(..model, create_post_content: value),
+      effect.none(),
+    )
+    msg.CreatePostUpdateExcerpt(value) -> #(
+      Model(..model, create_post_excerpt: value),
+      effect.none(),
+    )
+    msg.CreatePostUpdateAuthor(value) -> #(
+      Model(..model, create_post_author: value),
+      effect.none(),
+    )
+    msg.CreatePostUpdateError(value) -> #(
+      Model(..model, create_post_error: value),
+      effect.none(),
+    )
+    msg.RequestCreatePost -> #(model, lib.create_post(model))
+    msg.CreatePostResponded(resp_result) -> {
+      case resp_result {
+        Ok(resp) -> {
+          case resp.error {
+            Some(err) -> #(
+              model,
+              effect.from(fn(dispatch) {
+                dispatch(msg.CreatePostUpdateError(Some(err)))
+              }),
+            )
+            None -> #(
+              Model(
+                ..model,
+                create_post_title: "",
+                create_post_content: "",
+                create_post_excerpt: "",
+                create_post_author: "",
+                create_post_error: None,
               ),
               effect.batch([lib.get_songs()]),
             )

@@ -1,3 +1,4 @@
+import gleam/string
 import lustre
 import gleam/option.{None, Some}
 import client/lib/decoder
@@ -115,6 +116,36 @@ pub fn create_song(model: Model) {
     lustre_http.expect_json(
       msg.message_error_decoder(),
       msg.CreateSongResponded,
+    ),
+  )
+}
+
+fn title_to_slug(title: String) -> String {
+  title
+  |> string.trim
+  |> string.lowercase
+  |> string.replace(" ", "-")
+  |> echo
+}
+
+pub fn create_post(model: Model) {
+  lustre_http.post(
+    "/api/posts",
+    json.object([
+      #("title", json.string(model.create_post_title)),
+      #("content", json.string(model.create_post_content)),
+      #("excerpt", json.string(model.create_post_excerpt)),
+      #("author", json.string(model.create_post_author)),
+      #(
+        "slug",
+        model.create_post_title
+        |> title_to_slug
+        |> json.string
+      ),
+    ]),
+    lustre_http.expect_json(
+      msg.message_error_decoder(),
+      msg.CreatePostResponded,
     ),
   )
 }
