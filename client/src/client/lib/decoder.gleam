@@ -24,6 +24,7 @@ pub fn model_decoder() {
     create_post_author: "",
     create_post_slug: "",
     create_post_preview: "",
+    create_post_show_preview: False,
     create_post_error: None,
     login_password: "",
     login_error: None,

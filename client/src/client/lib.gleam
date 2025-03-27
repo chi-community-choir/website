@@ -25,6 +25,16 @@ pub fn render_post(content: String) -> Effect(Msg) {
   })
 }
 
+pub fn render_preview(content: String) -> Effect(Msg) {
+  let msg = content
+  |> render_markdown
+  |> msg.CreatePostPreviewRendered
+
+  effect.from(fn(dispatch) {
+    dispatch(msg)
+  })
+}
+
 pub fn get_auth_user() -> Effect(Msg) {
   let url = "/api/auth/validate"
 

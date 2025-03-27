@@ -1,5 +1,6 @@
 import client/lib/decoder
 import gleam/io
+import gleam/bool
 import gleam/json
 import gleam/list
 import gleam/option.{None, Some}
@@ -58,6 +59,7 @@ pub fn main() {
         create_post_author: "",
         create_post_slug: "",
         create_post_preview: "",
+        create_post_show_preview: False,
         create_post_error: None,
         login_password: "",
         login_error: None,
@@ -178,9 +180,9 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     msg.RenderPost(content) -> {
       #(model, lib.render_post(content))
     }
-    msg.PostRendered(rendered_post) -> {
+    msg.PostRendered(html_content) -> {
       #(
-        Model(..model, show_post_html: rendered_post),
+        Model(..model, show_post_html: html_content),
         effect.none(),
       )
     }
@@ -301,7 +303,9 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     )
     msg.CreatePostUpdateContent(value) -> #(
       Model(..model, create_post_content: value),
-      effect.none(),
+      effect.from(fn(dispatch) {
+        dispatch(msg.CreatePostRenderPreview)
+      }),
     )
     msg.CreatePostUpdateExcerpt(value) -> #(
       Model(..model, create_post_excerpt: value),
@@ -311,6 +315,21 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, create_post_author: value),
       effect.none(),
     )
+    msg.CreatePostRenderPreview -> {
+      #(model, lib.render_preview(model.create_post_content))
+    }
+    msg.CreatePostPreviewRendered(html_content) -> {
+      #(
+        Model(..model, create_post_preview: html_content),
+        effect.none(),
+      )
+    }
+    msg.CreatePostTogglePreview -> {
+      #(
+        Model(..model, create_post_show_preview: bool.negate(model.create_post_show_preview)),
+        effect.none(),
+      )
+    }
     msg.CreatePostUpdateError(value) -> #(
       Model(..model, create_post_error: value),
       effect.none(),
@@ -329,13 +348,14 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
             None -> #(
               Model(
                 ..model,
+                route: route.Events,
                 create_post_title: "",
                 create_post_content: "",
                 create_post_excerpt: "",
                 create_post_author: "",
                 create_post_error: None,
               ),
-              effect.batch([lib.get_songs()]),
+              effect.batch([lib.get_posts()]),
             )
           }
         }

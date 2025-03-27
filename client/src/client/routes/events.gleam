@@ -102,19 +102,65 @@ pub fn post(post: Post) -> Element(Msg) {
 pub fn create_post(model: Model) {
   html.div([], [
     html.style([], "
+      .create-post-container {
+        display: flex;
+        gap: 2rem;
+        padding: 0 2rem;
+        flex-direction: column;
+      }
+
+      @media (min-width: 1200px) {
+        .create-post-container {
+          flex-direction: row;
+        }
+      }
+
       .create-post-form {
-        max-width: 800px;
-        margin: 2rem auto;
-        padding: 2rem;
+        flex: 1;
+        min-width: 0;
         background-color: #ffffff;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
       }
-      
+
+      .create-post-preview {
+        flex: 1;
+        min-width: 0;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        position: relative;
+      }
+
+      .preview-toggle {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 10;
+        display: none;
+      }
+
+      @media (max-width: 1199px) {
+        .preview-toggle {
+          display: block;
+        }
+        .create-post-preview {
+          display: none;
+        }
+        .show-preview .create-post-form {
+          display: none;
+        }
+        .show-preview .create-post-preview {
+          display: block;
+        }
+      }
+
       .form-group {
         margin-bottom: 1.5rem;
       }
-      
+
       .form-label {
         display: block;
         font-size: 1.1rem;
@@ -122,7 +168,7 @@ pub fn create_post(model: Model) {
         margin-bottom: 0.5rem;
         color: #2d3748;
       }
-      
+
       .form-input {
         width: 100%;
         padding: 0.75rem;
@@ -131,17 +177,17 @@ pub fn create_post(model: Model) {
         font-size: 1rem;
         transition: border-color 0.2s;
       }
-      
+
       .form-input:focus {
         border-color: #2c5282;
         outline: none;
       }
-      
+
       textarea.form-input {
         min-height: 200px;
         resize: vertical;
       }
-      
+
       .submit-button {
         background-color: #2c5282;
         color: white;
@@ -153,82 +199,113 @@ pub fn create_post(model: Model) {
         border: none;
         transition: background-color 0.2s;
       }
-      
+
       .submit-button:hover {
         background-color: #2a4365;
       }
     "),
-    
-    html.div([attribute.class("create-post-form")], [
-      html.h1([
-        classes.text_3xl(),
-        attribute.style([#("margin-bottom", "2rem"), #("text-align", "center")]),
-      ], [
-        element.text("Create New Event")
-      ]),
-      
-      // Title input
-      html.div([attribute.class("form-group")], [
-        html.label([attribute.class("form-label")], [
-          element.text("Title"),
-        ]),
-        ui.input([
-          attribute.class("form-input"),
-          attribute.placeholder("Enter event title..."),
-          event.on_input(msg.CreatePostUpdateTitle),
-          attribute.value(model.create_post_title),
-        ]),
-      ]),
-      
-      // Excerpt input
-      html.div([attribute.class("form-group")], [
-        html.label([attribute.class("form-label")], [
-          element.text("Excerpt"),
-        ]),
-        html.textarea([
-          attribute.class("form-input"),
-          attribute.placeholder("Enter a brief description..."),
-          event.on_input(msg.CreatePostUpdateExcerpt),
-          attribute.value(model.create_post_excerpt),
-        ], ""),
-      ]),
-      
-      // Content input
-      html.div([attribute.class("form-group")], [
-        html.label([attribute.class("form-label")], [
-          element.text("Content"),
-        ]),
-        html.textarea([
-          attribute.class("form-input"),
-          attribute.placeholder("Enter the full event content in markdown..."),
-          event.on_input(msg.CreatePostUpdateContent),
-          attribute.value(model.create_post_content),
-        ], ""),
-      ]),
-      
-      // Author input
-      html.div([attribute.class("form-group")], [
-        html.label([attribute.class("form-label")], [
-          element.text("Author"),
-        ]),
-        ui.input([
-          attribute.class("form-input"),
-          attribute.placeholder("Enter author name..."),
-          event.on_input(msg.CreatePostUpdateAuthor),
-          attribute.value(model.create_post_author),
-        ]),
-      ]),
-      
-      // Submit button
-      html.div([
-        attribute.style([#("text-align", "center")]),
-      ], [
+
+    html.div([attribute.class("create-post-page")], [
+      html.div([attribute.class("preview-toggle")], [
         ui.button([
           button.solid(),
           attribute.class("submit-button"),
-          event.on_click(msg.RequestCreatePost),
+          event.on_click(msg.CreatePostTogglePreview)
         ], [
-          element.text("Create Event"),
+          element.text(case model.create_post_show_preview {
+            True -> "View Form"
+            False -> "View Preview"
+          })
+        ]),
+      ]),
+      html.div([
+        attribute.class("create-post-container" <>
+        case model.create_post_show_preview {
+            True -> " show-preview"
+            False -> ""
+        }),
+        ], [
+        html.div([attribute.class("create-post-form")], [
+          html.h1([
+            classes.text_3xl(),
+            attribute.style([#("margin-bottom", "2rem"), #("text-align", "center")]),
+          ], [
+            element.text("Create New Post")
+          ]),
+
+          // Title input
+          html.div([attribute.class("form-group")], [
+            html.label([attribute.class("form-label")], [
+              element.text("Title"),
+            ]),
+            ui.input([
+              attribute.class("form-input"),
+              attribute.placeholder("Enter event title..."),
+              event.on_input(msg.CreatePostUpdateTitle),
+              attribute.value(model.create_post_title),
+            ]),
+          ]),
+
+          // Excerpt input
+          html.div([attribute.class("form-group")], [
+            html.label([attribute.class("form-label")], [
+              element.text("Excerpt"),
+            ]),
+            html.textarea([
+              attribute.class("form-input"),
+              attribute.placeholder("Enter a brief description..."),
+              event.on_input(msg.CreatePostUpdateExcerpt),
+              attribute.value(model.create_post_excerpt),
+            ], ""),
+          ]),
+
+          // Content input
+          html.div([attribute.class("form-group")], [
+            html.label([attribute.class("form-label")], [
+              element.text("Content"),
+            ]),
+            html.textarea([
+              attribute.class("form-input"),
+              attribute.placeholder("Enter the full event content in markdown..."),
+              event.on_input(msg.CreatePostUpdateContent),
+              attribute.value(model.create_post_content),
+            ], ""),
+          ]),
+
+          // Author input
+          html.div([attribute.class("form-group")], [
+            html.label([attribute.class("form-label")], [
+              element.text("Author"),
+            ]),
+            ui.input([
+              attribute.class("form-input"),
+              attribute.placeholder("Enter author name..."),
+              event.on_input(msg.CreatePostUpdateAuthor),
+              attribute.value(model.create_post_author),
+            ]),
+          ]),
+
+          // Submit button
+          html.div([
+            attribute.style([#("text-align", "center")]),
+          ], [
+            ui.button([
+              button.solid(),
+              attribute.class("submit-button"),
+              event.on_click(msg.RequestCreatePost),
+            ], [
+              element.text("Create Event"),
+            ]),
+          ]),
+        ]),
+        html.div([attribute.class("create-post-preview")], [
+          html.h1([
+            classes.text_3xl(),
+            attribute.style([#("margin-bottom", "2rem"), #("text-align", "center")]),
+          ], [
+            element.text("Post Preview:")
+          ]),
+          show_preview(model)
         ]),
       ]),
     ]),
@@ -237,7 +314,6 @@ pub fn create_post(model: Model) {
 
 pub fn show_post(model: Model) {
   html.div([], [
-    html.style([], ""),
     case model.show_post {
       Some(post) ->
         html.div([], [
@@ -250,5 +326,21 @@ pub fn show_post(model: Model) {
         ])
       None -> html.div([], [html.p([attribute.style([#("font-size", "24px"), #("color", "red"), #("text-align", "center"), #("padding", "20px")])], [element.text("No post found")])])
     }
+  ])
+}
+
+pub fn show_preview(model: Model) {
+  html.div([], [
+    html.div([], [
+      styles.markdown(),
+      html.h1(
+        [attribute.style([#("text-align", "center"), #("color", "#333"), #("font-size", "2em"), #("margin", "20px 0")])],
+        [element.text(case model.create_post_title {
+          "" -> "[Title]"
+          title -> title
+        })]
+      ),
+      element.element("markdown", [attribute.attribute("dangerous-unescaped-html", model.create_post_preview)], []),
+    ]),
   ])
 }

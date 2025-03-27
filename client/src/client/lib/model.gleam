@@ -14,6 +14,7 @@ pub type Model {
     create_post_author: String,
     create_post_slug: String,
     create_post_preview: String,
+    create_post_show_preview: Bool,
     create_post_error: Option(String),
     login_password: String,
     login_error: Option(String),

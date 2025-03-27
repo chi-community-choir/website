@@ -46,6 +46,9 @@ pub type Msg {
   CreatePostUpdateContent(value: String)
   CreatePostUpdateExcerpt(value: String)
   CreatePostUpdateAuthor(value: String)
+  CreatePostTogglePreview
+  CreatePostRenderPreview
+  CreatePostPreviewRendered(html_content: String)
   CreatePostUpdateError(value: Option(String))
   RequestCreatePost
   CreatePostResponded(
