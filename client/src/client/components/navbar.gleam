@@ -170,38 +170,54 @@ pub fn navbar(model: Model) -> Element(Msg) {
 }
 
 fn navbutton(href: String, title: String) {
-  html.a(
-    [
-      attribute.href(href),
-      attribute.style([
-        #("text-decoration", "none"),
-        #("display", "inline-block"),
-      ]),
-    ],
-    [
-      ui.button(
-        [
-          button.solid(),
-          attribute.style([
-            #("background-color", "#ffffff"),
-            #("color", "black"),
-            #("font-size", "1.2rem"),
-            #("font-weight", "600"),
-            // #("padding", "0.75rem 1.5rem"),
-            #("border-radius", "8px"),
-            #("border", "2px solid transparent"),
-            #("border-color", "#000000"),
-            #("transition", "all 0.2s ease-in-out"),
-            #("cursor", "pointer"),
-            // Hover states
-            #("&:hover", "background-color: #f0f4f8; border-color: #2c5282;"),
-            #("&:focus", "outline: 3px solid #90cdf4; outline-offset: 2px;"),
-            // Active state
-            #("&:active", "transform: translateY(1px)"),
-          ]),
-        ],
-        [element.text(title)],
-      ),
-    ],
-  )
+  let style = "
+    .nav-link {
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .nav-button {
+      background-color: #ffffff;
+      color: black;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 8px;
+      border: 2px solid #000000;
+      transition: all 0.2s ease-in-out;
+      cursor: pointer;
+    }
+
+    .nav-button:hover {
+      background-color: #f0f4f8;
+      border-color: #2c5282;
+    }
+
+    .nav-button:focus {
+      outline: 3px solid #90cdf4;
+      outline-offset: 2px;
+    }
+
+    .nav-button:active {
+      transform: translateY(1px);
+    }
+  "
+
+  html.div([], [
+    html.style([], style),
+    html.a(
+      [
+        attribute.href(href),
+        attribute.class("nav-link"),
+      ],
+      [
+        ui.button(
+          [
+            button.solid(),
+            attribute.class("nav-button"),
+          ],
+          [element.text(title)],
+        ),
+      ],
+    ),
+  ])
 }
