@@ -21,18 +21,20 @@ pub fn posts(req: Request) -> Response {
   }
 }
 
-pub fn list_posts(req: Request) -> Result(List(shared.Post), String) {
+pub fn list_posts(req: Request, with_content: Bool) -> Result(List(shared.Post), String) {
   case
-    post.get_post_query()
-    |> post.run_post_query([])
+    post.get_posts_query()
+    |> post.run_posts_query([]),
+    with_content
   {
-    Ok(rows) -> Ok(post.post_rows_to_post(req, rows))
-    Error(_) -> Error("Selecting posts")
+    Ok(rows), False -> Ok(post.post_rows_to_post_partial(req, rows))
+    Ok(rows), True -> Ok(post.post_rows_to_post(req, rows))
+    Error(_), _ -> Error("Selecting posts")
   }
 }
 
 pub fn list_posts_res(req: Request) -> Response {
-  let query = case post.get_post_query() |> post.run_post_query([]) {
+  let query = case post.get_posts_query() |> post.run_posts_query([]) {
     Ok(rows) -> Ok(rows)
     Error(_) -> Error("Selecting posts - RES")
   }

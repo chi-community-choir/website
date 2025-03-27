@@ -1,6 +1,4 @@
 import gleam/string
-import lustre
-import gleam/option.{None, Some}
 import client/lib/decoder
 import client/lib/model.{type Model, Model}
 import client/lib/msg.{type Msg}

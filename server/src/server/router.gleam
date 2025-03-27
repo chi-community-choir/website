@@ -126,6 +126,13 @@ fn page_routes(
       create_song_title: "",
       create_song_href: "",
       create_song_error: None,
+      create_post_title: "",
+      create_post_content: "",
+      create_post_excerpt: "",
+      create_post_author: "",
+      create_post_slug: "",
+      create_post_preview: "",
+      create_post_error: None,
       login_password: "",
       login_error: None,
       auth_user: case user_session.get_user_from_session(req, cache_subject) {
@@ -143,12 +150,13 @@ fn page_routes(
       },
       posts: case route {
         route.Events ->
-          case posts.list_posts(req) {
+        case posts.list_posts(req, False) {
             Ok(posts) -> posts
             Error(_) -> []
           }
         _ -> []
       },
+      posts_search_bar: "",
       show_song: case route {
         route.ShowSong(slug) -> {
           case song.show_song(req, slug) {

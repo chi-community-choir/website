@@ -40,6 +40,8 @@ pub type Msg {
     resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
   )
 
+  PostUpdateSearchBar(value: String)
+
   CreatePostUpdateTitle(value: String)
   CreatePostUpdateContent(value: String)
   CreatePostUpdateExcerpt(value: String)

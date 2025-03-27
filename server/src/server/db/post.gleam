@@ -20,7 +20,7 @@ pub type ListPostDBRow {
   )
 }
 
-pub fn get_post_query() -> Select {
+pub fn get_posts_query() -> Select {
   select.new()
   |> select.selects([])
   |> select.from_table("posts")
@@ -28,7 +28,7 @@ pub fn get_post_query() -> Select {
   |> select.order_by_desc("posts.created_at")
 }
 
-pub fn run_post_query(select: Select, params: List(Value)) {
+pub fn run_posts_query(select: Select, params: List(Value)) {
   select.to_query(select)
   |> db.execute_read(params, {
     use post_id <- decode.field(0, decode.int)
@@ -58,6 +58,21 @@ pub fn post_rows_to_post(_req: Request, rows: List(ListPostDBRow)) {
     id: row.post_id,
     title: row.post_title,
     content: row.post_content,
+    excerpt: row.post_excerpt,
+    author: row.post_author,
+    slug: row.post_slug,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+    tags: [],
+  )
+}
+
+pub fn post_rows_to_post_partial(_req: Request, rows: List(ListPostDBRow)) {
+  use row <- list.map(rows)
+  Post(
+    id: row.post_id,
+    title: row.post_title,
+    content: "",
     excerpt: row.post_excerpt,
     author: row.post_author,
     slug: row.post_slug,

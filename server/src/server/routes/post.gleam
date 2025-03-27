@@ -19,9 +19,9 @@ pub fn post(req: Request, post_slug: String) -> Response {
 
 pub fn show_post(req: Request, post_slug: String) -> Result(shared.Post, String) {
   use post_rows <- result.try(
-    post.get_post_query()
+    post.get_posts_query()
     |> select.where(where.eq(where.col("posts.slug"), where.string(post_slug)))
-    |> post.run_post_query([sqlight.text(post_slug)])
+    |> post.run_posts_query([sqlight.text(post_slug)])
     |> result.replace_error("problem getting post from database"),
   )
 

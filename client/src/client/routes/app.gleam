@@ -38,8 +38,7 @@ pub fn app(model: Model) -> Element(Msg) {
         CreatePost, None -> error_page("401 Unauthorized")
         ShowSong(_), Some(_) -> repertoire.show_song(model)
         ShowSong(_), None -> error_page("401 Unauthorized")
-        ShowPost(_), Some(_) -> events.show_post(model)
-        ShowPost(_), None -> error_page("401 Unauthorized")
+        ShowPost(_), _ -> events.show_post(model)
         NotFound, _ -> error_page("404 Not Found")
         _, _ -> error_page("400 Bad Request")
       },

@@ -57,12 +57,14 @@ pub fn main() {
         create_post_excerpt: "",
         create_post_author: "",
         create_post_slug: "",
+        create_post_preview: "",
         create_post_error: None,
         login_password: "",
         login_error: None,
         auth_user: None,
         songs: [],
         posts: [],
+        posts_search_bar: "",
         show_song: None,
         show_post: None,
         show_post_html: "",
@@ -148,6 +150,12 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
         )
         Error(_) -> #(model, effect.none())
       }
+    }
+    msg.PostUpdateSearchBar(value) -> {
+      #(
+        Model(..model, posts_search_bar: value),
+        effect.none(),
+      )
     }
     msg.ShowSongReceived(get_song_result) -> {
       case get_song_result {
