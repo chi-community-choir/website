@@ -131,13 +131,31 @@ markdown a:hover {
 }
 
 /* Lists */
-markdown ul, markdown ol {
+markdown ul {
   margin-left: 2em;
   margin-bottom: 1em;
+  list-style-type: disc;
+}
+
+markdown ol {
+  margin-left: 2em;
+  margin-bottom: 1em;
+  list-style-type: decimal;
 }
 
 markdown li {
   margin-bottom: 0.3em;
+}
+
+/* Nested lists */
+markdown li > ul {
+  list-style-type: circle;
+  margin-top: 0.3em;
+}
+
+markdown li > ol {
+  list-style-type: lower-alpha;
+  margin-top: 0.3em;
 }
 
 /* Code */
