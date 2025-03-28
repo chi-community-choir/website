@@ -251,12 +251,12 @@ pub fn create_post(model: Model) {
             html.label([attribute.class("form-label")], [
               element.text("Excerpt"),
             ]),
-            html.textarea([
+            ui.input([
               attribute.class("form-input"),
               attribute.placeholder("Enter a brief description..."),
               event.on_input(msg.CreatePostUpdateExcerpt),
               attribute.value(model.create_post_excerpt),
-            ], ""),
+            ]),
           ]),
 
           // Content input
@@ -268,11 +268,11 @@ pub fn create_post(model: Model) {
               attribute.class("form-input"),
               attribute.placeholder("Enter the full event content in markdown..."),
               event.on_input(msg.CreatePostUpdateContent),
-              attribute.value(model.create_post_content),
-            ], ""),
+            ], model.create_post_content),
           ]),
 
           // Author input
+          // TODO: Add "known authors" table to the db, call and search in a dropdown here.
           html.div([attribute.class("form-group")], [
             html.label([attribute.class("form-label")], [
               element.text("Author"),
@@ -286,6 +286,9 @@ pub fn create_post(model: Model) {
           ]),
 
           // Submit button
+          // TODO: Add warnings if necessary, and potentially an "are you sure?" confirmation.
+          // Check for "title already exists", especially. 
+          // WARN: Can't have two identical slugs, could maybe increment.
           html.div([
             attribute.style([#("text-align", "center")]),
           ], [
@@ -294,7 +297,7 @@ pub fn create_post(model: Model) {
               attribute.class("submit-button"),
               event.on_click(msg.RequestCreatePost),
             ], [
-              element.text("Create Event"),
+              element.text("Create Post"),
             ]),
           ]),
         ]),
