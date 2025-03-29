@@ -8,6 +8,7 @@ import gleam/json
 import gleam/uri
 import lustre/effect.{type Effect}
 import lustre_http
+import client/env.{get_api_url}
 
 @external(javascript, "../ffi.mjs", "set_url")
 pub fn set_url(url: String) -> String
@@ -128,6 +129,7 @@ pub fn create_song(model: Model) {
   )
 }
 
+// TODO: ensure that multiple spaces return a single hyphen, or give a warning
 fn title_to_slug(title: String) -> String {
   title
   |> string.trim
@@ -136,9 +138,13 @@ fn title_to_slug(title: String) -> String {
   |> echo
 }
 
-pub fn create_post(model: Model) {
+pub fn create_post(model: Model) -> Effect(Msg) {
+  echo "create_post called"
+
+
+  let url = get_api_url() <> "/api/posts"
   lustre_http.post(
-    "/api/posts",
+    url,
     json.object([
       #("title", json.string(model.create_post_title)),
       #("content", json.string(model.create_post_content)),

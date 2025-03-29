@@ -334,37 +334,48 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, create_post_error: value),
       effect.none(),
     )
-    msg.RequestCreatePost -> #(model, lib.create_post(model))
+    msg.RequestCreatePost -> {
+      #(model, lib.create_post(model))
+    }
     msg.CreatePostResponded(resp_result) -> {
       case resp_result {
         Ok(resp) -> {
           case resp.error {
-            Some(err) -> #(
-              model,
-              effect.from(fn(dispatch) {
-                dispatch(msg.CreatePostUpdateError(Some(err)))
-              }),
-            )
-            None -> #(
-              Model(
-                ..model,
-                route: route.Events,
-                create_post_title: "",
-                create_post_content: "",
-                create_post_excerpt: "",
-                create_post_author: "",
-                create_post_error: None,
-              ),
-              effect.batch([lib.get_posts()]),
-            )
+            Some(err) -> {
+              #(
+                model,
+                effect.from(fn(dispatch) {
+                  dispatch(msg.CreatePostUpdateError(Some(err)))
+                }),
+              )
+            }
+            None -> {
+              #(
+                Model(
+                  ..model,
+                  route: route.Events,
+                  create_post_title: "",
+                  create_post_content: "",
+                  create_post_excerpt: "",
+                  create_post_author: "",
+                  create_post_error: None,
+                ),
+                effect.batch([
+                  lib.get_posts(),
+                  // TODO: change route to "posts", or do some kind of alert?
+                ]),
+              )
+            }
           }
         }
-        Error(_) -> #(
-          model,
-          effect.from(fn(dispatch) {
-            dispatch(msg.CreateSongUpdateError(Some("HTTP Error")))
-          }),
-        )
+        Error(_) -> {
+          #(
+            model,
+            effect.from(fn(dispatch) {
+              dispatch(msg.CreatePostUpdateError(Some("HTTP Error")))
+            }),
+          )
+        }
       }
     }
   }
