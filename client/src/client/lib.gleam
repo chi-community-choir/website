@@ -8,7 +8,7 @@ import gleam/json
 import gleam/uri
 import lustre/effect.{type Effect}
 import lustre_http
-import client/env.{get_api_url}
+import env.{get_api_url}
 
 @external(javascript, "../ffi.mjs", "set_url")
 pub fn set_url(url: String) -> String
