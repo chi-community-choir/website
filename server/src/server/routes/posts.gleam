@@ -62,6 +62,7 @@ type CreatePost {
     content: String,
     excerpt: String,
     author: String,
+    slug: String,
     tags: List(Int),
   )
 }
@@ -74,8 +75,9 @@ fn decode_create_post(
     use content <- decode.field("content", decode.string)
     use excerpt <- decode.field("excerpt", decode.string)
     use author <- decode.field("author", decode.string)
-    use tags <- decode.field("tags", decode.list(decode.int))
-    decode.success(CreatePost(title, content, excerpt, author, tags))
+    use slug <- decode.field("slug", decode.string)
+    // use tags <- decode.field("tags", decode.list(decode.int))
+    decode.success(CreatePost(title, content, excerpt, author, slug, []))
   }
   decode.run(json, decoder)
 }
@@ -101,7 +103,7 @@ fn insert_post_to_db(_req: Request, post: CreatePost) {
       sqlight.text(post.content),
       sqlight.text(post.excerpt),
       sqlight.text(post.author),
-      sqlight.text(slug),
+      sqlight.text(post.slug),
     ])
   Ok(Nil)
 }
