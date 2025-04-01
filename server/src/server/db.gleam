@@ -78,4 +78,15 @@ pub fn init() {
     );
     "
     |> sqlight.exec(conn)
+
+  let assert Ok(Nil) =
+    "
+    create table if not exists admin (
+      id integer primary key autoincrement,
+      username text not null,
+      password text not null,
+      created_at datetime default current_timestamp
+    );
+    "
+    |> sqlight.exec(conn)
 }
