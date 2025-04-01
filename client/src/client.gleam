@@ -61,6 +61,7 @@ pub fn main() {
         create_post_preview: "",
         create_post_show_preview: False,
         create_post_error: None,
+        login_username: "",
         login_password: "",
         login_error: None,
         auth_user: None,

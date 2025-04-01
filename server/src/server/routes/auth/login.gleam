@@ -11,45 +11,55 @@ pub fn login(req: Request) -> Response {
   use body <- wisp.require_json(req)
 
   case req.method {
-    Post -> do_login(req, body, False)
+    Post -> do_login(req, body)
     _ -> wisp.method_not_allowed([Post])
   }
 }
 
 type Login {
-  Login(password: String)
+  Login(as_admin: Bool, username: String, password: String)
 }
 
 fn decode_create_user(
   json: dynamic.Dynamic,
 ) -> Result(Login, List(decode.DecodeError)) {
   let decoder = {
+    use as_admin <- decode.field("as_admin", decode.bool)
+    use username <- decode.field("username", decode.string)
     use password <- decode.field("password", decode.string)
-    decode.success(Login(password))
+    decode.success(Login(as_admin, username, password))
   }
   case decode.run(json, decoder) {
-    Ok(login) -> Ok(Login(password: login.password))
+    Ok(login) -> Ok(Login(login.as_admin, login.username, login.password))
     Error(error) -> Error(error)
   }
 }
 
-fn do_login(req: Request, body: dynamic.Dynamic, _is_admin: Bool) -> Response {
+fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
   let result = {
-    use user <- result.try(case decode_create_user(body) {
+    use login <- result.try(case decode_create_user(body) {
       Ok(val) -> Ok(val)
       Error(_) -> Error("Invalid body recieved")
     })
 
-    use <- bool.guard(
-      when: user.password != "test",
-      return: Error("Passwords do not match"),
-    )
+    case login.as_admin {
+      False -> {
+        use <- bool.guard(
+          when: login.password != "test",
+          return: Error("Passwords do not match"),
+        )
+        use session_token <- result.try(user_session.create_user_session(False))
+        Ok(session_token)
+      }
+      True -> {
+        todo as "admin login"
+        // username and password. hashed?
+        // check against admin table in db
+      }
+    }
 
-    // WARN: Make sure this is set properly in prod
     // use session_token <- result.try(user_session.create_user_session(is_admin)) // TODO: actual admin login
-    use session_token <- result.try(user_session.create_user_session(True))
 
-    Ok(session_token)
   }
 
   case result {

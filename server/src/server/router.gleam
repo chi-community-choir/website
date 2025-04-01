@@ -148,6 +148,7 @@ fn page_routes(
       create_post_preview: "",
       create_post_show_preview: False,
       create_post_error: None,
+      login_username: "",
       login_password: "",
       login_error: None,
       auth_user: case user_session.get_user_from_session(req, cache_subject) {

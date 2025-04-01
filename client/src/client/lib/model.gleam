@@ -2,6 +2,8 @@ import client/lib/route.{type Route}
 import gleam/option.{type Option}
 import shared.{type AuthUser, type Post, type Song}
 
+// TODO: Refactor into structs, simplify
+
 pub type Model {
   Model(
     route: Route,
@@ -16,6 +18,7 @@ pub type Model {
     create_post_preview: String,
     create_post_show_preview: Bool,
     create_post_error: Option(String),
+    login_username: String,
     login_password: String,
     login_error: Option(String),
     auth_user: Option(AuthUser),
