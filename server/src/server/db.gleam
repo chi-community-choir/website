@@ -4,8 +4,6 @@ import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
 import sqlight.{type Value}
 
-import gleam/io
-
 pub fn execute_read(
   read_query: ReadQuery,
   params: List(Value),
@@ -15,8 +13,7 @@ pub fn execute_read(
     read_query
     |> sqlite_dialect.read_query_to_prepared_statement
     |> cake.get_sql
-
-  io.println("read: prepared_statement: " <> prepared_statement)
+    |> echo
 
   use conn <- sqlight.with_connection("file:lfs.db")
   sqlight.query(prepared_statement, conn, params, decoder) |> echo
@@ -27,11 +24,10 @@ pub fn execute_write(write_query: WriteQuery(a), params: List(Value)) {
     write_query
     |> sqlite_dialect.write_query_to_prepared_statement
     |> cake.get_sql
-
-  io.println("write: prepared_statement: " <> prepared_statement)
+    |> echo
 
   use conn <- sqlight.with_connection("file:lfs.db")
-  sqlight.query(prepared_statement, conn, params, decode.int)
+  sqlight.query(prepared_statement, conn, params, decode.int) |> echo
 }
 
 @external(erlang, "erlang", "list_to_tuple")

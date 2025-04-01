@@ -75,7 +75,10 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
           })
         }
 
-        case result |> result.unwrap([]) |> list.first |> result.unwrap(#("", "")) {
+        case result |> echo
+          |> result.unwrap([])
+          |> list.first
+          |> result.unwrap(#("", "")) {
           #("", "") -> Error("No user found")
           #(username, password) -> {
             echo "Got admin details"
