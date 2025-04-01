@@ -115,6 +115,7 @@ pub fn admin(model: Model) -> Element(Msg) {
               event.on_input(msg.LoginUpdateUsername),
             ]),
             html.input([
+              attribute.type_("password"),
               attribute.placeholder("Password"),
               event.on_input(msg.LoginUpdatePassword),
             ]),
