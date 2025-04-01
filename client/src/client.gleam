@@ -187,6 +187,10 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
         effect.none(),
       )
     }
+    msg.LoginUpdateUsername(value) -> #(
+      Model(..model, login_username: value),
+      effect.none(),
+    )
     msg.LoginUpdatePassword(value) -> #(
       Model(..model, login_password: value),
       effect.none(),
@@ -195,7 +199,13 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, login_error: value),
       effect.none(),
     )
-    msg.RequestLogin -> #(model, auth.login(model))
+    msg.RequestLogin(as_admin) -> #(
+      model, 
+      case as_admin {
+        True -> auth.admin_login(model)
+        False -> auth.login(model)
+      }
+    )
     msg.LoginResponded(resp_result) -> {
       case resp_result {
         Ok(resp) -> {

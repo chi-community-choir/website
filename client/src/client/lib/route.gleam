@@ -10,8 +10,7 @@ pub type Route {
   Repertoire
   Events
 
-  Login
-  Signup(auth_code: String)
+  AdminLogin
 
   CreatePost
   ShowPost(post_slug: String)
@@ -28,6 +27,7 @@ pub fn get_route() -> Route {
   case uri.path |> uri.path_segments {
     [] -> Index
     ["about"] -> About
+    ["admin"] -> AdminLogin
     ["find-us"] -> FindUs
     ["membership"] -> Membership
     ["events"] -> Events

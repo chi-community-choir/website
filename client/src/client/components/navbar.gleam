@@ -57,7 +57,7 @@ pub fn navbar(model: Model) -> Element(Msg) {
                 ui.button(
                   [
                     button.solid(),
-                    event.on_click(msg.RequestLogin),
+                    event.on_click(msg.RequestLogin(as_admin: False)),
                     attribute.style([
                       #("font-size", "1.1rem"),
                       #("padding", "0.5rem 1.5rem"),

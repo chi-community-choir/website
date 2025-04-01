@@ -1,7 +1,7 @@
 import client
 import client/lib/model.{Model}
 import client/lib/route.{
-  About, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
+  About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
   Repertoire, ShowPost, ShowSong,
 }
 import cors_builder as cors
@@ -120,6 +120,7 @@ fn page_routes(
   let #(route, response) = case route_segments {
     [] -> #(Index, 200)
     ["about"] -> #(About, 200)
+    ["admin"] -> #(AdminLogin, 200)
     ["find-us"] -> #(FindUs, 200)
     ["membership"] -> #(Membership, 200)
     ["events"] -> #(Events, 200)

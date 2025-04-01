@@ -17,9 +17,10 @@ pub type Msg {
   RenderPost(content: String)
   PostRendered(rendered_post: String)
 
+  LoginUpdateUsername(value: String)
   LoginUpdatePassword(value: String)
   LoginUpdateError(value: Option(String))
-  RequestLogin
+  RequestLogin(as_admin: Bool)
   RequestLogout
   LoginResponded(
     resp_result: Result(MessageErrorResponse, lustre_http.HttpError),

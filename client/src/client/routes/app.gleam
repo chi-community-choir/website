@@ -2,10 +2,11 @@ import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/lib/route.{
-  About, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
+  About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
   Repertoire, ShowPost, ShowSong,
 }
 import client/routes/about
+import client/routes/admin
 import client/routes/events
 import client/routes/find_us
 import client/routes/index
@@ -26,6 +27,7 @@ pub fn app(model: Model) -> Element(Msg) {
       case model.route, model.auth_user {
         Index, _ -> index.index(model)
         About, _ -> about.about(model)
+        AdminLogin, _ -> admin.admin(model)
         FindUs, _ -> find_us.find_us(model)
         Membership, _ -> membership.membership(model)
         Events, _ -> events.events(model)

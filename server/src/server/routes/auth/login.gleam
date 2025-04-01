@@ -1,3 +1,7 @@
+import gleam/list
+import server/db
+import cake/select
+import cake/where
 import gleam/bool
 import gleam/dynamic
 import gleam/dynamic/decode
@@ -5,6 +9,7 @@ import gleam/http.{Post}
 import gleam/json
 import gleam/result
 import server/db/user_session
+import sqlight
 import wisp.{type Request, type Response}
 
 pub fn login(req: Request) -> Response {
@@ -52,9 +57,36 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
         Ok(session_token)
       }
       True -> {
-        todo as "admin login"
         // username and password. hashed?
         // check against admin table in db
+        let result = {
+          select.new()
+          |> select.select(select.col("admin.username"))
+          |> select.select(select.col("admin.password"))
+          |> select.from_table("admin")
+          |> select.where(where.eq(where.col("admin.username"), where.string(login.username)))
+          |> select.to_query
+          |> db.execute_read([sqlight.text(login.username)], {
+            use username <- decode.field("username", decode.string)
+            use password <- decode.field("password", decode.string)
+            decode.success(#(username, password))
+          })
+        }
+
+        case result |> result.unwrap([]) |> list.first |> result.unwrap(#("", "")) {
+          #("", "") -> Error("No user found")
+          #(username, password) -> {
+            echo "Got admin details"
+            echo username
+            echo password
+            use <- bool.guard(
+              when: login.password != password,
+              return: Error("Passwords do not match")
+            )
+            use session_token <- result.try(user_session.create_user_session(True))
+            Ok(session_token)
+          }
+        }
       }
     }
 
