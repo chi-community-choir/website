@@ -67,8 +67,8 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
           |> select.where(where.eq(where.col("admin.username"), where.string(login.username)))
           |> select.to_query
           |> db.execute_read([sqlight.text(login.username)], {
-            use username <- decode.field("username", decode.string)
-            use password <- decode.field("password", decode.string)
+            use username <- decode.field(0, decode.string)
+            use password <- decode.field(1, decode.string)
             echo username
             echo password
             decode.success(#(username, password))
