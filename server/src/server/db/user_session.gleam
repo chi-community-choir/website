@@ -14,11 +14,11 @@ import shared
 import sqlight
 import wisp.{type Request}
 
+/// Returns Result(#(user_id, is_admin_int), Nil)
 pub fn get_user_from_session(
   req: Request,
   cache_subject: Subject(CacheMessage),
 ) -> Result(#(Int, Int), String) {
-  io.println("getting user id from session")
   let result = {
     use req_session_token <- result.try(
       wisp.get_cookie(req, "lf_session_token", wisp.PlainText)
@@ -28,6 +28,8 @@ pub fn get_user_from_session(
     case session_cache.cache_get(cache_subject, req_session_token) {
       Some(CacheEntry(id, is_admin, _)) -> {
         io.println("Got user from cache")
+        echo id
+        echo is_admin
         Ok(#(id, shared.is_admin_to_int(is_admin)))
       }
       None -> {

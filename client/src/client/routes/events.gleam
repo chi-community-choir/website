@@ -11,7 +11,7 @@ import lustre/element/html
 import lustre/ui
 import lustre/ui/button
 import lustre/ui/classes
-import shared.{type Post}
+import shared.{type Post, AuthUser}
 
 pub fn events(model: Model) {
   html.div([], [
@@ -38,7 +38,18 @@ pub fn events(model: Model) {
             #("border", "2px solid #ccc"),
           ]),
         ]),
+        case model.auth_user {
+          Some(AuthUser(True)) -> {
+            html.a([attribute.href("/events/create-post")], [ui.button([
+              button.solid(),
+            ], [
+              element.text("Create New Post")
+            ])])
+          }
+          _ -> element.none()
+        },
       ]
+        // All posts as cards
         |> list.append(case model.posts {
           [] -> [element.text("no posts found")]
           posts -> {

@@ -22,7 +22,7 @@ import server/routes/song
 import server/routes/songs
 import server/scaffold
 import server/web
-import shared.{AuthUser}
+import shared.{AuthUser, int_to_is_admin}
 import wisp.{type Request, type Response}
 
 pub fn handle_request(
@@ -54,7 +54,14 @@ fn api_routes(
   case route_segments {
     ["api", "posts"] ->
       case user_session.get_user_from_session(req, cache_subject) {
-        Ok(_) -> posts.posts(req)
+        Ok(#(_, is_admin_int)) -> {
+          case req.method, is_admin_int |> int_to_is_admin {
+            _, True -> posts.posts(req)
+            http.Get, _ -> posts.posts(req)
+            http.Post, False -> response.error("Forbidden")
+            _, _ -> wisp.method_not_allowed([http.Get, http.Post])
+          }
+        }
         Error(_) -> response.error("Unauthorized - please log in")
       }
     ["api", "posts", post_slug] -> {
@@ -65,7 +72,14 @@ fn api_routes(
     }
     ["api", "songs"] ->
       case user_session.get_user_from_session(req, cache_subject) {
-        Ok(_) -> songs.songs(req)
+        Ok(#(_, is_admin_int)) -> {
+          case req.method, is_admin_int |> int_to_is_admin {
+            _, True -> songs.songs(req)
+            http.Get, _ -> songs.songs(req)
+            http.Post, _ -> response.error("Forbidden")
+            _, _ -> wisp.method_not_allowed([http.Get, http.Post])
+          }
+        }
         Error(_) -> response.error("Unauthorized - please log in")
       }
     ["api", "songs", song_slug] -> {
