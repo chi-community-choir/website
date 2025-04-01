@@ -69,6 +69,8 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
           |> db.execute_read([sqlight.text(login.username)], {
             use username <- decode.field("username", decode.string)
             use password <- decode.field("password", decode.string)
+            echo username
+            echo password
             decode.success(#(username, password))
           })
         }
