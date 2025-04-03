@@ -30,6 +30,7 @@ pub fn model_decoder() {
     login_password: "",
     login_error: None,
     auth_user: auth_user,
+    admin_username: "",
     songs: songs,
     posts: posts,
     posts_search_bar: "",

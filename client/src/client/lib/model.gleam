@@ -22,6 +22,7 @@ pub type Model {
     login_password: String,
     login_error: Option(String),
     auth_user: Option(AuthUser),
+    admin_username: String,
     songs: List(Song),
     posts: List(Post),
     posts_search_bar: String,

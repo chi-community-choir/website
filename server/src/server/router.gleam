@@ -157,6 +157,7 @@ fn page_routes(
         Ok(_) -> Some(AuthUser(is_admin: False))
         Error(_) -> None
       },
+      admin_username: "", // TODO:
       songs: case route {
         route.Repertoire ->
           case songs.list_songs(req) {

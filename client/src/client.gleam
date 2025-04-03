@@ -65,6 +65,7 @@ pub fn main() {
         login_password: "",
         login_error: None,
         auth_user: None,
+        admin_username: "",
         songs: [],
         posts: [],
         posts_search_bar: "",
