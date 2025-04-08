@@ -227,6 +227,8 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
               effect.batch([
                 // TODO: Things that happen when you successfully login
                 lib.get_auth_user(),
+                // lib.reload_logged_in(),
+                // OR lib.server_reload()
               ]),
             )
           }
