@@ -20,7 +20,7 @@ pub fn song(req: Request, song_slug: String) -> Response {
 pub fn show_song(req: Request, song_slug: String) -> Result(shared.Song, String) {
   use song_rows <- result.try(
     song.get_songs_query()
-    |> select.where(where.eq(where.col("song.slug"), where.string(song_slug)))
+    |> select.where(where.eq(where.col("songs.slug"), where.string(song_slug)))
     |> song.run_song_query([sqlight.text(song_slug)])
     |> result.replace_error("problem getting song from database"),
   )

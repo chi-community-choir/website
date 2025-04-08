@@ -22,9 +22,9 @@ pub type ListSongsDBRow {
 pub fn get_songs_query() -> Select {
   select.new()
   |> select.selects([])
-  |> select.from_table("song")
-  |> select.group_by("song.id")
-  |> select.order_by_desc("song.created_at")
+  |> select.from_table("songs")
+  |> select.group_by("songs.id")
+  |> select.order_by_desc("songs.created_at")
 }
 
 pub fn run_song_query(select: Select, params: List(Value)) {

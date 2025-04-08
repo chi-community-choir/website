@@ -95,7 +95,7 @@ fn insert_song_to_db(_req: Request, song: CreateSong) {
         },
       ]),
     ]
-    |> insert.from_values(table_name: "song", columns: [
+    |> insert.from_values(table_name: "songs", columns: [
       "title",
       case song.href {
         Some(_) -> "href"
@@ -133,12 +133,12 @@ fn does_song_with_href_exist(song: CreateSong) {
 
   case
     select.new()
-    |> select.selects([select.col("song.title"), select.col("song.href")])
-    |> select.from_table("song")
+    |> select.selects([select.col("songs.title"), select.col("songs.href")])
+    |> select.from_table("songs")
     |> select.where(
       where.or([
         case song.href {
-          Some(href) -> where.eq(where.col("song.href"), where.string(href))
+          Some(href) -> where.eq(where.col("songs.href"), where.string(href))
           None -> panic as "Unreachable due to guard"
         },
       ]),
