@@ -2,7 +2,7 @@ import argv
 import gleam/erlang/process
 import gleam/int
 import mist
-import server/db
+import server/db/migrations
 import server/router
 import server/routes/cache/session_cache
 import wisp
@@ -22,7 +22,7 @@ pub fn main() {
     process.new_subject()
     |> session_cache.initialize
 
-  let _ = db.init()
+  let _ = migrations.init()
 
   let secret_key_base = wisp.random_string(64)
   let assert Ok(_) =
