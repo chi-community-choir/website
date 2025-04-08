@@ -35,19 +35,32 @@ pub fn list_to_tuple(dynamic: Dynamic) -> Dynamic
 
 pub fn init() {
   use conn <- sqlight.with_connection("file:lfs.db")
-  // let decoder = dynamic.tuple2(dynamic.int, dynamic.string)
 
   let assert Ok(Nil) =
     "
     create table if not exists user_session (
-      id integer primary key,
-      token varchar(255) not null unique,
-      is_admin bool
+      id integer primary key autoincrement,
+      user_id integer,
+      token text unique not null,
+      created_at datetime default current_timestamp,
+      foreign key (user_id) references users(id) on delete cascade
     );
   "
     |> sqlight.exec(conn)
 
   let assert Ok(Nil) =
+    "
+    create table if not exists users (
+      id integer primary key autoincrement,
+      username text unique,
+      password_hash text,
+      display_name text,
+      role text check(role in ('admin', 'user')) not null
+    );
+    "
+    |> sqlight.exec(conn)
+
+  let assert Ok(Nil) = // TODO: Switch href for linked table of large file links, in crm
     "
     create table if not exists songs (
       id integer primary key,
@@ -57,10 +70,10 @@ pub fn init() {
       created_at datetime default current_timestamp
     );
     "
-    // TODO: Switch href for linked table of large file links, in crm
+    
     |> sqlight.exec(conn)
 
-  let assert Ok(Nil) =
+  let assert Ok(Nil) = // TODO: optional pdf instead of content
     "
     create table if not exists posts (
       id integer primary key autoincrement,
@@ -69,20 +82,12 @@ pub fn init() {
       excerpt text,
       author text,
       slug text unique not null,
+      user_id integer,
       created_at datetime default current_timestamp,
-      updated_at datetime default current_timestamp
+      updated_at datetime default current_timestamp,
+      foreign key (user_id) references users(id) on delete set null
     );
     "
     |> sqlight.exec(conn)
 
-  let assert Ok(Nil) =
-    "
-    create table if not exists admin (
-      id integer primary key autoincrement,
-      username text not null,
-      password text not null,
-      created_at datetime default current_timestamp
-    );
-    "
-    |> sqlight.exec(conn)
 }
