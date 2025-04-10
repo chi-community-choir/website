@@ -1,6 +1,5 @@
 import gleam/erlang/process.{type Subject}
 import gleam/http.{Get}
-import gleam/int
 import gleam/io
 import gleam/json
 import gleam/result
@@ -25,15 +24,15 @@ fn validate_session(
   io.println("running validate_session")
   // TODO: Check if the cache call is get_user_from_session is enough
   let result = {
-    use #(user_id, is_admin_int) <- result.try(
+    use #(user_id, role) <- result.try(
       user_session.get_user_from_session(req, cache_subject),
     )
-    io.println("id:" <> int.to_string(user_id))
+    echo user_id
 
     Ok(
       json.object([
-        #("user_id", json.int(user_id)),
-        #("is_admin", json.bool(is_admin_int |> shared.int_to_is_admin)),
+        #("user_id", user_id |> json.int),
+        #("role", role |> shared.authuser_string |> json.string),
       ])
       |> json.to_string_tree,
     )

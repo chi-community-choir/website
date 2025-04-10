@@ -1,7 +1,7 @@
 delete from posts;
 delete from sqlite_sequence where name='posts';
 
-insert into posts(title, content, excerpt, author, slug)
+insert into posts(title, content, excerpt, author, slug, user_id)
 values(
 'test post',
 '
@@ -13,10 +13,11 @@ Multiple lines idk
 ',
 'A test post',
 'dev',
-'test-post'
+'test-post',
+'0'
 );
 
-insert into posts(title, content, excerpt, author, slug)
+insert into posts(title, content, excerpt, author, slug, user_id)
 values(
 'markdown-test',
 '
@@ -241,5 +242,6 @@ Term 2
 ',
 'A test of markdown rendering and styling',
 'dev',
-'markdown-test'
+'markdown-test',
+'0'
 );

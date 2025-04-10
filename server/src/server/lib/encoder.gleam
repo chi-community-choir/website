@@ -3,7 +3,7 @@ import gleam/function
 import gleam/json.{type Json}
 import gleam/list
 import gleam/option.{None, Some}
-import shared.{type Post, type Song, Post, Song}
+import shared.{type Post, type Song, Post, Song, User, Admin}
 
 fn songs_encoder(songs: List(Song)) -> List(Json) {
   songs
@@ -35,6 +35,7 @@ fn post_encoder(post: Post) -> Json {
     #("excerpt", json.string(post.excerpt)),
     #("author", json.string(post.author)),
     #("slug", json.string(post.slug)),
+    #("user_id", json.int(post.user_id)),
     #("tags", json.array(post.tags, json.string)),
     #("created_at", json.string(post.created_at)),
     #("updated_at", json.string(post.updated_at)),
@@ -44,8 +45,10 @@ fn post_encoder(post: Post) -> Json {
 pub fn initial_state_encoder(model: Model) -> String {
   [
     #("auth_user", case model.auth_user {
-      Some(auth_user) ->
-        json.object([#("is_admin", json.bool(auth_user.is_admin))])
+      Some(User) ->
+        json.object([#("role", json.string("user"))])
+      Some(Admin) ->
+        json.object([#("role", json.string("admin"))])
       None -> json.null()
     }),
     #("songs", json.array(model.songs |> songs_encoder, function.identity)),

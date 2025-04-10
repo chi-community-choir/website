@@ -53,7 +53,7 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
           when: login.password != "test",
           return: Error("Passwords do not match"),
         )
-        use session_token <- result.try(user_session.create_user_session(False))
+        use session_token <- result.try(user_session.create_user_session(0))
         Ok(session_token)
       }
       True -> {
@@ -61,34 +61,38 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
         // check against admin table in db
         let result = {
           select.new()
-          |> select.select(select.col("admin.username"))
-          |> select.select(select.col("admin.password"))
-          |> select.from_table("admin")
-          |> select.where(where.eq(where.col("admin.username"), where.string(login.username)))
+          |> select.select(select.col("users.id"))
+          |> select.select(select.col("users.username"))
+          |> select.select(select.col("users.password"))
+          |> select.from_table("users")
+          |> select.where(where.eq(where.col("users.username"), where.string(login.username)))
           |> select.to_query
           |> db.execute_read([sqlight.text(login.username)], {
-            use username <- decode.field(0, decode.string)
-            use password <- decode.field(1, decode.string)
+            use user_id <- decode.field(0, decode.int)
+            use username <- decode.field(1, decode.string)
+            use password <- decode.field(2, decode.string)
+            echo user_id
             echo username
             echo password
-            decode.success(#(username, password))
+            decode.success(#(user_id, username, password))
           })
         }
 
         case result |> echo
           |> result.unwrap([])
           |> list.first
-          |> result.unwrap(#("", "")) {
-          #("", "") -> Error("No user found")
-          #(username, password) -> {
+          |> result.unwrap(#(0, "", "")) {
+          #(0, "", "") -> Error("No user found")
+          #(user_id, username, password) -> {
             echo "Got admin details"
+            echo user_id
             echo username
             echo password
             use <- bool.guard(
               when: login.password != password,
               return: Error("Passwords do not match")
             )
-            use session_token <- result.try(user_session.create_user_session(True))
+            use session_token <- result.try(user_session.create_user_session(user_id))
             Ok(session_token)
           }
         }

@@ -15,7 +15,7 @@ pub fn execute_read(
     |> echo
 
   use conn <- sqlight.with_connection("file:lfs.db")
-  sqlight.query(prepared_statement, conn, params, decoder) |> echo
+  sqlight.query(prepared_statement, conn, params, decoder)
 }
 
 pub fn execute_write(write_query: WriteQuery(a), params: List(Value)) {

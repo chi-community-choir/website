@@ -15,6 +15,7 @@ pub type ListPostDBRow {
     post_excerpt: String,
     post_author: String,
     post_slug: String,
+    user_id: Int,
     created_at: String,
     updated_at: String,
   )
@@ -37,8 +38,9 @@ pub fn run_posts_query(select: Select, params: List(Value)) {
     use post_excerpt <- decode.field(3, decode.string)
     use post_author <- decode.field(4, decode.string)
     use post_slug <- decode.field(5, decode.string)
-    use created_at <- decode.field(6, decode.string)
-    use updated_at <- decode.field(7, decode.string)
+    use user_id <- decode.field(6, decode.int)
+    use created_at <- decode.field(7, decode.string)
+    use updated_at <- decode.field(8, decode.string)
     decode.success(ListPostDBRow(
       post_id,
       post_title,
@@ -46,6 +48,7 @@ pub fn run_posts_query(select: Select, params: List(Value)) {
       post_excerpt,
       post_author,
       post_slug,
+      user_id,
       created_at,
       updated_at,
     ))
@@ -61,6 +64,7 @@ pub fn post_rows_to_post(_req: Request, rows: List(ListPostDBRow)) {
     excerpt: row.post_excerpt,
     author: row.post_author,
     slug: row.post_slug,
+    user_id: row.user_id,
     created_at: row.created_at,
     updated_at: row.updated_at,
     tags: [],
@@ -76,6 +80,7 @@ pub fn post_rows_to_post_partial(_req: Request, rows: List(ListPostDBRow)) {
     excerpt: row.post_excerpt,
     author: row.post_author,
     slug: row.post_slug,
+    user_id: row.user_id,
     created_at: row.created_at,
     updated_at: row.updated_at,
     tags: [],
