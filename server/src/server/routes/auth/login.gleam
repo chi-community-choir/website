@@ -53,7 +53,7 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
           when: login.password != "test",
           return: Error("Passwords do not match"),
         )
-        use session_token <- result.try(user_session.create_user_session(0))
+        use session_token <- result.try(user_session.create_user_session(1))
         Ok(session_token)
       }
       True -> {
@@ -98,9 +98,6 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
         }
       }
     }
-
-    // use session_token <- result.try(user_session.create_user_session(is_admin)) // TODO: actual admin login
-
   }
 
   case result {

@@ -117,5 +117,12 @@ create table if not exists posts (
 );
 ",
     ),
+    Migration(
+      name: "005_insert_generic_user",
+      query: "
+insert into users (id, username, password, display_name, role)
+values (1, 'guest', '', 'Guest', 'user');
+",
+    ),
   ]
 }
