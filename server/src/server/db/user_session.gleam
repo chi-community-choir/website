@@ -29,9 +29,7 @@ pub fn get_user_from_session(
     case session_cache.cache_get(cache_subject, req_session_token) {
       Some(CacheEntry(id, role, _)) -> {
         io.println("Got user from cache")
-        echo id
-        echo role
-        Ok(#(id, role))
+        Ok(#(id, role)) |> echo
       }
       None -> {
         let session_token_result = case
@@ -77,7 +75,7 @@ pub fn get_user_from_session(
               }
               Error(_) -> io.println("User result was error??")
             }
-            Ok(user_result)
+            Ok(user_result) |> echo
           }
           Error(e) -> {
             Error(

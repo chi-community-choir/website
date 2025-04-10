@@ -42,12 +42,14 @@ pub fn model_decoder() {
 
 
 pub fn auth_user_decoder() {
-  use role <- decode.then(decode.string)
-  case role {
-    "user" -> decode.success(User)
-    "admin" -> decode.success(Admin)
-    _ -> decode.failure(User, "Role")
-  }
+  use role <- decode.field("role", decode.then(decode.string, fn(role_string) {
+    case role_string {
+      "user" -> decode.success(User)
+      "admin" -> decode.success(Admin)
+      _ -> decode.failure(User, "Role")
+    }
+  }))
+  decode.success(role)
 }
 
 pub fn song_decoder() {
