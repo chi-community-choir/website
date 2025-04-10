@@ -43,7 +43,7 @@ pub fn get_user_from_session(
           |> select.from_table("sessions")
           |> select.join(
             join.inner(
-              alias: "user_id",
+              alias: "users",
               on: where.eq(
                 where.col("sessions.user_id"),
                 where.col("users.id"),
@@ -52,7 +52,7 @@ pub fn get_user_from_session(
             )
           )
           |> select.where(where.eq(
-            where.col("user_session.token"),
+            where.col("sessions.token"),
             where.string(req_session_token),
           ))
           |> select.to_query |> echo 
