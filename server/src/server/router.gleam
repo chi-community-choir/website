@@ -22,7 +22,7 @@ import server/routes/song
 import server/routes/songs
 import server/scaffold
 import server/web
-import shared.{AuthUser, int_to_is_admin}
+import shared.{User, Admin}
 import wisp.{type Request, type Response}
 
 pub fn handle_request(
@@ -54,11 +54,11 @@ fn api_routes(
   case route_segments {
     ["api", "posts"] ->
       case user_session.get_user_from_session(req, cache_subject) {
-        Ok(#(_, is_admin_int)) -> {
-          case req.method, is_admin_int |> int_to_is_admin {
-            _, True -> posts.posts(req)
-            http.Get, _ -> posts.posts(req)
-            http.Post, False -> response.error("Forbidden")
+        Ok(#(_, role)) -> {
+          case req.method, role {
+            _, Admin -> posts.posts(req, cache_subject)
+            http.Get, _ -> posts.posts(req, cache_subject)
+            http.Post, User -> response.error("Forbidden")
             _, _ -> wisp.method_not_allowed([http.Get, http.Post])
           }
         }
@@ -72,9 +72,9 @@ fn api_routes(
     }
     ["api", "songs"] ->
       case user_session.get_user_from_session(req, cache_subject) {
-        Ok(#(_, is_admin_int)) -> {
-          case req.method, is_admin_int |> int_to_is_admin {
-            _, True -> songs.songs(req)
+        Ok(#(_, role)) -> {
+          case req.method, role {
+            _, Admin -> songs.songs(req)
             http.Get, _ -> songs.songs(req)
             http.Post, _ -> response.error("Forbidden")
             _, _ -> wisp.method_not_allowed([http.Get, http.Post])
@@ -103,10 +103,10 @@ fn protected_route(
 ) -> #(route.Route, Int) {
   case user_session.get_user_from_session(req, cache_subject) {
     Ok(user) ->
-      case shared.int_to_is_admin(user.1), admin_only {
-        True, _ -> route
-        False, False -> route
-        False, True -> #(Index, 401)
+      case user.1, admin_only {
+        Admin, _ -> route
+        User, False -> route
+        User, True -> #(Index, 401)
       }
     Error(_) -> #(Index, 401)
   }
@@ -153,8 +153,8 @@ fn page_routes(
       login_password: "",
       login_error: None,
       auth_user: case user_session.get_user_from_session(req, cache_subject) {
-        Ok(#(_, 1)) -> Some(AuthUser(is_admin: True))
-        Ok(_) -> Some(AuthUser(is_admin: False))
+        Ok(#(_, Admin)) -> Some(Admin)
+        Ok(_) -> Some(User)
         Error(_) -> None
       },
       admin_username: "", // TODO:

@@ -1,13 +1,11 @@
-import gleam/option.{Some, None}
+import gleam/option.{Some}
 import lustre/attribute
 import lustre/event
 import lustre/element.{type Element}
 import lustre/element/html
-import lustre/ui/button
-import lustre/ui/input
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
-import shared.{AuthUser}
+import shared.{Admin}
 
 pub fn admin(model: Model) -> Element(Msg) {
   html.div([attribute.id("admin-login-page")], [
@@ -86,7 +84,7 @@ pub fn admin(model: Model) -> Element(Msg) {
     "),
     html.div([attribute.id("admin-login-container")],
       case model.auth_user {
-        Some(AuthUser(is_admin: True)) -> [
+        Some(Admin) -> [
           html.div([attribute.id("admin-login-header")], [
             html.h1([], [element.text("Welcome, Admin")]),
             html.p([

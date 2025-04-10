@@ -2,7 +2,7 @@ import client/lib/model.{Model}
 import client/lib/route
 import gleam/dynamic/decode
 import gleam/option.{None}
-import shared.{AuthUser, Post, Song}
+import shared.{Post, Song, User, Admin}
 
 pub fn model_decoder() {
   use auth_user <- decode.field(
@@ -40,9 +40,14 @@ pub fn model_decoder() {
   ))
 }
 
+
 pub fn auth_user_decoder() {
-  use is_admin <- decode.field("is_admin", decode.bool)
-  decode.success(AuthUser(is_admin: is_admin))
+  use role <- decode.then(decode.string)
+  case role {
+    "user" -> decode.success(User)
+    "admin" -> decode.success(Admin)
+    _ -> decode.failure(User, "Role")
+  }
 }
 
 pub fn song_decoder() {
@@ -63,6 +68,7 @@ pub fn post_decoder() {
   use excerpt <- decode.field("excerpt", decode.string)
   use author <- decode.field("author", decode.string)
   use slug <- decode.field("slug", decode.string)
+  use user_id <- decode.field("user_id", decode.int)
   use tags <- decode.field("tags", decode.list(decode.string))
   use created_at <- decode.field("created_at", decode.string)
   use updated_at <- decode.field("updated_at", decode.string)
@@ -73,6 +79,7 @@ pub fn post_decoder() {
     excerpt: excerpt,
     author: author,
     slug: slug,
+    user_id: user_id,
     created_at: created_at,
     updated_at: updated_at,
     tags: tags,

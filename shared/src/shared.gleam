@@ -1,3 +1,4 @@
+import gleam/dynamic/decode
 import gleam/option.{type Option}
 
 pub type Song {
@@ -20,6 +21,7 @@ pub type Post {
     excerpt: String,
     author: String,
     slug: String,
+    user_id: Int,
     created_at: String,
     updated_at: String,
     tags: List(String),
@@ -31,21 +33,22 @@ pub type Tag {
 }
 
 pub type AuthUser {
-  AuthUser(
-    is_admin: Bool,
-  )
+  User
+  Admin
 }
 
-pub fn is_admin_to_int(is_admin: Bool) {
-  case is_admin {
-    True -> 1
-    False -> 0
+pub fn auth_user_decoder() -> decode.Decoder(AuthUser) {
+  use variant <- decode.then(decode.string)
+  case variant {
+    "user" -> decode.success(User)
+    "admin" -> decode.success(Admin)
+    _ -> decode.failure(User, "AuthUser")
   }
 }
 
-pub fn int_to_is_admin(is_admin_int: Int) {
-  case is_admin_int {
-    1 -> True
-    _ -> False
+pub fn authuser_string(role: AuthUser) {
+  case role {
+    User -> "user"
+    Admin -> "admin"
   }
 }

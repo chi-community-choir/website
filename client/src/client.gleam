@@ -20,7 +20,7 @@ import client/routes/auth
 import plinth/browser/document
 import plinth/browser/element as browser_element
 
-import shared.{type AuthUser, AuthUser}
+import shared.{User, Admin}
 
 pub fn main() {
   let assert Ok(json_string) =
@@ -220,7 +220,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
             None -> #(
               Model(
                 ..model,
-                auth_user: Some(AuthUser(False)),
+                auth_user: Some(User),
                 login_password: "",
                 login_error: None,
               ),
@@ -252,19 +252,19 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       case model.auth_user {
         Some(_) -> #(Model(..model, auth_user: None), effect.none())
         None -> #(
-          Model(..model, auth_user: Some(AuthUser(False))),
+          Model(..model, auth_user: Some(User)),
           effect.none(),
         )
       }
     }
     msg.ToggleAdminStatus -> {
       case model.auth_user {
-        Some(user) -> #(
-          Model(..model, auth_user: Some(AuthUser(!user.is_admin))),
+        Some(Admin) -> #(
+          Model(..model, auth_user: Some(User)),
           effect.none(),
         )
-        None -> #(
-          Model(..model, auth_user: Some(AuthUser(True))),
+        _ -> #(
+          Model(..model, auth_user: Some(Admin)),
           effect.none(),
         )
       }

@@ -6,13 +6,13 @@ import gleam/function
 import gleam/option.{type Option, None, Some}
 import gleam/otp/actor
 import gleam/otp/supervisor
+import shared.{type AuthUser}
 
-import gleam/bool
 import gleam/int
 import gleam/io
 
 pub type CacheEntry {
-  CacheEntry(user_id: Int, is_admin: Bool, timestamp: Time)
+  CacheEntry(user_id: Int, role: AuthUser, timestamp: Time)
 }
 
 pub type CacheMessage {
@@ -67,7 +67,7 @@ pub fn cache_put(
   cache: Subject(CacheMessage),
   token: String,
   user_id: Int,
-  is_admin: Bool,
+  is_admin: AuthUser,
 ) -> Nil {
   actor.send(cache, Put(token, CacheEntry(user_id, is_admin, birl.now())))
 }
@@ -89,14 +89,14 @@ pub fn cache_remove(cache: Subject(CacheMessage), token: String) -> Nil {
 // }
 
 fn print_entry(token: String, entry: CacheEntry) -> Nil {
-  let CacheEntry(id, admin, time) = entry
+  let CacheEntry(id, role, time) = entry
   io.println(
     "CACHE ENTRY-- TOKEN: "
     <> token
     <> "\nID: "
     <> int.to_string(id)
-    <> "\nIS_ADMIN: "
-    <> bool.to_string(admin)
+    <> "\nROLE: "
+    <> shared.authuser_string(role)
     <> "\nTIMESTAMP: "
     <> birl.to_time_string(time),
   )

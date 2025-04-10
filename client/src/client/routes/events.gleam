@@ -11,7 +11,7 @@ import lustre/element/html
 import lustre/ui
 import lustre/ui/button
 import lustre/ui/classes
-import shared.{type Post, AuthUser}
+import shared.{type Post, Admin}
 
 pub fn events(model: Model) {
   html.div([], [
@@ -39,7 +39,7 @@ pub fn events(model: Model) {
           ]),
         ]),
         case model.auth_user {
-          Some(AuthUser(True)) -> {
+          Some(Admin) -> {
             html.a([attribute.href("/events/create-post")], [ui.button([
               button.solid(),
             ], [

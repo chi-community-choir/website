@@ -17,7 +17,7 @@ import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
 import lustre/ui/styles
-import shared.{AuthUser}
+import shared.{User, Admin}
 
 pub fn app(model: Model) -> Element(Msg) {
   html.div([], [
@@ -32,17 +32,16 @@ pub fn app(model: Model) -> Element(Msg) {
         Membership, _ -> membership.membership(model)
         Events, _ -> events.events(model)
         Repertoire, _ -> repertoire.repertoire(model)
-        CreateSong, Some(AuthUser(True)) -> repertoire.create_song(model)
-        CreateSong, Some(AuthUser(False)) -> error_page("403 Forbidden")
+        CreateSong, Some(Admin) -> repertoire.create_song(model)
+        CreateSong, Some(User) -> error_page("403 Forbidden")
         CreateSong, None -> error_page("401 Unauthorized")
-        CreatePost, Some(AuthUser(True)) -> events.create_post(model)
-        CreatePost, Some(AuthUser(False)) -> error_page("403 Forbidden")
+        CreatePost, Some(Admin) -> events.create_post(model)
+        CreatePost, Some(User) -> error_page("403 Forbidden")
         CreatePost, None -> error_page("401 Unauthorized")
         ShowSong(_), Some(_) -> repertoire.show_song(model)
         ShowSong(_), None -> error_page("401 Unauthorized")
         ShowPost(_), _ -> events.show_post(model)
         NotFound, _ -> error_page("404 Not Found")
-        _, _ -> error_page("400 Bad Request")
       },
     ]),
   ])

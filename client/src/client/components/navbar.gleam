@@ -9,6 +9,7 @@ import lustre/event
 import lustre/ui
 import lustre/ui/button
 import lustre/ui/classes
+import shared.{User, Admin}
 
 pub fn navbar(model: Model) -> Element(Msg) {
   html.div(
@@ -72,14 +73,14 @@ pub fn navbar(model: Model) -> Element(Msg) {
               ]),
             ]
             Some(user) -> {
-              case user.is_admin {
-                False -> [
+              case user {
+                User -> [
                   ui.button(
                     [button.solid(), event.on_click(msg.RequestLogout)],
                     [element.text("Log out")],
                   ),
                 ]
-                True -> {
+                Admin -> {
                   [
                     ui.button(
                       [button.solid(), event.on_click(msg.RequestLogout)],
@@ -139,9 +140,9 @@ pub fn navbar(model: Model) -> Element(Msg) {
                       #("background-color", case model.auth_user {
                         None -> "#6c757d"
                         Some(user) ->
-                          case user.is_admin {
-                            True -> "#dc3545"
-                            False -> "#007bff"
+                          case user {
+                            Admin -> "#dc3545"
+                            User -> "#007bff"
                           }
                       }),
                       #("border-radius", "4px"),
@@ -153,9 +154,9 @@ pub fn navbar(model: Model) -> Element(Msg) {
                     element.text(case model.auth_user {
                       None -> "Admin: Off"
                       Some(user) ->
-                        case user.is_admin {
-                          True -> "Admin: On"
-                          False -> "Admin: Off"
+                        case user {
+                          Admin -> "Admin: On"
+                          User -> "Admin: Off"
                         }
                     }),
                   ],
