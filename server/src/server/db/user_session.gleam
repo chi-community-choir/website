@@ -55,7 +55,7 @@ pub fn get_user_from_session(
             where.col("sessions.token"),
             where.string(req_session_token),
           ))
-          |> select.to_query |> echo 
+          |> select.to_query
           |> db.execute_read([sqlight.text(req_session_token)], {
             use id <- decode.field(0, decode.int)
             use role <- decode.field(1, shared.auth_user_decoder())

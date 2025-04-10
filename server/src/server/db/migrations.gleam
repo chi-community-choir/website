@@ -50,7 +50,7 @@ fn run_migrations() {
         {"Migration performed: " <> migration.name} |> echo
       }
       _ -> {
-        {"Migration skipped: " <> migration.name} |> echo
+        {"Migration skipped: " <> migration.name}
       }
     }
   }
