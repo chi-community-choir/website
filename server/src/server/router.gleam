@@ -37,6 +37,7 @@ pub fn handle_request(
       |> cors.allow_origin("http://dev.chicommunitychoir.com")
       |> cors.allow_method(http.Get)
       |> cors.allow_method(http.Post)
+      |> cors.allow_method(http.Delete)
       |> cors.allow_header("Content-Type"),
   )
 

@@ -55,6 +55,11 @@ pub type Msg {
   CreatePostResponded(
     resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
   )
+  RequestDeletePost
+  DeletePostNoSlug
+  DeletePostResponded(
+    resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
+  )
 }
 
 pub type GetSongsResponse {

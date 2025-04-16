@@ -20,6 +20,7 @@ pub fn posts(req: Request, cache_subject: Subject(CacheMessage)) -> Response {
   case req.method {
     Get -> list_posts_res(req)
     Post -> create_post(req, cache_subject)
+    Delete -> delete_post(req)
     _ -> wisp.method_not_allowed([Get, Post])
   }
 }

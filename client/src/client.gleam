@@ -392,6 +392,18 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
         }
       }
     }
+    msg.RequestDeletePost -> {
+      #(model, lib.delete_post(model))
+    }
+    msg.DeletePostNoSlug -> {
+      #(model, effect.none()) // TODO: This should do something
+    }
+    msg.DeletePostResponded(resp_result) -> {
+      case resp_result {
+        Ok(_) -> todo
+        Error(_) -> todo
+      }
+    }
   }
 }
 

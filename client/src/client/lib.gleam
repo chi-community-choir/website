@@ -1,4 +1,7 @@
+import gleam/http
+import gleam/http/request
 import gleam/string
+import gleam/option.{None, Some}
 import client/lib/decoder
 import client/lib/model.{type Model, Model}
 import client/lib/msg.{type Msg}
@@ -162,4 +165,26 @@ pub fn create_post(model: Model) -> Effect(Msg) {
       msg.CreatePostResponded,
     ),
   )
+}
+
+pub fn delete_post(model: Model) -> Effect(Msg) {
+  case model.show_post {
+    Some(post) -> {
+      lustre_http.send(
+        request.new()
+        |> request.set_method(http.Delete)
+        |> request.set_host(get_api_url())
+        |> request.set_path("/api/posts/" <> post.slug),
+        lustre_http.expect_json(
+          msg.message_error_decoder(),
+          msg.DeletePostResponded,
+        ),
+      )
+    }
+    None -> {
+      effect.from(fn(dispatch) {
+        dispatch(msg.DeletePostNoSlug)
+      })
+    }
+  }
 }
