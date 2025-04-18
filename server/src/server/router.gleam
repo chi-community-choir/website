@@ -66,9 +66,11 @@ fn api_routes(
         Error(_) -> response.error("Unauthorized - please log in")
       }
     ["api", "posts", post_slug] -> {
-      case user_session.get_user_from_session(req, cache_subject) {
-        Ok(_) -> post.post(req, post_slug)
-        Error(_) -> response.error("Unauthorized - please log in")
+      case user_session.get_user_from_session(req, cache_subject), req.method {
+        Ok(#(_, Admin)), _ -> post.post(req, post_slug)
+        Ok(#(_, User)), http.Get -> post.post(req, post_slug)
+        Ok(_), _ -> response.error("Unauthorized - please log in")
+        Error(_), _ -> response.error("Unauthorized - please log in")
       }
     }
     ["api", "songs"] ->
