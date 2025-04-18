@@ -22,7 +22,7 @@ pub fn get_user_from_session(
 ) -> Result(#(Int, AuthUser), String) {
   let result = {
     use req_session_token <- result.try(
-      wisp.get_cookie(req, "lf_session_token", wisp.PlainText)
+      wisp.get_cookie(req, "lf_session_token", wisp.Signed)
       |> result.replace_error("No session cookie found"),
     )
 

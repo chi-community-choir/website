@@ -4,7 +4,7 @@ import server/routes/cache/session_cache.{type CacheMessage}
 import wisp.{type Request, type Response}
 
 pub fn logout(req: Request, cache_subject: Subject(CacheMessage)) -> Response {
-  case wisp.get_cookie(req, "lf_session_token", wisp.PlainText) {
+  case wisp.get_cookie(req, "lf_session_token", wisp.Signed) {
     Ok(token) -> session_cache.cache_remove(cache_subject, token)
     Error(_) -> Nil
   }
@@ -18,7 +18,7 @@ pub fn logout(req: Request, cache_subject: Subject(CacheMessage)) -> Response {
     req,
     "lf_session_token",
     "",
-    wisp.PlainText,
+    wisp.Signed,
     60 * 60 * 24 * 1000,
   )
 }

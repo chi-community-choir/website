@@ -92,7 +92,7 @@ pub fn events(model: Model) {
   ])
 }
 
-pub fn post(model: Model, post: Post) -> Element(Msg) {
+pub fn post(_model: Model, post: Post) -> Element(Msg) {
   html.div([
     attribute.style([
     ]),
@@ -329,7 +329,7 @@ pub fn create_post(model: Model) {
 pub fn show_post(model: Model) {
   html.div([], [
     case model.show_post {
-      Some(post) ->
+      Some(_post) ->
         html.div([], [
           case model.auth_user {
             Some(Admin) -> html.div([], [

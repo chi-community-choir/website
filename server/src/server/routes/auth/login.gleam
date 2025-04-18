@@ -111,7 +111,7 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
         req,
         "lf_session_token",
         session_token,
-        wisp.PlainText,
+        wisp.Signed,
         60 * 60 * 24 * 1000,
       )
     Error(error) ->
