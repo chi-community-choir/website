@@ -1,9 +1,11 @@
+import cake/where
 import server/db/user_session
 import cake/insert
+import cake/delete
 import gleam/bool
 import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
-import gleam/http.{Get, Post}
+import gleam/http.{Get, Post, Delete}
 import gleam/json
 import gleam/erlang/process.{type Subject}
 import gleam/result
@@ -12,7 +14,7 @@ import server/db/post
 import server/lib
 import server/response
 import server/routes/cache/session_cache.{type CacheMessage}
-import shared
+import shared.{Admin}
 import sqlight
 import wisp.{type Request, type Response}
 
@@ -20,7 +22,7 @@ pub fn posts(req: Request, cache_subject: Subject(CacheMessage)) -> Response {
   case req.method {
     Get -> list_posts_res(req)
     Post -> create_post(req, cache_subject)
-    Delete -> delete_post(req)
+    Delete -> delete_post(req, cache_subject)
     _ -> wisp.method_not_allowed([Get, Post])
   }
 }
@@ -149,4 +151,47 @@ pub fn create_post(req: Request, subject: Subject(CacheMessage)) -> Response {
     )
   } |> response.generate_wisp_response
 
+}
+
+fn delete_post_from_db(slug: String) {
+  case delete.new()
+  |> delete.table("posts")
+  |> delete.where(where.eq(where.col("posts.id"), where.string(slug)))
+  |> delete.to_query
+  |> db.execute_write([sqlight.text(slug)])
+  {
+    Ok(_) -> Ok(Nil)
+    Error(e) -> Error("Failed to delete post: " <> e.message)
+  }
+}
+
+fn delete_post(req: Request, subject: Subject(CacheMessage)) {
+  {
+  use slug <- result.try(
+    case wisp.path_segments(req) {
+      ["api", "posts", slug] -> Ok(slug)
+      _ -> Error("Invalid URL path")
+    }
+  )
+
+  use #(_, role) <- result.try(
+    user_session.get_user_from_session(req, subject)
+    |> result.replace_error("Not authenticated")
+  )
+
+  use <- bool.guard(
+    when: role != Admin,
+    return: Error("Unauthorized")
+  )
+
+  use _ <- result.try(
+    delete_post_from_db(slug)
+  )
+
+  Ok(
+    json.object([#("message", json.string("Post deleted successfully"))])
+    |> json.to_string_tree
+  )
+
+  } |> response.generate_wisp_response
 }
