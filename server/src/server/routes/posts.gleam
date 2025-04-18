@@ -156,7 +156,7 @@ pub fn create_post(req: Request, subject: Subject(CacheMessage)) -> Response {
 fn delete_post_from_db(slug: String) {
   case delete.new()
   |> delete.table("posts")
-  |> delete.where(where.eq(where.col("posts.id"), where.string(slug)))
+  |> delete.where(where.eq(where.col("posts.slug"), where.string(slug)))
   |> delete.to_query
   |> db.execute_write([sqlight.text(slug)])
   {
