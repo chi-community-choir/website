@@ -333,7 +333,7 @@ pub fn show_post(model: Model) {
         html.div([], [
           case model.auth_user {
             Some(Admin) -> html.div([], [
-              ui.button([], [element.text("delete post")]),
+              ui.button([event.on_click(msg.RequestDeletePost)], [element.text("delete post")]),
             ])
             _ -> element.none()
           },
