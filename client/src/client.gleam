@@ -61,6 +61,7 @@ pub fn main() {
         create_post_preview: "",
         create_post_show_preview: False,
         create_post_error: None,
+        delete_post_error: None,
         login_username: "",
         login_password: "",
         login_error: None,
@@ -398,10 +399,43 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     msg.DeletePostNoSlug -> {
       #(model, effect.none()) // TODO: This should do something
     }
+    msg.DeletePostError(value) -> {
+      #(Model(..model, delete_post_error: value), effect.none())
+    }
     msg.DeletePostResponded(resp_result) -> {
       case resp_result {
-        Ok(_) -> todo
-        Error(_) -> todo
+        Ok(resp) -> {
+          case resp.error {
+            Some(err) -> {
+              #(
+                model,
+                effect.from(fn(dispatch) {
+                  dispatch(msg.DeletePostError(Some(err)))
+                }),
+              )
+            }
+            None -> {
+              #(
+                Model(
+                  ..model,
+                  route: route.Events,
+                ),
+                effect.batch([
+                  lib.get_posts(),
+                  // TODO: change route to "posts", or do some kind of alert?
+                ]),
+              )
+            }
+          }
+        }
+        Error(_) -> {
+          #(
+            model,
+            effect.from(fn(dispatch) {
+              dispatch(msg.CreatePostUpdateError(Some("HTTP Error")))
+            }),
+          )
+        }
       }
     }
   }

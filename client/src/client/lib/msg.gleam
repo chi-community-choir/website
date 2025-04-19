@@ -57,6 +57,7 @@ pub type Msg {
   )
   RequestDeletePost
   DeletePostNoSlug
+  DeletePostError(value: Option(String))
   DeletePostResponded(
     resp_result: Result(MessageErrorResponse, lustre_http.HttpError),
   )
