@@ -2,10 +2,9 @@ import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/lib/route.{
-  StatusTest, About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
-  Repertoire, ShowPost, ShowSong,
+  About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership,
+  NotFound, Repertoire, ShowPost, ShowSong, StatusTest,
 }
-import client/routes/status_test
 import client/routes/about
 import client/routes/admin
 import client/routes/events
@@ -13,11 +12,12 @@ import client/routes/find_us
 import client/routes/index
 import client/routes/membership
 import client/routes/repertoire
+import client/routes/status_test
 import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
-import shared.{User, Admin}
+import shared.{Admin, User}
 
 pub fn app(model: Model) -> Element(Msg) {
   html.div([], [

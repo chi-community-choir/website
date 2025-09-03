@@ -35,7 +35,5 @@ pub type Model {
 }
 
 pub type TestModel {
-  TestModel(
-    counter: Int,
-  )
+  TestModel(counter: Int)
 }

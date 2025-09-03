@@ -1,5 +1,5 @@
-import lustre/element/html
 import lustre/attribute.{styles}
+import lustre/element/html
 
 /// Default page styling, for uniformity
 pub fn page_default() {
@@ -53,7 +53,9 @@ pub fn img_full() {
 }
 
 pub fn markdown() {
-  html.style([], "
+  html.styles(
+    [],
+    "
 /* General Styling for the <markdown> container */
 markdown {
   display: block; /* Treat it like a block-level element */
@@ -217,5 +219,6 @@ markdown th {
   background-color: #f0f0f0;
   font-weight: bold;
 }
-  ")
+  ",
+  )
 }

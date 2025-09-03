@@ -1,16 +1,16 @@
-import cake/where
-import server/db/user_session
-import cake/insert
 import cake/delete
+import cake/insert
+import cake/where
 import gleam/bool
 import gleam/dynamic.{type Dynamic}
 import gleam/dynamic/decode
-import gleam/http.{Get, Post, Delete}
-import gleam/json
 import gleam/erlang/process.{type Subject}
+import gleam/http.{Delete, Get, Post}
+import gleam/json
 import gleam/result
 import server/db
 import server/db/post
+import server/db/user_session
 import server/lib
 import server/response
 import server/routes/cache/session_cache.{type CacheMessage}
@@ -27,7 +27,10 @@ pub fn posts(req: Request, cache_subject: Subject(CacheMessage)) -> Response {
   }
 }
 
-pub fn list_posts(req: Request, with_content: Bool) -> Result(List(shared.Post), String) {
+pub fn list_posts(
+  req: Request,
+  with_content: Bool,
+) -> Result(List(shared.Post), String) {
   case
     post.get_posts_query()
     |> post.run_posts_query([]),
@@ -76,7 +79,7 @@ type CreatePost {
 
 fn decode_create_post(
   json: Dynamic,
-  user_id: Int
+  user_id: Int,
 ) -> Result(CreatePost, List(decode.DecodeError)) {
   let decoder = {
     use title <- decode.field("title", decode.string)
@@ -85,7 +88,9 @@ fn decode_create_post(
     use author <- decode.field("author", decode.string)
     use slug <- decode.field("slug", decode.string)
     // use tags <- decode.field("tags", decode.list(decode.int))
-    decode.success(CreatePost(title, content, excerpt, author, slug, user_id, []))
+    decode.success(
+      CreatePost(title, content, excerpt, author, slug, user_id, []),
+    )
   }
   decode.run(json, decoder)
 }
@@ -123,7 +128,8 @@ pub fn create_post(req: Request, subject: Subject(CacheMessage)) -> Response {
 
   {
     use #(user_id, _) <- result.try(
-      user_session.get_user_from_session(req, subject) |> result.replace_error("Not authenticated")
+      user_session.get_user_from_session(req, subject)
+      |> result.replace_error("Not authenticated"),
     )
     use post <- result.try(case decode_create_post(body, user_id) {
       Ok(val) -> Ok(val)
@@ -149,16 +155,17 @@ pub fn create_post(req: Request, subject: Subject(CacheMessage)) -> Response {
       json.object([#("message", json.string("Created post"))])
       |> json.to_string_tree,
     )
-  } |> response.generate_wisp_response
-
+  }
+  |> response.generate_wisp_response
 }
 
 fn delete_post_from_db(slug: String) {
-  case delete.new()
-  |> delete.table("posts")
-  |> delete.where(where.eq(where.col("posts.slug"), where.string(slug)))
-  |> delete.to_query
-  |> db.execute_write([sqlight.text(slug)])
+  case
+    delete.new()
+    |> delete.table("posts")
+    |> delete.where(where.eq(where.col("posts.slug"), where.string(slug)))
+    |> delete.to_query
+    |> db.execute_write([sqlight.text(slug)])
   {
     Ok(_) -> Ok(Nil)
     Error(e) -> Error("Failed to delete post: " <> e.message)
@@ -167,31 +174,24 @@ fn delete_post_from_db(slug: String) {
 
 fn delete_post(req: Request, subject: Subject(CacheMessage)) {
   {
-  use slug <- result.try(
-    case wisp.path_segments(req) {
+    use slug <- result.try(case wisp.path_segments(req) {
       ["api", "posts", slug] -> Ok(slug)
       _ -> Error("Invalid URL path")
-    }
-  )
+    })
 
-  use #(_, role) <- result.try(
-    user_session.get_user_from_session(req, subject)
-    |> result.replace_error("Not authenticated")
-  )
+    use #(_, role) <- result.try(
+      user_session.get_user_from_session(req, subject)
+      |> result.replace_error("Not authenticated"),
+    )
 
-  use <- bool.guard(
-    when: role != Admin,
-    return: Error("Unauthorized")
-  )
+    use <- bool.guard(when: role != Admin, return: Error("Unauthorized"))
 
-  use _ <- result.try(
-    delete_post_from_db(slug)
-  )
+    use _ <- result.try(delete_post_from_db(slug))
 
-  Ok(
-    json.object([#("message", json.string("Post deleted successfully"))])
-    |> json.to_string_tree
-  )
-
-  } |> response.generate_wisp_response
+    Ok(
+      json.object([#("message", json.string("Post deleted successfully"))])
+      |> json.to_string_tree,
+    )
+  }
+  |> response.generate_wisp_response
 }

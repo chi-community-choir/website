@@ -1,5 +1,5 @@
-import gleam/dynamic/decode
 import cake/select
+import gleam/dynamic/decode
 import gleam/list
 import gleam/order.{type Order}
 import gleam/string
@@ -14,28 +14,29 @@ pub fn init() {
   use conn <- sqlight.with_connection("file:lfs.db")
 
   let assert Ok(Nil) =
-"
+    "
 create table if not exists schema_migrations (
   id integer primary key autoincrement,
   name text unique not null,
   applied_at datetime default current_timestamp
 );
-" |> sqlight.exec(conn)
+"
+    |> sqlight.exec(conn)
 
   run_migrations()
 }
 
 fn run_migrations() {
   let sorted = migrations() |> list.sort(compare_migrations)
-  let assert Ok(completed_migrations) = select.new()
-  |> select.select(select.col("schema_migrations.name"))
-  |> select.from_table("schema_migrations")
-  |> select.to_query
-  |> db.execute_read([], {
-    use names <- decode.field(0, decode.string)
-    decode.success(names)
-    }
-  )
+  let assert Ok(completed_migrations) =
+    select.new()
+    |> select.select(select.col("schema_migrations.name"))
+    |> select.from_table("schema_migrations")
+    |> select.to_query
+    |> db.execute_read([], {
+      use names <- decode.field(0, decode.string)
+      decode.success(names)
+    })
   echo "Previously completed migrations:"
   echo completed_migrations
 
@@ -46,11 +47,17 @@ fn run_migrations() {
     case list.contains(completed_migrations, migration.name) {
       False -> {
         let assert Ok(Nil) = migration.query |> sqlight.exec(conn)
-        let assert Ok(Nil) = {"insert into schema_migrations(name) values ('"<>migration.name<>"')"} |> sqlight.exec(conn)
-        {"Migration performed: " <> migration.name} |> echo
+        let assert Ok(Nil) =
+          {
+            "insert into schema_migrations(name) values ('"
+            <> migration.name
+            <> "')"
+          }
+          |> sqlight.exec(conn)
+        { "Migration performed: " <> migration.name } |> echo
       }
       _ -> {
-        {"Migration skipped: " <> migration.name}
+        { "Migration skipped: " <> migration.name }
       }
     }
   }
@@ -88,7 +95,8 @@ create table if not exists sessions (
 );
 ",
     ),
-    Migration( // TODO: Switch href for linked table of large file links, in crm
+    Migration(
+      // TODO: Switch href for linked table of large file links, in crm
       name: "003_create_songs",
       query: "
 create table if not exists songs (
@@ -100,7 +108,8 @@ create table if not exists songs (
 );
 ",
     ),
-    Migration( // TODO: optional pdf instead of content
+    Migration(
+      // TODO: optional pdf instead of content
       name: "004_create_posts",
       query: "
 create table if not exists posts (

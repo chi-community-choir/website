@@ -1,7 +1,7 @@
 import cake/insert
+import cake/join
 import cake/select
 import cake/where
-import cake/join
 import gleam/dynamic/decode
 import gleam/erlang/process.{type Subject}
 import gleam/io
@@ -39,16 +39,11 @@ pub fn get_user_from_session(
             select.col("users.role"),
           ])
           |> select.from_table("sessions")
-          |> select.join(
-            join.inner(
-              alias: "users",
-              on: where.eq(
-                where.col("sessions.user_id"),
-                where.col("users.id"),
-              ),
-              with: join.table("users"),
-            )
-          )
+          |> select.join(join.inner(
+            alias: "users",
+            on: where.eq(where.col("sessions.user_id"), where.col("users.id")),
+            with: join.table("users"),
+          ))
           |> select.where(where.eq(
             where.col("sessions.token"),
             where.string(req_session_token),
@@ -107,9 +102,7 @@ pub fn create_user_session(user_id: Int) {
 
   let result =
     [insert.row([insert.int(user_id), insert.string(token)])]
-    |> insert.from_values(table_name: "sessions", columns: [
-      "user_id", "token",
-    ])
+    |> insert.from_values(table_name: "sessions", columns: ["user_id", "token"])
     |> insert.to_query
     |> db.execute_write([sqlight.int(user_id), sqlight.text(token)])
 
@@ -117,9 +110,6 @@ pub fn create_user_session(user_id: Int) {
     Ok(_) -> {
       Ok(token)
     }
-    Error(err) ->
-      Error(
-        "Creating user session:" <> err.message,
-      )
+    Error(err) -> Error("Creating user session:" <> err.message)
   }
 }

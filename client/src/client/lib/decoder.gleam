@@ -2,7 +2,7 @@ import client/lib/model.{Model, TestModel}
 import client/lib/route
 import gleam/dynamic/decode
 import gleam/option.{None}
-import shared.{Post, Song, User, Admin}
+import shared.{Admin, Post, Song, User}
 
 pub fn model_decoder() {
   use auth_user <- decode.field(
@@ -42,15 +42,17 @@ pub fn model_decoder() {
   ))
 }
 
-
 pub fn auth_user_decoder() {
-  use role <- decode.field("role", decode.then(decode.string, fn(role_string) {
-    case role_string {
-      "user" -> decode.success(User)
-      "admin" -> decode.success(Admin)
-      _ -> decode.failure(User, "Role")
-    }
-  }))
+  use role <- decode.field(
+    "role",
+    decode.then(decode.string, fn(role_string) {
+      case role_string {
+        "user" -> decode.success(User)
+        "admin" -> decode.success(Admin)
+        _ -> decode.failure(User, "Role")
+      }
+    }),
+  )
   decode.success(role)
 }
 

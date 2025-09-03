@@ -1,16 +1,18 @@
-import gleam/option.{Some}
-import lustre/attribute
-import lustre/event
-import lustre/element.{type Element}
-import lustre/element/html
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
+import gleam/option.{Some}
+import lustre/attribute
+import lustre/element.{type Element}
+import lustre/element/html
+import lustre/event
 import shared.{Admin}
 
 pub fn admin(model: Model) -> Element(Msg) {
   html.div([attribute.id("admin-login-page")], [
     // flex, column flow, centered, etc
-    html.style([], "
+    html.styles(
+      [],
+      "
       #admin-login-page {
         display: flex;
         justify-content: center;
@@ -81,46 +83,53 @@ pub fn admin(model: Model) -> Element(Msg) {
         outline: none;
         box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
       }
-    "),
-    html.div([attribute.id("admin-login-container")],
-      case model.auth_user {
-        Some(Admin) -> [
-          html.div([attribute.id("admin-login-header")], [
-            html.h1([], [element.text("Welcome, Admin")]),
-            html.p([
+    ",
+    ),
+    html.div([attribute.id("admin-login-container")], case model.auth_user {
+      Some(Admin) -> [
+        html.div([attribute.id("admin-login-header")], [
+          html.h1([], [element.text("Welcome, Admin")]),
+          html.p(
+            [
               attribute.styles([#("margin-top", "1rem"), #("color", "#4a5568")]),
-            ], [
+            ],
+            [
               element.text("You are already logged in as an administrator."),
-            ]),
-          ]),
-          html.div([attribute.id("admin-login-form")], [
-            html.button([
+            ],
+          ),
+        ]),
+        html.div([attribute.id("admin-login-form")], [
+          html.button(
+            [
               event.on_click(msg.RequestLogout),
               attribute.styles([#("background-color", "#e53e3e")]),
-            ], [
+            ],
+            [
               element.text("Log Out"),
-            ]),
+            ],
+          ),
+        ]),
+      ]
+      _ -> [
+        html.div([attribute.id("admin-login-header")], [
+          html.h1([], [element.text("Admin Login")]),
+        ]),
+        html.div([attribute.id("admin-login-form")], [
+          // input, input, button
+          html.input([
+            attribute.placeholder("Username"),
+            event.on_input(msg.LoginUpdateUsername),
           ]),
-        ]
-        _ ->  [
-          html.div([attribute.id("admin-login-header")], [
-            html.h1([], [element.text("Admin Login")])
+          html.input([
+            attribute.type_("password"),
+            attribute.placeholder("Password"),
+            event.on_input(msg.LoginUpdatePassword),
           ]),
-          html.div([attribute.id("admin-login-form")], [
-            // input, input, button
-            html.input([
-              attribute.placeholder("Username"),
-              event.on_input(msg.LoginUpdateUsername),
-            ]),
-            html.input([
-              attribute.type_("password"),
-              attribute.placeholder("Password"),
-              event.on_input(msg.LoginUpdatePassword),
-            ]),
-            html.button([event.on_click(msg.RequestLogin(as_admin: True))], [element.text("Admin Login")]),
+          html.button([event.on_click(msg.RequestLogin(as_admin: True))], [
+            element.text("Admin Login"),
           ]),
-        ]
-      }
-    ),
+        ]),
+      ]
+    }),
   ])
 }
