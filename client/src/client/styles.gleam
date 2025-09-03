@@ -53,7 +53,7 @@ pub fn img_full() {
 }
 
 pub fn markdown() {
-  html.styles(
+  html.style(
     [],
     "
 /* General Styling for the <markdown> container */

@@ -10,7 +10,7 @@ import shared.{Admin}
 pub fn admin(model: Model) -> Element(Msg) {
   html.div([attribute.id("admin-login-page")], [
     // flex, column flow, centered, etc
-    html.styles(
+    html.style(
       [],
       "
       #admin-login-page {
