@@ -1,13 +1,13 @@
-import gleam/string
-import lustre/event
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/styles
 import gleam/list
 import gleam/option.{None, Some}
+import gleam/string
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
+import lustre/event
 import shared.{type Post, Admin}
 
 pub fn events(model: Model) {
@@ -37,10 +37,9 @@ pub fn events(model: Model) {
         ]),
         case model.auth_user {
           Some(Admin) -> {
-            html.a([attribute.href("/events/create-post")], [html.button([
-            ], [
-              element.text("Create New Post")
-            ])])
+            html.a([attribute.href("/events/create-post")], [
+              html.button([], [element.text("Create New Post")]),
+            ])
           }
           _ -> element.none()
         },
@@ -49,13 +48,16 @@ pub fn events(model: Model) {
         |> list.append(case model.posts {
           [] -> [element.text("no posts found")]
           posts -> {
-            let filtered_posts = posts
-            |> list.filter(fn(post) {
-              post.title |> string.contains(model.posts_search_bar)
-            })
+            let filtered_posts =
+              posts
+              |> list.filter(fn(post) {
+                post.title |> string.contains(model.posts_search_bar)
+              })
             use each_post <- list.map(filtered_posts)
             html.div([], [
-              html.style([], "
+              html.styles(
+                [],
+                "
                 .post-card {
                   justify-content: left;
                   background-color: #e5f4ff;
@@ -73,13 +75,17 @@ pub fn events(model: Model) {
                   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                   border-color: #2c5282;
                 }
-              "),
+              ",
+              ),
               html.a([attribute.href("/events/" <> each_post.slug)], [
-                html.div([
-                  attribute.class("post-card"),
-                ], [
-                  html.div([], [post(model, each_post)]),
-                ]),
+                html.div(
+                  [
+                    attribute.class("post-card"),
+                  ],
+                  [
+                    html.div([], [post(model, each_post)]),
+                  ],
+                ),
               ]),
             ])
           }
@@ -89,26 +95,34 @@ pub fn events(model: Model) {
 }
 
 pub fn post(_model: Model, post: Post) -> Element(Msg) {
-  html.div([
-    attribute.styles([
-    ]),
-  ], [
-    html.h1([
-      // classes.text_2xl()
-    ], [
-      html.strong([], [element.text(post.title)]),
-    ]),
-    html.p([
-      // classes.text_lg()
-    ], [
-      element.text(post.excerpt)
-    ]),
-  ])
+  html.div(
+    [
+      attribute.styles([]),
+    ],
+    [
+      html.h1(
+        [
+          // classes.text_2xl()
+        ],
+        [
+          html.strong([], [element.text(post.title)]),
+        ],
+      ),
+      html.p(
+        [
+          // classes.text_lg()
+        ],
+        [element.text(post.excerpt)],
+      ),
+    ],
+  )
 }
 
 pub fn create_post(model: Model) {
   html.div([], [
-    html.style([], "
+    html.styles(
+      [],
+      "
       .create-post-container {
         display: flex;
         gap: 2rem;
@@ -210,112 +224,140 @@ pub fn create_post(model: Model) {
       .submit-button:hover {
         background-color: #2a4365;
       }
-    "),
+    ",
+    ),
 
     html.div([attribute.class("create-post-page")], [
       html.div([attribute.class("preview-toggle")], [
-        html.button([
-          attribute.class("submit-button"),
-          event.on_click(msg.CreatePostTogglePreview)
-        ], [
-          element.text(case model.create_post_show_preview {
-            True -> "View Form"
-            False -> "View Preview"
-          })
-        ]),
+        html.button(
+          [
+            attribute.class("submit-button"),
+            event.on_click(msg.CreatePostTogglePreview),
+          ],
+          [
+            element.text(case model.create_post_show_preview {
+              True -> "View Form"
+              False -> "View Preview"
+            }),
+          ],
+        ),
       ]),
-      html.div([
-        attribute.class("create-post-container" <>
-        case model.create_post_show_preview {
-            True -> " show-preview"
-            False -> ""
-        }),
-        ], [
-        html.div([attribute.class("create-post-form")], [
-          html.h1([
-            // classes.text_3xl(),
-            attribute.styles([#("margin-bottom", "2rem"), #("text-align", "center")]),
-          ], [
-            element.text("Create New Post")
-          ]),
+      html.div(
+        [
+          attribute.class(
+            "create-post-container"
+            <> case model.create_post_show_preview {
+              True -> " show-preview"
+              False -> ""
+            },
+          ),
+        ],
+        [
+          html.div([attribute.class("create-post-form")], [
+            html.h1(
+              [
+                // classes.text_3xl(),
+                attribute.styles([
+                  #("margin-bottom", "2rem"),
+                  #("text-align", "center"),
+                ]),
+              ],
+              [element.text("Create New Post")],
+            ),
 
-          // Title input
-          html.div([attribute.class("form-group")], [
-            html.label([attribute.class("form-label")], [
-              element.text("Title"),
+            // Title input
+            html.div([attribute.class("form-group")], [
+              html.label([attribute.class("form-label")], [
+                element.text("Title"),
+              ]),
+              html.input([
+                attribute.class("form-input"),
+                attribute.placeholder("Enter event title..."),
+                event.on_input(msg.CreatePostUpdateTitle),
+                attribute.value(model.create_post_title),
+              ]),
             ]),
-            html.input([
-              attribute.class("form-input"),
-              attribute.placeholder("Enter event title..."),
-              event.on_input(msg.CreatePostUpdateTitle),
-              attribute.value(model.create_post_title),
-            ]),
-          ]),
 
-          // Excerpt input
-          html.div([attribute.class("form-group")], [
-            html.label([attribute.class("form-label")], [
-              element.text("Excerpt"),
+            // Excerpt input
+            html.div([attribute.class("form-group")], [
+              html.label([attribute.class("form-label")], [
+                element.text("Excerpt"),
+              ]),
+              html.input([
+                attribute.class("form-input"),
+                attribute.placeholder("Enter a brief description..."),
+                event.on_input(msg.CreatePostUpdateExcerpt),
+                attribute.value(model.create_post_excerpt),
+              ]),
             ]),
-            html.input([
-              attribute.class("form-input"),
-              attribute.placeholder("Enter a brief description..."),
-              event.on_input(msg.CreatePostUpdateExcerpt),
-              attribute.value(model.create_post_excerpt),
-            ]),
-          ]),
 
-          // Content input
-          html.div([attribute.class("form-group")], [
-            html.label([attribute.class("form-label")], [
-              element.text("Content"),
+            // Content input
+            html.div([attribute.class("form-group")], [
+              html.label([attribute.class("form-label")], [
+                element.text("Content"),
+              ]),
+              html.textarea(
+                [
+                  attribute.class("form-input"),
+                  attribute.placeholder(
+                    "Enter the full event content in markdown...",
+                  ),
+                  event.on_input(msg.CreatePostUpdateContent),
+                ],
+                model.create_post_content,
+              ),
             ]),
-            html.textarea([
-              attribute.class("form-input"),
-              attribute.placeholder("Enter the full event content in markdown..."),
-              event.on_input(msg.CreatePostUpdateContent),
-            ], model.create_post_content),
-          ]),
 
-          // Author input
-          // TODO: Add "known authors" table to the db, call and search in a dropdown here.
-          html.div([attribute.class("form-group")], [
-            html.label([attribute.class("form-label")], [
-              element.text("Author"),
+            // Author input
+            // TODO: Add "known authors" table to the db, call and search in a dropdown here.
+            html.div([attribute.class("form-group")], [
+              html.label([attribute.class("form-label")], [
+                element.text("Author"),
+              ]),
+              html.input([
+                attribute.class("form-input"),
+                attribute.placeholder("Enter author name..."),
+                event.on_input(msg.CreatePostUpdateAuthor),
+                attribute.value(model.create_post_author),
+              ]),
             ]),
-            html.input([
-              attribute.class("form-input"),
-              attribute.placeholder("Enter author name..."),
-              event.on_input(msg.CreatePostUpdateAuthor),
-              attribute.value(model.create_post_author),
-            ]),
-          ]),
 
-          // Submit button
-          // TODO: Add warnings if necessary, and potentially an "are you sure?" confirmation.
-          // Check for "title already exists", especially. 
-          // WARN: Can't have two identical slugs, could maybe increment.
-          html.div([
-            attribute.styles([#("text-align", "center")]),
-          ], [
-            html.button([
-              attribute.class("submit-button"),
-              event.on_click(msg.RequestCreatePost),
-            ], [
-              element.text("Create Post"),
-            ]),
+            // Submit button
+            // TODO: Add warnings if necessary, and potentially an "are you sure?" confirmation.
+            // Check for "title already exists", especially. 
+            // WARN: Can't have two identical slugs, could maybe increment.
+            html.div(
+              [
+                attribute.styles([#("text-align", "center")]),
+              ],
+              [
+                html.button(
+                  [
+                    attribute.class("submit-button"),
+                    event.on_click(msg.RequestCreatePost),
+                  ],
+                  [
+                    element.text("Create Post"),
+                  ],
+                ),
+              ],
+            ),
           ]),
-        ]),
-        html.div([attribute.class("create-post-preview")], [
-          html.h1([
-            // classes.text_3xl(),
-            attribute.styles([#("margin-bottom", "2rem"), #("text-align", "center")]),
-          ], [
-            element.text("Post Preview:")
+          html.div([attribute.class("create-post-preview")], [
+            html.h1(
+              [
+                // classes.text_3xl(),
+                attribute.styles([
+                  #("margin-bottom", "2rem"),
+                  #("text-align", "center"),
+                ]),
+              ],
+              [element.text("Post Preview:")],
+            ),
+            show_preview(model),
           ]),
-          show_preview(model)
-        ]),
-      ]),
+        ],
+      ),
     ]),
   ])
 }
@@ -326,18 +368,43 @@ pub fn show_post(model: Model) {
       Some(_post) ->
         html.div([], [
           case model.auth_user {
-            Some(Admin) -> html.div([], [
-              html.button([event.on_click(msg.RequestDeletePost)], [element.text("delete post")]),
-            ])
+            Some(Admin) ->
+              html.div([], [
+                html.button([event.on_click(msg.RequestDeletePost)], [
+                  element.text("delete post"),
+                ]),
+              ])
             _ -> element.none()
           },
           html.div([], [
             styles.markdown(),
-            element.element("markdown", [attribute.attribute("dangerous-unescaped-html", model.show_post_html)], []),
-          ])
+            element.element(
+              "markdown",
+              [
+                attribute.attribute(
+                  "dangerous-unescaped-html",
+                  model.show_post_html,
+                ),
+              ],
+              [],
+            ),
+          ]),
         ])
-      None -> html.div([], [html.p([attribute.styles([#("font-size", "24px"), #("color", "red"), #("text-align", "center"), #("padding", "20px")])], [element.text("No post found")])])
-    }
+      None ->
+        html.div([], [
+          html.p(
+            [
+              attribute.styles([
+                #("font-size", "24px"),
+                #("color", "red"),
+                #("text-align", "center"),
+                #("padding", "20px"),
+              ]),
+            ],
+            [element.text("No post found")],
+          ),
+        ])
+    },
   ])
 }
 
@@ -346,13 +413,31 @@ pub fn show_preview(model: Model) {
     html.div([], [
       styles.markdown(),
       html.h1(
-        [attribute.styles([#("text-align", "center"), #("color", "#333"), #("font-size", "2em"), #("margin", "20px 0")])],
-        [element.text(case model.create_post_title {
-          "" -> "[Title]"
-          title -> title
-        })]
+        [
+          attribute.styles([
+            #("text-align", "center"),
+            #("color", "#333"),
+            #("font-size", "2em"),
+            #("margin", "20px 0"),
+          ]),
+        ],
+        [
+          element.text(case model.create_post_title {
+            "" -> "[Title]"
+            title -> title
+          }),
+        ],
       ),
-      element.element("markdown", [attribute.attribute("dangerous-unescaped-html", model.create_post_preview)], []),
+      element.element(
+        "markdown",
+        [
+          attribute.attribute(
+            "dangerous-unescaped-html",
+            model.create_post_preview,
+          ),
+        ],
+        [],
+      ),
     ]),
   ])
 }

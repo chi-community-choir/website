@@ -1,17 +1,17 @@
-import gleam/http
-import gleam/http/request
-import gleam/string
-import gleam/option.{None, Some}
+import client/env.{get_api_url}
 import client/lib/decoder
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/lib/route
 import gleam/dynamic/decode
+import gleam/http
+import gleam/http/request
 import gleam/json
+import gleam/option.{None, Some}
+import gleam/string
 import gleam/uri
 import lustre/effect.{type Effect}
 import lustre_http
-import client/env.{get_api_url}
 
 @external(javascript, "../ffi.mjs", "set_url")
 pub fn set_url(url: String) -> String
@@ -20,23 +20,21 @@ pub fn set_url(url: String) -> String
 pub fn render_markdown(text: String) -> String
 
 pub fn render_post(content: String) -> Effect(Msg) {
-  let msg = content
-  |> render_markdown
-  |> msg.PostRendered
+  let msg =
+    content
+    |> render_markdown
+    |> msg.PostRendered
 
-  effect.from(fn(dispatch) {
-    dispatch(msg)
-  })
+  effect.from(fn(dispatch) { dispatch(msg) })
 }
 
 pub fn render_preview(content: String) -> Effect(Msg) {
-  let msg = content
-  |> render_markdown
-  |> msg.CreatePostPreviewRendered
+  let msg =
+    content
+    |> render_markdown
+    |> msg.CreatePostPreviewRendered
 
-  effect.from(fn(dispatch) {
-    dispatch(msg)
-  })
+  effect.from(fn(dispatch) { dispatch(msg) })
 }
 
 pub fn get_auth_user() -> Effect(Msg) {
@@ -144,7 +142,6 @@ fn title_to_slug(title: String) -> String {
 pub fn create_post(model: Model) -> Effect(Msg) {
   echo "create_post called"
 
-
   let url = get_api_url() <> "/api/posts"
   lustre_http.post(
     url,
@@ -156,8 +153,8 @@ pub fn create_post(model: Model) -> Effect(Msg) {
       #(
         "slug",
         model.create_post_title
-        |> title_to_slug
-        |> json.string
+          |> title_to_slug
+          |> json.string,
       ),
     ]),
     lustre_http.expect_json(
@@ -172,9 +169,9 @@ pub fn delete_post(model: Model) -> Effect(Msg) {
     Some(post) -> {
       lustre_http.send(
         request.new()
-        |> request.set_method(http.Delete)
-        |> request.set_host(get_api_url())
-        |> request.set_path("/api/posts/" <> post.slug),
+          |> request.set_method(http.Delete)
+          |> request.set_host(get_api_url())
+          |> request.set_path("/api/posts/" <> post.slug),
         lustre_http.expect_json(
           msg.message_error_decoder(),
           msg.DeletePostResponded,
@@ -182,9 +179,7 @@ pub fn delete_post(model: Model) -> Effect(Msg) {
       )
     }
     None -> {
-      effect.from(fn(dispatch) {
-        dispatch(msg.DeletePostNoSlug)
-      })
+      effect.from(fn(dispatch) { dispatch(msg.DeletePostNoSlug) })
     }
   }
 }

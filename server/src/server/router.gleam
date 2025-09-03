@@ -1,8 +1,8 @@
 import client
 import client/lib/model.{Model, TestModel}
 import client/lib/route.{
-  About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
-  Repertoire, ShowPost, ShowSong,
+  About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership,
+  NotFound, Repertoire, ShowPost, ShowSong,
 }
 import cors_builder as cors
 import gleam/erlang/process.{type Subject}
@@ -22,7 +22,7 @@ import server/routes/song
 import server/routes/songs
 import server/scaffold
 import server/web
-import shared.{User, Admin}
+import shared.{Admin, User}
 import wisp.{type Request, type Response}
 
 pub fn handle_request(
@@ -162,7 +162,8 @@ fn page_routes(
         Ok(_) -> Some(User)
         Error(_) -> None
       },
-      admin_username: "", // TODO:
+      admin_username: "",
+      // TODO:
       songs: case route {
         route.Repertoire ->
           case songs.list_songs(req) {
@@ -173,7 +174,7 @@ fn page_routes(
       },
       posts: case route {
         route.Events ->
-        case posts.list_posts(req, False) {
+          case posts.list_posts(req, False) {
             Ok(posts) -> posts
             Error(_) -> []
           }

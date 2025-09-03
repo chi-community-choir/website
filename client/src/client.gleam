@@ -1,6 +1,6 @@
 import client/lib/decoder
-import gleam/io
 import gleam/bool
+import gleam/io
 import gleam/json
 import gleam/list
 import gleam/option.{None, Some}
@@ -20,7 +20,7 @@ import client/routes/auth
 import plinth/browser/document
 import plinth/browser/element as browser_element
 
-import shared.{User, Admin}
+import shared.{Admin, User}
 
 pub fn main() {
   let assert Ok(json_string) =
@@ -90,55 +90,57 @@ fn init(model: Model) -> #(_, Effect(Msg)) {
     effect.batch([
       lib.get_auth_user(),
       case route.get_route() {
-        route.ShowPost(_) -> case model.show_post {
-          Some(post) -> {
-            effect.from(fn(dispatch) {
-              dispatch(msg.RenderPost(post.content))
-            })
+        route.ShowPost(_) ->
+          case model.show_post {
+            Some(post) -> {
+              effect.from(fn(dispatch) {
+                dispatch(msg.RenderPost(post.content))
+              })
+            }
+            None -> effect.none()
           }
-          None -> effect.none()
-        }
         _ -> effect.none()
       },
-    ])
+    ]),
   )
 }
 
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
     msg.TestIncrement -> #(
-      Model(..model, test_model: TestModel(counter: model.test_model.counter + 1)),
-      effect.none()
+      Model(
+        ..model,
+        test_model: TestModel(counter: model.test_model.counter + 1),
+      ),
+      effect.none(),
     )
-    msg.OnRouteChange(route) -> #(
-      Model(..model, route: route),
-      case route {
-        route.ShowSong(_) -> lib.get_show_song()
-        route.ShowPost(_) -> {
-          effect.batch([
-            lib.get_show_post(),
-            case model.show_post {
-              Some(post) -> {
-                effect.from(fn(dispatch) {
-                  dispatch(msg.RenderPost(post.content))
-                })
-              }
-              None -> effect.none()
+    msg.OnRouteChange(route) -> #(Model(..model, route: route), case route {
+      route.ShowSong(_) -> lib.get_show_song()
+      route.ShowPost(_) -> {
+        effect.batch([
+          lib.get_show_post(),
+          case model.show_post {
+            Some(post) -> {
+              effect.from(fn(dispatch) {
+                dispatch(msg.RenderPost(post.content))
+              })
             }
-          ])
-        }
-        //  TODO: tags
-        _ -> effect.none()
-      },
-    )
+            None -> effect.none()
+          },
+        ])
+      }
+      //  TODO: tags
+      _ -> effect.none()
+    })
     msg.AuthUserReceived(auth_user_result) ->
       case auth_user_result {
-        Ok(auth_user) -> #(Model(..model, auth_user: Some(auth_user)), case
-          model.route
-        {
-          // admin route options maybe
-          _ -> effect.batch([])
-        })
+        Ok(auth_user) -> #(
+          Model(..model, auth_user: Some(auth_user)),
+          case model.route {
+            // admin route options maybe
+            _ -> effect.batch([])
+          },
+        )
         Error(_) -> {
           #(model, effect.none())
         }
@@ -162,10 +164,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       }
     }
     msg.PostUpdateSearchBar(value) -> {
-      #(
-        Model(..model, posts_search_bar: value),
-        effect.none(),
-      )
+      #(Model(..model, posts_search_bar: value), effect.none())
     }
     msg.ShowSongReceived(get_song_result) -> {
       case get_song_result {
@@ -189,10 +188,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       #(model, lib.render_post(content))
     }
     msg.PostRendered(html_content) -> {
-      #(
-        Model(..model, show_post_html: html_content),
-        effect.none(),
-      )
+      #(Model(..model, show_post_html: html_content), effect.none())
     }
     msg.LoginUpdateUsername(value) -> #(
       Model(..model, login_username: value),
@@ -206,13 +202,10 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       Model(..model, login_error: value),
       effect.none(),
     )
-    msg.RequestLogin(as_admin) -> #(
-      model, 
-      case as_admin {
-        True -> auth.admin_login(model)
-        False -> auth.login(model)
-      }
-    )
+    msg.RequestLogin(as_admin) -> #(model, case as_admin {
+      True -> auth.admin_login(model)
+      False -> auth.login(model)
+    })
     msg.LoginResponded(resp_result) -> {
       case resp_result {
         Ok(resp) -> {
@@ -234,7 +227,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
                 // TODO: Things that happen when you successfully login
                 lib.get_auth_user(),
                 // lib.reload_logged_in(),
-                // OR lib.server_reload()
+              // OR lib.server_reload()
               ]),
             )
           }
@@ -257,22 +250,13 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     msg.ToggleAuthState -> {
       case model.auth_user {
         Some(_) -> #(Model(..model, auth_user: None), effect.none())
-        None -> #(
-          Model(..model, auth_user: Some(User)),
-          effect.none(),
-        )
+        None -> #(Model(..model, auth_user: Some(User)), effect.none())
       }
     }
     msg.ToggleAdminStatus -> {
       case model.auth_user {
-        Some(Admin) -> #(
-          Model(..model, auth_user: Some(User)),
-          effect.none(),
-        )
-        _ -> #(
-          Model(..model, auth_user: Some(Admin)),
-          effect.none(),
-        )
+        Some(Admin) -> #(Model(..model, auth_user: Some(User)), effect.none())
+        _ -> #(Model(..model, auth_user: Some(Admin)), effect.none())
       }
     }
     msg.CreateSongUpdateTitle(value) -> #(
@@ -323,9 +307,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
     )
     msg.CreatePostUpdateContent(value) -> #(
       Model(..model, create_post_content: value),
-      effect.from(fn(dispatch) {
-        dispatch(msg.CreatePostRenderPreview)
-      }),
+      effect.from(fn(dispatch) { dispatch(msg.CreatePostRenderPreview) }),
     )
     msg.CreatePostUpdateExcerpt(value) -> #(
       Model(..model, create_post_excerpt: value),
@@ -339,14 +321,14 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       #(model, lib.render_preview(model.create_post_content))
     }
     msg.CreatePostPreviewRendered(html_content) -> {
-      #(
-        Model(..model, create_post_preview: html_content),
-        effect.none(),
-      )
+      #(Model(..model, create_post_preview: html_content), effect.none())
     }
     msg.CreatePostTogglePreview -> {
       #(
-        Model(..model, create_post_show_preview: bool.negate(model.create_post_show_preview)),
+        Model(
+          ..model,
+          create_post_show_preview: bool.negate(model.create_post_show_preview),
+        ),
         effect.none(),
       )
     }
@@ -402,7 +384,8 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
       #(model, lib.delete_post(model))
     }
     msg.DeletePostNoSlug -> {
-      #(model, effect.none()) // TODO: This should do something
+      #(model, effect.none())
+      // TODO: This should do something
     }
     msg.DeletePostError(value) -> {
       #(Model(..model, delete_post_error: value), effect.none())
@@ -421,10 +404,7 @@ fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
             }
             None -> {
               #(
-                Model(
-                  ..model,
-                  route: route.Events,
-                ),
+                Model(..model, route: route.Events),
                 effect.batch([
                   lib.get_posts(),
                   // TODO: change route to "posts", or do some kind of alert?

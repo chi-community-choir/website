@@ -1,11 +1,11 @@
-import client/lib/msg
-import lustre/event
-import gleam/int
 import client/lib/model.{type Model}
+import client/lib/msg
 import client/styles
+import gleam/int
 import lustre/attribute.{class, styles}
 import lustre/element.{text}
 import lustre/element/html.{div, h1, section}
+import lustre/event
 
 pub fn status_test(model: Model) {
   div(
@@ -18,12 +18,12 @@ pub fn status_test(model: Model) {
       ]),
     ],
     [
-      section([class("title")], [
-        div([], [h1([], [text("Status Test")])])
-      ]),
+      section([class("title")], [div([], [h1([], [text("Status Test")])])]),
       section([class("counter")], [
         div([], [text(model.test_model.counter |> int.to_string)]),
-        div([], [html.button([event.on_click(msg.TestIncrement)], [text("inc")])]),
+        div([], [
+          html.button([event.on_click(msg.TestIncrement)], [text("inc")]),
+        ]),
       ]),
     ],
   )

@@ -11,9 +11,14 @@ pub fn repertoire(model: Model) {
   html.div([], [
     html.div(
       [attribute.styles([#("display", "flex"), #("justify-content", "center")])],
-      [html.p([
-        // classes.font_alt()
-      ], [element.text("Repertoire")])],
+      [
+        html.p(
+          [
+            // classes.font_alt()
+          ],
+          [element.text("Repertoire")],
+        ),
+      ],
     ),
     html.div(
       [

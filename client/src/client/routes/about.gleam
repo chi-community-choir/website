@@ -81,7 +81,10 @@ pub fn about(_model: Model) -> Element(Msg) {
             // Directors image
             html.div(
               [
-                attribute.styles([#("flex", "1 1 3rem"), #("min-width", "300px")]),
+                attribute.styles([
+                  #("flex", "1 1 3rem"),
+                  #("min-width", "300px"),
+                ]),
               ],
               [
                 html.img([

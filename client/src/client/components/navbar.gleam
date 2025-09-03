@@ -6,7 +6,7 @@ import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
 import lustre/event
-import shared.{User, Admin}
+import shared.{Admin, User}
 
 pub fn navbar(model: Model) -> Element(Msg) {
   html.div(
@@ -69,18 +69,16 @@ pub fn navbar(model: Model) -> Element(Msg) {
             Some(user) -> {
               case user {
                 User -> [
-                  html.button(
-                    [event.on_click(msg.RequestLogout)],
-                    [element.text("Log out")],
-                  ),
+                  html.button([event.on_click(msg.RequestLogout)], [
+                    element.text("Log out"),
+                  ]),
                 ]
                 Admin -> {
                   [
                     navbutton("/status-test", "Status"),
-                    html.button(
-                      [event.on_click(msg.RequestLogout)],
-                      [element.text("Log out")],
-                    ),
+                    html.button([event.on_click(msg.RequestLogout)], [
+                      element.text("Log out"),
+                    ]),
                   ]
                 }
               }
@@ -164,7 +162,8 @@ pub fn navbar(model: Model) -> Element(Msg) {
 }
 
 fn navbutton(href: String, title: String) {
-  let style = "
+  let style =
+    "
     .nav-link {
       text-decoration: none;
       display: inline-block;
@@ -197,7 +196,7 @@ fn navbutton(href: String, title: String) {
   "
 
   html.div([], [
-    html.style([], style),
+    html.styles([], style),
     html.a(
       [
         attribute.href(href),

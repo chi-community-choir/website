@@ -1,5 +1,3 @@
-import gleam/list
-import server/db
 import cake/select
 import cake/where
 import gleam/bool
@@ -7,7 +5,9 @@ import gleam/dynamic
 import gleam/dynamic/decode
 import gleam/http.{Post}
 import gleam/json
+import gleam/list
 import gleam/result
+import server/db
 import server/db/user_session
 import sqlight
 import wisp.{type Request, type Response}
@@ -65,7 +65,10 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
           |> select.select(select.col("users.username"))
           |> select.select(select.col("users.password"))
           |> select.from_table("users")
-          |> select.where(where.eq(where.col("users.username"), where.string(login.username)))
+          |> select.where(where.eq(
+            where.col("users.username"),
+            where.string(login.username),
+          ))
           |> select.to_query
           |> db.execute_read([sqlight.text(login.username)], {
             use user_id <- decode.field(0, decode.int)
@@ -78,10 +81,13 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
           })
         }
 
-        case result |> echo
+        case
+          result
+          |> echo
           |> result.unwrap([])
           |> list.first
-          |> result.unwrap(#(0, "", "")) {
+          |> result.unwrap(#(0, "", ""))
+        {
           #(0, "", "") -> Error("No user found")
           #(user_id, username, password) -> {
             echo "Got admin details"
@@ -90,9 +96,11 @@ fn do_login(req: Request, body: dynamic.Dynamic) -> Response {
             echo password
             use <- bool.guard(
               when: login.password != password,
-              return: Error("Passwords do not match")
+              return: Error("Passwords do not match"),
             )
-            use session_token <- result.try(user_session.create_user_session(user_id))
+            use session_token <- result.try(user_session.create_user_session(
+              user_id,
+            ))
             Ok(session_token)
           }
         }

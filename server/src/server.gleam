@@ -18,7 +18,8 @@ pub fn main() {
     _ -> #("127.0.0.1", Ok(8080))
   }
 
-  let assert Ok(cache_subject) = process.new_subject()
+  let assert Ok(cache_subject) =
+    process.new_subject()
     |> session_cache.initialize
 
   let _ = migrations.init()

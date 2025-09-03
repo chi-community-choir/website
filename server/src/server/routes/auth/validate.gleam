@@ -24,9 +24,10 @@ fn validate_session(
   io.println("running validate_session")
   // TODO: Check if the cache call is get_user_from_session is enough
   let result = {
-    use #(user_id, role) <- result.try(
-      user_session.get_user_from_session(req, cache_subject),
-    )
+    use #(user_id, role) <- result.try(user_session.get_user_from_session(
+      req,
+      cache_subject,
+    ))
     echo user_id
 
     Ok(
