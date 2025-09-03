@@ -2,9 +2,10 @@ import client/components/navbar
 import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/lib/route.{
-  About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
+  StatusTest, About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
   Repertoire, ShowPost, ShowSong,
 }
+import client/routes/status_test
 import client/routes/about
 import client/routes/admin
 import client/routes/events
@@ -38,6 +39,8 @@ pub fn app(model: Model) -> Element(Msg) {
         CreatePost, Some(Admin) -> events.create_post(model)
         CreatePost, Some(User) -> error_page("403 Forbidden")
         CreatePost, None -> error_page("401 Unauthorized")
+        StatusTest, Some(Admin) -> status_test.status_test(model)
+        StatusTest, _ -> error_page("401 Unauthorized")
         ShowSong(_), Some(_) -> repertoire.show_song(model)
         ShowSong(_), None -> error_page("401 Unauthorized")
         ShowPost(_), _ -> events.show_post(model)

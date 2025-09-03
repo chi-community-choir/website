@@ -5,6 +5,7 @@ import lustre_http
 import shared.{type AuthUser, type Post, type Song, Post, Song}
 
 pub type Msg {
+  TestIncrement
   OnRouteChange(Route)
 
   AuthUserReceived(Result(AuthUser, lustre_http.HttpError))

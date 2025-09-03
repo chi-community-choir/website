@@ -2,6 +2,7 @@ import gleam/uri
 
 pub type Route {
   NotFound
+  StatusTest
 
   Index
   About
@@ -26,6 +27,7 @@ pub fn get_route() -> Route {
 
   case uri.path |> uri.path_segments {
     [] -> Index
+    ["status-test"] -> StatusTest
     ["about"] -> About
     ["admin"] -> AdminLogin
     ["find-us"] -> FindUs

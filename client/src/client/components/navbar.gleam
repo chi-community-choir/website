@@ -82,6 +82,7 @@ pub fn navbar(model: Model) -> Element(Msg) {
                 ]
                 Admin -> {
                   [
+                    navbutton("/status-test", "Status"),
                     ui.button(
                       [button.solid(), event.on_click(msg.RequestLogout)],
                       [element.text("Log out")],

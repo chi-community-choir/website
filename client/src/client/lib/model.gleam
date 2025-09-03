@@ -6,6 +6,7 @@ import shared.{type AuthUser, type Post, type Song}
 
 pub type Model {
   Model(
+    test_model: TestModel,
     route: Route,
     create_song_title: String,
     create_song_href: String,
@@ -30,5 +31,11 @@ pub type Model {
     show_song: Option(Song),
     show_post: Option(Post),
     show_post_html: String,
+  )
+}
+
+pub type TestModel {
+  TestModel(
+    counter: Int,
   )
 }

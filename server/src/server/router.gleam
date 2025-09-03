@@ -1,5 +1,5 @@
 import client
-import client/lib/model.{Model}
+import client/lib/model.{Model, TestModel}
 import client/lib/route.{
   About, AdminLogin, CreatePost, CreateSong, Events, FindUs, Index, Membership, NotFound,
   Repertoire, ShowPost, ShowSong,
@@ -140,6 +140,7 @@ fn page_routes(
 
   let model =
     Model(
+      test_model: TestModel(counter: 1),
       route: route,
       create_song_title: "",
       create_song_href: "",

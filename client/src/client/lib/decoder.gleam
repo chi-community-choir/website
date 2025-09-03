@@ -1,4 +1,4 @@
-import client/lib/model.{Model}
+import client/lib/model.{Model, TestModel}
 import client/lib/route
 import gleam/dynamic/decode
 import gleam/option.{None}
@@ -14,6 +14,7 @@ pub fn model_decoder() {
   use show_song <- decode.field("show_song", decode.optional(song_decoder()))
   use show_post <- decode.field("show_post", decode.optional(post_decoder()))
   decode.success(Model(
+    test_model: TestModel(counter: 1),
     route: route.get_route(),
     create_song_title: "",
     create_song_href: "",

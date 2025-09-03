@@ -11,7 +11,7 @@ import lustre/effect.{type Effect}
 import lustre/element.{type Element}
 
 import client/lib
-import client/lib/model.{type Model, Model}
+import client/lib/model.{type Model, Model, TestModel}
 import client/lib/msg.{type Msg}
 import client/lib/route
 import client/routes/app
@@ -49,6 +49,7 @@ pub fn main() {
         _ -> io.println("other error")
       }
       Model(
+        test_model: TestModel(counter: 1),
         route: route.get_route(),
         create_song_title: "",
         create_song_href: "",
@@ -105,6 +106,10 @@ fn init(model: Model) -> #(_, Effect(Msg)) {
 
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
+    msg.TestIncrement -> #(
+      Model(..model, test_model: TestModel(..model.test_model, counter: model.test_model.counter + 1)),
+      effect.none()
+    )
     msg.OnRouteChange(route) -> #(
       Model(..model, route: route),
       case route {
