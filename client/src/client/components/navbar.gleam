@@ -196,7 +196,7 @@ fn navbutton(href: String, title: String) {
   "
 
   html.div([], [
-    html.styles([], style),
+    html.style([], style),
     html.a(
       [
         attribute.href(href),

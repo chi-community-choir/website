@@ -55,7 +55,7 @@ pub fn events(model: Model) {
               })
             use each_post <- list.map(filtered_posts)
             html.div([], [
-              html.styles(
+              html.style(
                 [],
                 "
                 .post-card {
@@ -120,7 +120,7 @@ pub fn post(_model: Model, post: Post) -> Element(Msg) {
 
 pub fn create_post(model: Model) {
   html.div([], [
-    html.styles(
+    html.style(
       [],
       "
       .create-post-container {
