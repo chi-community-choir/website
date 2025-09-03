@@ -1,9 +1,9 @@
 import lustre/element/html
-import lustre/attribute.{style}
+import lustre/attribute.{styles}
 
 /// Default page styling, for uniformity
 pub fn page_default() {
-  style([
+  styles([
     #("display", "flex"),
     #("flex-direction", "column"),
     #("min-height", "100vh"),
@@ -14,7 +14,7 @@ pub fn page_default() {
 
 /// Container with two items side by side, wrapping on small screens.
 pub fn aside_wrap() {
-  style([
+  styles([
     #("display", "flex"),
     #("flex-flow", "row wrap"),
     #("align-items", "center"),
@@ -27,7 +27,7 @@ pub fn aside_wrap() {
 }
 
 pub fn styled_link() {
-  style([
+  styles([
     #("color", "#2c52FF"),
     #("text-decoration", "underline"),
     #("font-weight", "600"),
@@ -36,7 +36,7 @@ pub fn styled_link() {
 
 /// Limits the size of an image by its height
 pub fn img_md() {
-  style([
+  styles([
     #("max-width", "100%"),
     #("height", "auto"),
     #("max-height", "400px"),
@@ -45,7 +45,7 @@ pub fn img_md() {
 }
 
 pub fn img_full() {
-  style([
+  styles([
     #("max-width", "100%"),
     #("height", "auto"),
     #("object-fit", "contain"),

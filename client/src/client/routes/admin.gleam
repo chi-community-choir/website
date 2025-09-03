@@ -88,7 +88,7 @@ pub fn admin(model: Model) -> Element(Msg) {
           html.div([attribute.id("admin-login-header")], [
             html.h1([], [element.text("Welcome, Admin")]),
             html.p([
-              attribute.style([#("margin-top", "1rem"), #("color", "#4a5568")]),
+              attribute.styles([#("margin-top", "1rem"), #("color", "#4a5568")]),
             ], [
               element.text("You are already logged in as an administrator."),
             ]),
@@ -96,7 +96,7 @@ pub fn admin(model: Model) -> Element(Msg) {
           html.div([attribute.id("admin-login-form")], [
             html.button([
               event.on_click(msg.RequestLogout),
-              attribute.style([#("background-color", "#e53e3e")]),
+              attribute.styles([#("background-color", "#e53e3e")]),
             ], [
               element.text("Log Out"),
             ]),

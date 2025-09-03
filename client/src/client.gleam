@@ -107,7 +107,7 @@ fn init(model: Model) -> #(_, Effect(Msg)) {
 fn update(model: Model, msg: Msg) -> #(Model, Effect(Msg)) {
   case msg {
     msg.TestIncrement -> #(
-      Model(..model, test_model: TestModel(..model.test_model, counter: model.test_model.counter + 1)),
+      Model(..model, test_model: TestModel(counter: model.test_model.counter + 1)),
       effect.none()
     )
     msg.OnRouteChange(route) -> #(

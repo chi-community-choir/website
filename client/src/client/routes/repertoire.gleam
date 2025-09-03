@@ -5,18 +5,19 @@ import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
-import lustre/ui/classes
 import shared.{type Song}
 
 pub fn repertoire(model: Model) {
   html.div([], [
     html.div(
-      [attribute.style([#("display", "flex"), #("justify-content", "center")])],
-      [html.p([classes.font_alt()], [element.text("Repertoire")])],
+      [attribute.styles([#("display", "flex"), #("justify-content", "center")])],
+      [html.p([
+        // classes.font_alt()
+      ], [element.text("Repertoire")])],
     ),
     html.div(
       [
-        attribute.style([
+        attribute.styles([
           #("display", "flex"),
           #("flex-direction", "columns"),
           #("justify-content", "center"),

@@ -2,7 +2,7 @@ import client/lib/route.{type Route}
 import gleam/dynamic/decode
 import gleam/option.{type Option}
 import lustre_http
-import shared.{type AuthUser, type Post, type Song, Post, Song}
+import shared.{type AuthUser, type Post, type Song}
 
 pub type Msg {
   TestIncrement

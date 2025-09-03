@@ -2,10 +2,10 @@ import birl.{type Time}
 import birl/duration
 import gleam/dict.{type Dict}
 import gleam/erlang/process.{type Subject}
-import gleam/function
 import gleam/option.{type Option, None, Some}
 import gleam/otp/actor
-import gleam/otp/supervisor
+import gleam/otp/static_supervisor as static_supervisor
+import gleam/otp/supervision as supervision
 import shared.{type AuthUser}
 
 import gleam/int
@@ -22,45 +22,49 @@ pub type CacheMessage {
   Clean
 }
 
-pub fn initialize(parent_subject: Subject(Subject(CacheMessage))) {
-  let cache = supervisor.supervisor(start_cache(_, parent_subject))
-  let assert Ok(_supervisor_subject) =
-    supervisor.start_spec(
-      supervisor.Spec(
-        argument: dict.new(),
-        frequency_period: 1,
-        max_frequency: 5,
-        init: supervisor.add(_, cache),
-      ),
-    )
-  process.receive(parent_subject, within: 5000)
+// state for the actor: keep subject so we can schedule timers against it
+pub type State {
+  State(self: Subject(CacheMessage), cache: Dict(String, CacheEntry))
 }
 
-fn start_cache(
-  cache: Dict(String, CacheEntry),
-  parent_subject: Subject(Subject(CacheMessage)),
-) -> Result(Subject(CacheMessage), actor.StartError) {
-  actor.start_spec(actor.Spec(
-    init: fn() {
-      let actor_subject = process.new_subject()
-      process.send(parent_subject, actor_subject)
+// initialize: start a supervisor with a single worker child that starts the cache actor.
+// parent_subject is expected to receive the actor subject once it has started (handshake).
+pub fn initialize(parent_subject: Subject(Subject(CacheMessage))) {
+  let child = supervision.worker(fn() {
+    // supervision.worker expects a function that returns Result(actor.Started(...), actor.StartError)
+    start_cache(parent_subject)
+  })
 
-      process.start(
-        fn() {
-          process.sleep(10_000)
-          start_cleaner(actor_subject)
-          io.println("Cache cleaner started")
-        },
-        True,
-      )
+  let assert Ok(_supervisor) =
+    static_supervisor.new(static_supervisor.RestForOne)
+    |> static_supervisor.add(child)
+    |> static_supervisor.start
 
-      process.new_selector()
-      |> process.selecting(actor_subject, function.identity)
-      |> actor.Ready(cache, _)
-    },
-    init_timeout: 2000,
-    loop: handle_message,
-  ))
+  // wait for the child's subject to be sent to the parent_subject (same behaviour as before)
+  let _ = process.receive(parent_subject, 5000)
+}
+
+// start_cache: starts the actor using the builder + initialiser style
+fn start_cache(parent_subject: Subject(Subject(CacheMessage))) ->
+  Result(actor.Started(Subject(CacheMessage)), actor.StartError) {
+  actor.new_with_initialiser(2000, fn(self_subject) {
+    // send the actor's subject back to the parent for the handshake
+    process.send(parent_subject, self_subject)
+
+    // schedule the first cleaner activation after 10s (keeps original behaviour)
+    process.send_after(self_subject, 10_000, Clean)
+
+    // create a selector that listens to the actor's own subject
+    let selector = process.new_selector() |> process.select(self_subject)
+
+    // initial state: empty dict and our self subject
+    actor.initialised(State(self_subject, dict.new()))
+    |> actor.selecting(selector)
+    |> actor.returning(self_subject)
+    |> Ok
+  })
+  |> actor.on_message(handle_message)
+  |> actor.start
 }
 
 pub fn cache_put(
@@ -76,17 +80,13 @@ pub fn cache_get(
   cache: Subject(CacheMessage),
   token: String,
 ) -> Option(CacheEntry) {
-  actor.call(cache, Get(token, _), 5000)
+  // use the sending-fn style so actor.call provides a reply subject into the message
+  actor.call(cache, 5000, fn(reply) { Get(token, reply) })
 }
 
 pub fn cache_remove(cache: Subject(CacheMessage), token: String) -> Nil {
   actor.send(cache, Remove(token))
 }
-
-// fn cache_debug_print(cache: Dict(String, CacheEntry)) -> Nil {
-//   io.println("PRINTING FULL CACHE\n----------------")
-//   dict.each(cache, print_entry)
-// }
 
 fn print_entry(token: String, entry: CacheEntry) -> Nil {
   let CacheEntry(id, role, time) = entry
@@ -103,73 +103,66 @@ fn print_entry(token: String, entry: CacheEntry) -> Nil {
 }
 
 fn handle_message(
+  state: State,
   msg: CacheMessage,
-  cache: Dict(String, CacheEntry),
-) -> actor.Next(CacheMessage, Dict(String, CacheEntry)) {
-  // io.println("Handling cache message")
-  // case dict.is_empty(cache) {
-  //   True -> io.println("Cache is empty")
-  //   False -> cache_debug_print(cache)
-  // }
+) -> actor.Next(State, CacheMessage) {
+  let State(self_subject, cache) = state
+
   case msg {
     Put(token, entry) -> {
-      io.println("Inserting entry into cache:")
+      io.println("inserting entry into cache:")
       print_entry(token, entry)
-      actor.continue(dict.insert(cache, token, entry))
+      actor.continue(State(self_subject, dict.insert(cache, token, entry)))
     }
-    Get(token, reply_to) ->
+
+    Get(token, reply_to) -> {
       case dict.get(cache, token) {
         Ok(entry) -> {
-          let CacheEntry(id, is_admin, _) = entry
-          io.println("Got user id from cache: " <> int.to_string(id))
-          let updated_entry = CacheEntry(id, is_admin, birl.now())
-          process.send(reply_to, Some(updated_entry))
-          actor.continue(dict.insert(cache, token, updated_entry))
+          let CacheEntry(id, role, _) = entry
+          io.println("got user id from cache: " <> int.to_string(id))
+          let updated = CacheEntry(id, role, birl.now( ))
+          // reply and update timestamp in cache
+          process.send(reply_to, Some(updated))
+          actor.continue(State(self_subject, dict.insert(cache, token, updated)))
         }
         Error(_) -> {
-          io.println("No associated user id found in cache")
+          io.println("no associated user id found in cache")
           process.send(reply_to, None)
-          actor.continue(cache)
+          actor.continue(state)
         }
       }
-    Remove(token) -> {
-      io.println("Removing id from cache associated with token: " <> token)
-      actor.continue(dict.drop(cache, [token]))
     }
+
+    Remove(token) -> {
+      io.println("removing id from cache associated with token: " <> token)
+      actor.continue(State(self_subject, dict.drop(cache, [token])))
+    }
+
     Clean -> {
-      actor.continue(
+      // filter out aged entries; keep entries where age < 5 minutes
+      let new_cache =
         dict.filter(cache, fn(_token, entry) {
           case entry {
             CacheEntry(id, _, timestamp) -> {
-              case
+              let diff_ms =
                 birl.difference(birl.now(), timestamp)
                 |> duration.blur_to(duration.Minute)
-              {
+              case diff_ms {
                 diff if diff >= 5 -> {
-                  io.println(
-                    "Removing entry from cache via cleaner. Id: "
-                    <> int.to_string(id),
-                  )
-                  io.println("Age: " <> int.to_string(diff) <> " minutes")
+                  io.println("removing entry from cache via cleaner. id: " <> int.to_string(id))
+                  io.println("age: " <> int.to_string(diff) <> " minutes")
                   False
                 }
                 _ -> True
               }
             }
           }
-        }),
-      )
+        })
+
+      // schedule next clean in 60s
+      process.send_after(self_subject, 60_000, Clean)
+      actor.continue(State(self_subject, new_cache))
     }
   }
 }
 
-fn start_cleaner(cache_subject: Subject(CacheMessage)) {
-  process.start(cleaner(cache_subject), True)
-}
-
-/// Sends `Clean` message to cache every 60 seconds.
-fn cleaner(cache_subject: Subject(CacheMessage)) {
-  process.sleep(60_000)
-  actor.send(cache_subject, Clean)
-  cleaner(cache_subject)
-}

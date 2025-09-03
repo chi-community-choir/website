@@ -17,14 +17,13 @@ import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
-import lustre/ui/styles
 import shared.{User, Admin}
 
 pub fn app(model: Model) -> Element(Msg) {
   html.div([], [
-    styles.elements(),
+    // styles.elements(),
     navbar.navbar(model),
-    html.div([attribute.style([#("width", "full"), #("margin", "0 auto")])], [
+    html.div([attribute.styles([#("width", "full"), #("margin", "0 auto")])], [
       case model.route, model.auth_user {
         Index, _ -> index.index(model)
         About, _ -> about.about(model)
@@ -53,7 +52,7 @@ pub fn app(model: Model) -> Element(Msg) {
 fn error_page(message: String) {
   html.div(
     [
-      attribute.style([
+      attribute.styles([
         #("display", "flex"),
         #("flex-direction", "column"),
         #("align-items", "center"),
@@ -65,7 +64,7 @@ fn error_page(message: String) {
     [
       html.h1(
         [
-          attribute.style([
+          attribute.styles([
             #("font-size", "2.5rem"),
             #("font-weight", "bold"),
             #("margin-bottom", "1rem"),
@@ -76,7 +75,7 @@ fn error_page(message: String) {
       ),
       html.p(
         [
-          attribute.style([
+          attribute.styles([
             #("font-size", "1.1rem"),
             #("color", "#666"),
             #("margin", "1rem 0"),
@@ -87,7 +86,7 @@ fn error_page(message: String) {
       html.a(
         [
           attribute.href("/"),
-          attribute.style([
+          attribute.styles([
             #("color", "#0066cc"),
             #("text-decoration", "underline"),
             #("font-size", "1.5rem"),

@@ -8,20 +8,17 @@ import gleam/option.{None, Some}
 import lustre/attribute
 import lustre/element.{type Element}
 import lustre/element/html
-import lustre/ui
-import lustre/ui/button
-import lustre/ui/classes
 import shared.{type Post, Admin}
 
 pub fn events(model: Model) {
   html.div([], [
     html.div(
-      [attribute.style([#("display", "flex"), #("justify-content", "center")])],
-      [html.h1([classes.text_4xl()], [element.text("Events")])],
+      [attribute.styles([#("display", "flex"), #("justify-content", "center")])],
+      [html.h1([], [element.text("Events")])],
     ),
     html.div(
       [
-        attribute.style([
+        attribute.styles([
           #("display", "flex"),
           #("flex-direction", "column"),
           #("justify-content", "left"),
@@ -30,18 +27,17 @@ pub fn events(model: Model) {
       ],
       [
         // search bar, admin "create post" button
-        ui.input([
+        html.input([
           event.on_input(msg.PostUpdateSearchBar),
           attribute.placeholder("Search Posts:"),
-          attribute.style([
+          attribute.styles([
             #("border-radius", "4px"),
             #("border", "2px solid #ccc"),
           ]),
         ]),
         case model.auth_user {
           Some(Admin) -> {
-            html.a([attribute.href("/events/create-post")], [ui.button([
-              button.solid(),
+            html.a([attribute.href("/events/create-post")], [html.button([
             ], [
               element.text("Create New Post")
             ])])
@@ -94,16 +90,16 @@ pub fn events(model: Model) {
 
 pub fn post(_model: Model, post: Post) -> Element(Msg) {
   html.div([
-    attribute.style([
+    attribute.styles([
     ]),
   ], [
     html.h1([
-      classes.text_2xl()
+      // classes.text_2xl()
     ], [
       html.strong([], [element.text(post.title)]),
     ]),
     html.p([
-      classes.text_lg()
+      // classes.text_lg()
     ], [
       element.text(post.excerpt)
     ]),
@@ -218,8 +214,7 @@ pub fn create_post(model: Model) {
 
     html.div([attribute.class("create-post-page")], [
       html.div([attribute.class("preview-toggle")], [
-        ui.button([
-          button.solid(),
+        html.button([
           attribute.class("submit-button"),
           event.on_click(msg.CreatePostTogglePreview)
         ], [
@@ -238,8 +233,8 @@ pub fn create_post(model: Model) {
         ], [
         html.div([attribute.class("create-post-form")], [
           html.h1([
-            classes.text_3xl(),
-            attribute.style([#("margin-bottom", "2rem"), #("text-align", "center")]),
+            // classes.text_3xl(),
+            attribute.styles([#("margin-bottom", "2rem"), #("text-align", "center")]),
           ], [
             element.text("Create New Post")
           ]),
@@ -249,7 +244,7 @@ pub fn create_post(model: Model) {
             html.label([attribute.class("form-label")], [
               element.text("Title"),
             ]),
-            ui.input([
+            html.input([
               attribute.class("form-input"),
               attribute.placeholder("Enter event title..."),
               event.on_input(msg.CreatePostUpdateTitle),
@@ -262,7 +257,7 @@ pub fn create_post(model: Model) {
             html.label([attribute.class("form-label")], [
               element.text("Excerpt"),
             ]),
-            ui.input([
+            html.input([
               attribute.class("form-input"),
               attribute.placeholder("Enter a brief description..."),
               event.on_input(msg.CreatePostUpdateExcerpt),
@@ -288,7 +283,7 @@ pub fn create_post(model: Model) {
             html.label([attribute.class("form-label")], [
               element.text("Author"),
             ]),
-            ui.input([
+            html.input([
               attribute.class("form-input"),
               attribute.placeholder("Enter author name..."),
               event.on_input(msg.CreatePostUpdateAuthor),
@@ -301,10 +296,9 @@ pub fn create_post(model: Model) {
           // Check for "title already exists", especially. 
           // WARN: Can't have two identical slugs, could maybe increment.
           html.div([
-            attribute.style([#("text-align", "center")]),
+            attribute.styles([#("text-align", "center")]),
           ], [
-            ui.button([
-              button.solid(),
+            html.button([
               attribute.class("submit-button"),
               event.on_click(msg.RequestCreatePost),
             ], [
@@ -314,8 +308,8 @@ pub fn create_post(model: Model) {
         ]),
         html.div([attribute.class("create-post-preview")], [
           html.h1([
-            classes.text_3xl(),
-            attribute.style([#("margin-bottom", "2rem"), #("text-align", "center")]),
+            // classes.text_3xl(),
+            attribute.styles([#("margin-bottom", "2rem"), #("text-align", "center")]),
           ], [
             element.text("Post Preview:")
           ]),
@@ -333,7 +327,7 @@ pub fn show_post(model: Model) {
         html.div([], [
           case model.auth_user {
             Some(Admin) -> html.div([], [
-              ui.button([event.on_click(msg.RequestDeletePost)], [element.text("delete post")]),
+              html.button([event.on_click(msg.RequestDeletePost)], [element.text("delete post")]),
             ])
             _ -> element.none()
           },
@@ -342,7 +336,7 @@ pub fn show_post(model: Model) {
             element.element("markdown", [attribute.attribute("dangerous-unescaped-html", model.show_post_html)], []),
           ])
         ])
-      None -> html.div([], [html.p([attribute.style([#("font-size", "24px"), #("color", "red"), #("text-align", "center"), #("padding", "20px")])], [element.text("No post found")])])
+      None -> html.div([], [html.p([attribute.styles([#("font-size", "24px"), #("color", "red"), #("text-align", "center"), #("padding", "20px")])], [element.text("No post found")])])
     }
   ])
 }
@@ -352,7 +346,7 @@ pub fn show_preview(model: Model) {
     html.div([], [
       styles.markdown(),
       html.h1(
-        [attribute.style([#("text-align", "center"), #("color", "#333"), #("font-size", "2em"), #("margin", "20px 0")])],
+        [attribute.styles([#("text-align", "center"), #("color", "#333"), #("font-size", "2em"), #("margin", "20px 0")])],
         [element.text(case model.create_post_title {
           "" -> "[Title]"
           title -> title

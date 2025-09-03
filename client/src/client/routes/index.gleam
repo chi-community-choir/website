@@ -1,6 +1,6 @@
 import client/lib/model.{type Model}
 import client/styles
-import lustre/attribute.{alt, class, src, style}
+import lustre/attribute.{alt, class, src, styles}
 import lustre/element.{text}
 import lustre/element/html.{a, br, div, h1, h2, img, p, section}
 
@@ -8,7 +8,7 @@ pub fn index(_model: Model) {
   div(
     [
       styles.page_default(),
-      style([
+      styles([
         #("align-items", "center"),
         #("font-size", "18px"),
         #("line-height", "1.8"),
@@ -19,7 +19,7 @@ pub fn index(_model: Model) {
         div(
           [
             class("container"),
-            style([
+            styles([
               #("display", "flex"),
               #("justify-content", "center"),
               #("align-items", "center"),
@@ -32,7 +32,7 @@ pub fn index(_model: Model) {
                 "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/2019-12-13-Choir-Header-1.png",
               ),
               // 1280x325
-              style([
+              styles([
                 #("border-radius", "8px"),
                 #("max-width", "90%"),
                 #("height", "auto"),
@@ -46,7 +46,7 @@ pub fn index(_model: Model) {
       section([class("welcome")], [
         div(
           [
-            style([
+            styles([
               #("max-width", "900px"),
               #("margin", "0 auto 3rem"),
               #("padding", "2rem"),
@@ -58,7 +58,7 @@ pub fn index(_model: Model) {
           [
             h1(
               [
-                style([
+                styles([
                   #("color", "#1a365d"),
                   #("font-size", "2.5rem"),
                   #("margin-bottom", "1.5rem"),
@@ -69,7 +69,7 @@ pub fn index(_model: Model) {
             ),
             p(
               [
-                style([
+                styles([
                   #("font-size", "1.25rem"),
                   #("color", "#2d3748"),
                   #("margin-bottom", "1.5rem"),
@@ -87,7 +87,7 @@ pub fn index(_model: Model) {
       section([class("info-boxes")], [
         div(
           [
-            style([
+            styles([
               #("display", "grid"),
               #("grid-template-columns", "repeat(auto-fit, minmax(280px, 1fr))"),
               #("gap", "2rem"),
@@ -100,7 +100,7 @@ pub fn index(_model: Model) {
             // Next Rehearsal Box
             div(
               [
-                style([
+                styles([
                   #("background-color", "#ffffff"),
                   #("border", "2px solid #e2e8f0"),
                   #("border-radius", "12px"),
@@ -111,7 +111,7 @@ pub fn index(_model: Model) {
               [
                 h2(
                   [
-                    style([
+                    styles([
                       #("color", "#1a365d"),
                       #("font-size", "1.5rem"),
                       #("margin-bottom", "1rem"),
@@ -120,7 +120,7 @@ pub fn index(_model: Model) {
                   ],
                   [text("Next Rehearsal")],
                 ),
-                p([style([#("font-size", "1.25rem"), #("color", "#2d3748")])], [
+                p([styles([#("font-size", "1.25rem"), #("color", "#2d3748")])], [
                   text("Every Tuesday"),
                   br([]),
                   text("7:30 PM - 9:30 PM"),
@@ -130,7 +130,7 @@ pub fn index(_model: Model) {
                   a(
                     [
                       attribute.href("/find-us"),
-                      style([
+                      styles([
                         #("display", "inline-block"),
                         #("background-color", "#2c5282"),
                         #("color", "#ffffff"),
@@ -151,7 +151,7 @@ pub fn index(_model: Model) {
             // Join Us Box
             div(
               [
-                style([
+                styles([
                   #("background-color", "#ffffff"),
                   #("border", "2px solid #e2e8f0"),
                   #("border-radius", "12px"),
@@ -162,7 +162,7 @@ pub fn index(_model: Model) {
               [
                 h2(
                   [
-                    style([
+                    styles([
                       #("color", "#1a365d"),
                       #("font-size", "1.5rem"),
                       #("margin-bottom", "1rem"),
@@ -173,7 +173,7 @@ pub fn index(_model: Model) {
                 ),
                 p(
                   [
-                    style([
+                    styles([
                       #("font-size", "1.25rem"),
                       #("color", "#2d3748"),
                       #("margin-bottom", "1rem"),
@@ -188,7 +188,7 @@ pub fn index(_model: Model) {
                 a(
                   [
                     attribute.href("mailto:caroline@chicommunitychoir.com"),
-                    style([
+                    styles([
                       #("display", "inline-block"),
                       #("background-color", "#2c5282"),
                       #("color", "#ffffff"),
@@ -208,7 +208,7 @@ pub fn index(_model: Model) {
             // Next Performance Box
             div(
               [
-                style([
+                styles([
                   #("background-color", "#ffffff"),
                   #("border", "2px solid #e2e8f0"),
                   #("border-radius", "12px"),
@@ -219,7 +219,7 @@ pub fn index(_model: Model) {
               [
                 h2(
                   [
-                    style([
+                    styles([
                       #("color", "#1a365d"),
                       #("font-size", "1.5rem"),
                       #("margin-bottom", "1rem"),
@@ -228,7 +228,7 @@ pub fn index(_model: Model) {
                   ],
                   [text("Latest News")],
                 ),
-                p([style([#("font-size", "1.25rem"), #("color", "#2d3748")])], [
+                p([styles([#("font-size", "1.25rem"), #("color", "#2d3748")])], [
                   text("Stay tuned for upcoming performances and events!"),
                 ]),
               ],
@@ -239,7 +239,7 @@ pub fn index(_model: Model) {
       section([class("CTA-bottom")], [
         div(
           [
-            style([
+            styles([
               #("background-color", "#f0f4f8"),
               #("padding", "2rem"),
               #("text-align", "center"),
@@ -251,7 +251,7 @@ pub fn index(_model: Model) {
           [
             h2(
               [
-                style([
+                styles([
                   #("color", "#1a365d"),
                   #("font-size", "1.8rem"),
                   #("margin-bottom", "1rem"),
@@ -262,7 +262,7 @@ pub fn index(_model: Model) {
             ),
             p(
               [
-                style([
+                styles([
                   #("font-size", "1.25rem"),
                   #("color", "#2d3748"),
                   #("margin-bottom", "1.5rem"),

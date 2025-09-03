@@ -9,7 +9,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
   html.div(
     [
       styles.page_default(),
-      attribute.style([
+      attribute.styles([
         #("background-color", "#f5f5f5"),
         #("font-size", "20px"),
         #("line-height", "1.6"),
@@ -19,7 +19,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
       // Hero section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("background-color", "#2c5282"),
             #("color", "white"),
             #("padding", "3rem 0"),
@@ -30,7 +30,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
         [
           html.h1(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "3rem"),
                 #("margin-bottom", "1rem"),
               ]),
@@ -39,7 +39,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("max-width", "800px"),
                 #("margin", "0 auto"),
                 #("font-size", "1.2rem"),
@@ -56,7 +56,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
       // Location section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -68,7 +68,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("color", "#1a365d"),
                 #("text-align", "center"),
@@ -80,7 +80,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             // Map embed
             html.div(
               [
-                attribute.style([
+                attribute.styles([
                   #("flex", "1 1 400px"),
                   #("min-width", "300px"),
                 ]),
@@ -88,7 +88,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
               [
                 html.div(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("background-color", "#e2e8f0"),
                       #("border-radius", "8px"),
                       #("height", "350px"),
@@ -105,7 +105,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                       ),
                       attribute.width(600),
                       attribute.height(450),
-                      attribute.style([
+                      attribute.styles([
                         #("border", "0"),
                         #("allowfullscreen", ""),
                         #("loading", "lazy"),
@@ -118,11 +118,11 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             ),
             // Address information
             html.div(
-              [attribute.style([#("flex", "1 1 400px"), #("padding", "1rem")])],
+              [attribute.styles([#("flex", "1 1 400px"), #("padding", "1rem")])],
               [
                 html.h3(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("font-size", "1.5rem"),
                       #("color", "#2c5282"),
                     ]),
@@ -130,15 +130,15 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                   [element.text("University of Chichester")],
                 ),
                 html.p([], [element.text("College Ln, Chichester, PO19 6PF")]),
-                html.p([attribute.style([#("margin-top", "1rem")])], [
+                html.p([attribute.styles([#("margin-top", "1rem")])], [
                   element.text(
                     "We rehearse every Tuesday evening from 6:45 PM to 8:15 PM in the cloisters at the University of Chichester. The building is accessible via public transit, with parking also available on the university grounds.",
                   ),
                 ]),
-                html.div([attribute.style([#("margin-top", "1.5rem")])], [
+                html.div([attribute.styles([#("margin-top", "1.5rem")])], [
                   html.h4(
                     [
-                      attribute.style([
+                      attribute.styles([
                         #("font-size", "1.2rem"),
                         #("margin-bottom", "0.5rem"),
                         #("color", "#2c5282"),
@@ -155,7 +155,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                         attribute.href(
                           "https://www.stagecoachbus.com/timetables",
                         ),
-                        attribute.style([
+                        attribute.styles([
                           #("color", "#2c52FF"),
                           #("text-decoration", "underline"),
                           #("font-weight", "600"),
@@ -179,7 +179,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
       // Access directions section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -191,7 +191,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -203,7 +203,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           html.a([attribute.href("https://maps.chi.ac.uk/#room=C01-0-31")], [
             html.div(
               [
-                attribute.style([
+                attribute.styles([
                   #("background-color", "#b2babc"),
                   #("padding", "1rem"),
                   #("border-radius", "8px"),
@@ -215,7 +215,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
               [
                 html.p(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("text-align", "center"),
                       #("margin-bottom", "0"),
                       #("max-width", "800px"),
@@ -246,7 +246,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
       // Parking section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -258,7 +258,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -269,7 +269,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("text-align", "center"),
                 #("margin-bottom", "1rem"),
                 #("max-width", "800px"),
@@ -285,7 +285,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("text-align", "center"),
                 #("margin-bottom", "2rem"),
                 #("max-width", "800px"),
@@ -302,7 +302,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           // Parking options main container
           html.div(
             [
-              attribute.style([
+              attribute.styles([
                 #("display", "flex"),
                 #("flex-direction", "column"),
                 #("gap", "2rem"),
@@ -312,7 +312,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
               // Payment section
               html.div(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("border", "1px solid #e2e8f0"),
                     #("border-radius", "8px"),
                     #("overflow", "hidden"),
@@ -322,7 +322,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                   // Section header
                   html.div(
                     [
-                      attribute.style([
+                      attribute.styles([
                         #("background-color", "#2c5282"),
                         #("color", "white"),
                         #("padding", "1rem 1.5rem"),
@@ -331,7 +331,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                     [
                       html.h3(
                         [
-                          attribute.style([
+                          attribute.styles([
                             #("margin", "0"),
                             #("font-size", "1.5rem"),
                           ]),
@@ -341,7 +341,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                     ],
                   ),
                   // Section content
-                  html.div([attribute.style([#("padding", "1.5rem")])], [
+                  html.div([attribute.styles([#("padding", "1.5rem")])], [
                     html.p([], [
                       element.text(
                         "Parking at the university is managed by paybyphone. See below for details of how to park using their website:",
@@ -349,7 +349,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                     ]),
                     html.div(
                       [
-                        attribute.style([
+                        attribute.styles([
                           #("margin-top", "1rem"),
                           #("display", "flex"),
                           #("flex-wrap", "wrap"),
@@ -369,7 +369,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                               "Link",
                               html.p(
                                 [
-                                  attribute.style([
+                                  attribute.styles([
                                     #("margin", "0"),
                                     #("color", "#2c52FF"),
                                     #("text-decoration", "underline"),
@@ -386,7 +386,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                           "Location Number",
                           html.p(
                             [
-                              attribute.style([
+                              attribute.styles([
                                 #("margin", "0"),
                                 #("color", "#4a5568"),
                               ]),
@@ -399,7 +399,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                           "Cost",
                           html.p(
                             [
-                              attribute.style([
+                              attribute.styles([
                                 #("margin", "0"),
                                 #("color", "#4a5568"),
                               ]),
@@ -415,7 +415,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
               // Accessibility parking information
               html.div(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("border", "1px solid #e2e8f0"),
                     #("border-radius", "8px"),
                     #("overflow", "hidden"),
@@ -425,7 +425,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                   // Section header
                   html.div(
                     [
-                      attribute.style([
+                      attribute.styles([
                         #("background-color", "#2c5282"),
                         #("color", "white"),
                         #("padding", "1rem 1.5rem"),
@@ -434,7 +434,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                     [
                       html.h3(
                         [
-                          attribute.style([
+                          attribute.styles([
                             #("margin", "0"),
                             #("font-size", "1.5rem"),
                           ]),
@@ -444,7 +444,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                     ],
                   ),
                   // Section content
-                  html.div([attribute.style([#("padding", "1.5rem")])], [
+                  html.div([attribute.styles([#("padding", "1.5rem")])], [
                     html.p([], [
                       element.text(
                         "There is accessible parking available throughout the university campus.",
@@ -454,7 +454,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
                       html.p(
                         [
                           styles.styled_link(),
-                          attribute.style([#("margin-top", "1rem")]),
+                          attribute.styles([#("margin-top", "1rem")]),
                         ],
                         [
                           element.text(
@@ -473,7 +473,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
       // Contact section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("background-color", "#1a365d"),
             #("color", "white"),
             #("padding", "3rem 1rem"),
@@ -483,7 +483,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
               ]),
@@ -492,7 +492,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("max-width", "600px"),
                 #("margin", "0 auto 1.5rem auto"),
               ]),
@@ -505,7 +505,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
           ),
           html.div(
             [
-              attribute.style([
+              attribute.styles([
                 #("display", "flex"),
                 #("flex-wrap", "wrap"),
                 #("justify-content", "center"),
@@ -515,7 +515,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             ],
             [
               html.div([], [
-                html.p([attribute.style([#("font-weight", "bold")])], [
+                html.p([attribute.styles([#("font-weight", "bold")])], [
                   element.text("Email"),
                 ]),
                 html.p([], [element.text("caroline@chicommunitychoir.com")]),
@@ -526,7 +526,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
             //   [
             //     html.p(
             //       [
-            //         attribute.style([
+            //         attribute.styles([
             //           #("font-weight", "bold"),
             //         ]),
             //       ],
@@ -546,7 +546,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
 // fn venue_card(name: String, address: String, description: String) -> Element(Msg) {
 //   html.div(
 //     [
-//       attribute.style([
+//       attribute.styles([
 //         #("background-color", "white"),
 //         #("border-radius", "8px"),
 //         #("overflow", "hidden"),
@@ -559,7 +559,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
 //     [
 //       html.div(
 //         [
-//           attribute.style([
+//           attribute.styles([
 //             #("background-color", "#f8fafc"),
 //             #("height", "120px"),
 //             #("display", "flex"),
@@ -576,14 +576,14 @@ pub fn find_us(_model: Model) -> Element(Msg) {
 //       ),
 //       html.div(
 //         [
-//           attribute.style([
+//           attribute.styles([
 //             #("padding", "1.5rem"),
 //           ]),
 //         ],
 //         [
 //           html.p(
 //             [
-//               attribute.style([
+//               attribute.styles([
 //                 #("color", "#4a5568"),
 //                 #("margin-bottom", "1rem"),
 //                 #("font-style", "italic"),
@@ -593,7 +593,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
 //           ),
 //           html.p(
 //             [
-//               attribute.style([
+//               attribute.styles([
 //                 #("color", "#2d3748"),
 //               ]),
 //             ],
@@ -608,7 +608,7 @@ pub fn find_us(_model: Model) -> Element(Msg) {
 fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
   html.div(
     [
-      attribute.style([
+      attribute.styles([
         #("background-color", "#f8fafc"),
         #("border-radius", "6px"),
         #("padding", "1rem"),
@@ -619,7 +619,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
     [
       html.h4(
         [
-          attribute.style([
+          attribute.styles([
             #("margin", "0 0 0.5rem 0"),
             #("color", "#2c5282"),
             #("font-size", "1.1rem"),
@@ -640,7 +640,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 // ) -> Element(Msg) {
 //   html.div(
 //     [
-//       attribute.style([
+//       attribute.styles([
 //         #("background-color", "white"),
 //         #("border", "1px solid #e2e8f0"),
 //         #("border-radius", "8px"),
@@ -651,7 +651,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //     [
 //       html.div(
 //         [
-//           attribute.style([
+//           attribute.styles([
 //             #("background-color", "#f0f9ff"),
 //             #("border-bottom", "1px solid #e2e8f0"),
 //             #("padding", "1rem"),
@@ -660,7 +660,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //         [
 //           html.h4(
 //             [
-//               attribute.style([
+//               attribute.styles([
 //                 #("margin", "0"),
 //                 #("color", "#2c5282"),
 //                 #("font-size", "1.2rem"),
@@ -672,14 +672,14 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //       ),
 //       html.div(
 //         [
-//           attribute.style([
+//           attribute.styles([
 //             #("padding", "1rem"),
 //           ]),
 //         ],
 //         [
 //           html.p(
 //             [
-//               attribute.style([
+//               attribute.styles([
 //                 #("margin", "0 0 0.5rem 0"),
 //                 #("font-style", "italic"),
 //                 #("color", "#4a5568"),
@@ -689,7 +689,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //           ),
 //           html.div(
 //             [
-//               attribute.style([
+//               attribute.styles([
 //                 #("margin-top", "1rem"),
 //                 #("display", "grid"),
 //                 #("grid-template-columns", "auto 1fr"),
@@ -700,7 +700,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //             [
 //               html.div(
 //                 [
-//                   attribute.style([
+//                   attribute.styles([
 //                     #("font-weight", "bold"),
 //                     #("color", "#4a5568"),
 //                   ]),
@@ -710,7 +710,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //               html.div([], [element.text(rates)]),
 //               html.div(
 //                 [
-//                   attribute.style([
+//                   attribute.styles([
 //                     #("font-weight", "bold"),
 //                     #("color", "#4a5568"),
 //                   ]),
@@ -720,7 +720,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //               html.div([], [element.text(hours)]),
 //               html.div(
 //                 [
-//                   attribute.style([
+//                   attribute.styles([
 //                     #("font-weight", "bold"),
 //                     #("color", "#4a5568"),
 //                   ]),
@@ -739,7 +739,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 // fn payment_method_card(title: String, description: String) -> Element(Msg) {
 //   html.div(
 //     [
-//       attribute.style([
+//       attribute.styles([
 //         #("background-color", "#f8fafc"),
 //         #("border-radius", "8px"),
 //         #("padding", "1.2rem"),
@@ -751,7 +751,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //     [
 //       html.h4(
 //         [
-//           attribute.style([
+//           attribute.styles([
 //             #("margin", "0 0 0.8rem 0"),
 //             #("color", "#2c5282"),
 //             #("font-size", "1.1rem"),
@@ -761,7 +761,7 @@ fn parking_detail_box(title: String, content: Element(Msg)) -> Element(Msg) {
 //       ),
 //       html.p(
 //         [
-//           attribute.style([
+//           attribute.styles([
 //             #("margin", "0"),
 //             #("color", "#4a5568"),
 //             #("font-size", "0.9rem"),

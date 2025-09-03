@@ -11,7 +11,7 @@ pub fn membership(model: Model) -> Element(Msg) {
   html.div(
     [
       styles.page_default(),
-      attribute.style([
+      attribute.styles([
         #("background-color", "#f5f5f5"),
         #("font-size", "20px"),
         #("line-height", "1.6"),
@@ -21,7 +21,7 @@ pub fn membership(model: Model) -> Element(Msg) {
       // Hero section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("background-color", "#2c5282"),
             #("color", "white"),
             #("padding", "3rem 1rem"),
@@ -32,7 +32,7 @@ pub fn membership(model: Model) -> Element(Msg) {
         [
           html.h1(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "3rem"),
                 #("margin-bottom", "1rem"),
               ]),
@@ -41,7 +41,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("max-width", "800px"),
                 #("margin", "0 auto"),
                 #("font-size", "1.2rem"),
@@ -58,7 +58,7 @@ pub fn membership(model: Model) -> Element(Msg) {
       // Membership fees section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -70,7 +70,7 @@ pub fn membership(model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -81,7 +81,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("text-align", "center"),
                 #("max-width", "800px"),
                 #("margin", "0 auto 2rem auto"),
@@ -95,7 +95,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("text-align", "center"),
                 #("max-width", "800px"),
                 #("margin", "0 auto 2rem auto"),
@@ -109,7 +109,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
           html.div(
             [
-              attribute.style([
+              attribute.styles([
                 #("max-width", "800px"),
                 #("margin", "0 auto 2rem"),
                 #("background-color", "white"),
@@ -122,7 +122,7 @@ pub fn membership(model: Model) -> Element(Msg) {
             [
               html.h3(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("margin", "0 0 1rem 0"),
                     #("font-size", "1.5rem"),
                     #("color", "#2c5282"),
@@ -133,7 +133,7 @@ pub fn membership(model: Model) -> Element(Msg) {
               ),
               html.div(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("text-align", "center"),
                     #("margin-bottom", "1.5rem"),
                     #("padding", "1rem"),
@@ -144,7 +144,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                 [
                   html.span(
                     [
-                      attribute.style([
+                      attribute.styles([
                         #("font-size", "1.8rem"),
                         #("font-weight", "bold"),
                         #("color", "#2c5282"),
@@ -154,7 +154,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                   ),
                   html.span(
                     [
-                      attribute.style([
+                      attribute.styles([
                         #("font-size", "1.2rem"),
                         #("color", "#4a5568"),
                         #("margin-left", "0.5rem"),
@@ -166,7 +166,7 @@ pub fn membership(model: Model) -> Element(Msg) {
               ),
               html.p(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("text-align", "center"),
                     #("margin-bottom", "1.5rem"),
                     #("color", "#4a5568"),
@@ -178,10 +178,10 @@ pub fn membership(model: Model) -> Element(Msg) {
                   ),
                 ],
               ),
-              html.div([attribute.style([#("margin-bottom", "1.5rem")])], [
+              html.div([attribute.styles([#("margin-bottom", "1.5rem")])], [
                 html.h4(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("font-size", "1.2rem"),
                       #("color", "#2c5282"),
                       #("margin-bottom", "1rem"),
@@ -191,7 +191,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                 ),
                 html.ul(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("padding-left", "1.5rem"),
                       #("margin", "0"),
                       #("color", "#4a5568"),
@@ -207,7 +207,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                     ],
                     fn(benefit) {
                       html.li(
-                        [attribute.style([#("margin-bottom", "0.5rem")])],
+                        [attribute.styles([#("margin-bottom", "0.5rem")])],
                         [element.text(benefit)],
                       )
                     },
@@ -219,7 +219,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           // Payment options
           html.div(
             [
-              attribute.style([
+              attribute.styles([
                 #("background-color", "#f8fafc"),
                 #("border-radius", "8px"),
                 #("padding", "1.5rem"),
@@ -229,7 +229,7 @@ pub fn membership(model: Model) -> Element(Msg) {
             [
               html.h3(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("font-size", "1.5rem"),
                     #("margin-bottom", "1rem"),
                     #("color", "#2c5282"),
@@ -239,7 +239,7 @@ pub fn membership(model: Model) -> Element(Msg) {
               ),
               html.ul(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("padding-left", "1.5rem"),
                     #("margin-bottom", "1rem"),
                     #("list-style-type", "disc"),
@@ -254,7 +254,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                   ]),
                 ],
               ),
-              html.p([attribute.style([#("font-style", "italic")])], [
+              html.p([attribute.styles([#("font-style", "italic")])], [
                 element.text(
                   "Note: Membership fees are due on the 1st of each month.",
                 ),
@@ -264,7 +264,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                 None -> [
                   html.div(
                     [
-                      attribute.style([
+                      attribute.styles([
                         #("text-align", "center"),
                         #("background-color", "#4299e1"),
                         #("color", "white"),
@@ -283,7 +283,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                 Some(_) -> [
                   html.div(
                     [
-                      attribute.style([
+                      attribute.styles([
                         #("text-align", "center"),
                         #("background-color", "#4299e1"),
                         #("color", "white"),
@@ -298,7 +298,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                     [
                       html.div(
                         [
-                          attribute.style([
+                          attribute.styles([
                             #("font-weight", "bold"),
                             #("font-size", "1.3rem"),
                             #("margin-bottom", "1rem"),
@@ -306,12 +306,12 @@ pub fn membership(model: Model) -> Element(Msg) {
                         ],
                         [element.text("Payment Details 💳")],
                       ),
-                      html.div([attribute.style([#("font-size", "1.1rem")])], [
+                      html.div([attribute.styles([#("font-size", "1.1rem")])], [
                         element.text("Sort code: 00-00-00"),
                       ]),
                       html.div(
                         [
-                          attribute.style([
+                          attribute.styles([
                             #("margin-top", "0.5rem"),
                             #("font-size", "1.1rem"),
                           ]),
@@ -327,7 +327,7 @@ pub fn membership(model: Model) -> Element(Msg) {
       ),
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -339,7 +339,7 @@ pub fn membership(model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -350,7 +350,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
           html.div(
             [
-              attribute.style([
+              attribute.styles([
                 #("text-align", "center"),
                 #("max-width", "800px"),
                 #("margin", "0 auto"),
@@ -363,7 +363,7 @@ pub fn membership(model: Model) -> Element(Msg) {
                   "Your membership fees help keep the choir running smoothly! They cover essentials like sheet music, venue hire for rehearsals, insurance, and concert production costs.",
                 ),
               ]),
-              html.p([attribute.style([#("margin-top", "1rem")])], [
+              html.p([attribute.styles([#("margin-top", "1rem")])], [
                 element.text(
                   "Want more details about how we use the funds? Just ask - we're always happy to chat about our financial management.",
                 ),
@@ -375,7 +375,7 @@ pub fn membership(model: Model) -> Element(Msg) {
       // FAQ section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -387,7 +387,7 @@ pub fn membership(model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -417,7 +417,7 @@ pub fn membership(model: Model) -> Element(Msg) {
       // Contact section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("background-color", "#1a365d"),
             #("color", "white"),
             #("padding", "3rem 1rem"),
@@ -427,7 +427,7 @@ pub fn membership(model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
               ]),
@@ -436,7 +436,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("max-width", "600px"),
                 #("margin", "0 auto 1.5rem auto"),
               ]),
@@ -449,7 +449,7 @@ pub fn membership(model: Model) -> Element(Msg) {
           ),
           html.div(
             [
-              attribute.style([
+              attribute.styles([
                 #("display", "flex"),
                 #("flex-wrap", "wrap"),
                 #("justify-content", "center"),
@@ -459,7 +459,7 @@ pub fn membership(model: Model) -> Element(Msg) {
             ],
             [
               html.div([], [
-                html.p([attribute.style([#("font-weight", "bold")])], [
+                html.p([attribute.styles([#("font-weight", "bold")])], [
                   element.text("Email"),
                 ]),
                 html.p([], [element.text("caroline@chicommunitychoir.com")]),
@@ -469,7 +469,7 @@ pub fn membership(model: Model) -> Element(Msg) {
             //   [
             //     html.p(
             //       [
-            //         attribute.style([
+            //         attribute.styles([
             //           #("font-weight", "bold"),
             //         ]),
             //       ],
@@ -489,7 +489,7 @@ pub fn membership(model: Model) -> Element(Msg) {
 fn faq_item(question: String, answer: String) -> Element(Msg) {
   html.div(
     [
-      attribute.style([
+      attribute.styles([
         #("margin-bottom", "1.5rem"),
         #("border-bottom", "1px solid #e2e8f0"),
         #("padding-bottom", "1.5rem"),
@@ -498,7 +498,7 @@ fn faq_item(question: String, answer: String) -> Element(Msg) {
     [
       html.h3(
         [
-          attribute.style([
+          attribute.styles([
             #("margin", "0 0 0.75rem 0"),
             #("font-size", "1.3rem"),
             #("color", "#2c5282"),
@@ -506,7 +506,7 @@ fn faq_item(question: String, answer: String) -> Element(Msg) {
         ],
         [element.text(question)],
       ),
-      html.p([attribute.style([#("margin", "0"), #("color", "#4a5568")])], [
+      html.p([attribute.styles([#("margin", "0"), #("color", "#4a5568")])], [
         element.text(answer),
       ]),
     ],

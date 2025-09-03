@@ -206,6 +206,6 @@ fn page_routes(
   |> wisp.html_body(
     client.view(model)
     |> scaffold.page_scaffold(encoder.initial_state_encoder(model))
-    |> element.to_document_string_builder(),
+    |> element.to_document_string_tree(),
   )
 }

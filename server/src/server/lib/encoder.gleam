@@ -3,7 +3,7 @@ import gleam/function
 import gleam/json.{type Json}
 import gleam/list
 import gleam/option.{None, Some}
-import shared.{type Post, type Song, Post, Song, User, Admin}
+import shared.{type Post, type Song, User, Admin}
 
 fn songs_encoder(songs: List(Song)) -> List(Json) {
   songs

@@ -3,7 +3,7 @@ import gleam/http/request
 import gleam/string
 import gleam/option.{None, Some}
 import client/lib/decoder
-import client/lib/model.{type Model, Model}
+import client/lib/model.{type Model}
 import client/lib/msg.{type Msg}
 import client/lib/route
 import gleam/dynamic/decode

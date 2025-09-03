@@ -9,7 +9,7 @@ pub fn about(_model: Model) -> Element(Msg) {
   html.div(
     [
       styles.page_default(),
-      attribute.style([
+      attribute.styles([
         #("background-color", "#f5f5f5"),
         #("font-size", "20px"),
         #("line-height", "1.6"),
@@ -19,7 +19,7 @@ pub fn about(_model: Model) -> Element(Msg) {
       // Hero section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("background-color", "#2c5282"),
             #("color", "white"),
             #("padding", "3rem 1rem"),
@@ -30,7 +30,7 @@ pub fn about(_model: Model) -> Element(Msg) {
         [
           html.h1(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "3rem"),
                 #("margin-bottom", "1rem"),
               ]),
@@ -39,7 +39,7 @@ pub fn about(_model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("max-width", "800px"),
                 #("margin", "0 auto"),
                 #("font-size", "1.2rem"),
@@ -56,7 +56,7 @@ pub fn about(_model: Model) -> Element(Msg) {
       // Directors section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -68,7 +68,7 @@ pub fn about(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -81,7 +81,7 @@ pub fn about(_model: Model) -> Element(Msg) {
             // Directors image
             html.div(
               [
-                attribute.style([#("flex", "1 1 3rem"), #("min-width", "300px")]),
+                attribute.styles([#("flex", "1 1 3rem"), #("min-width", "300px")]),
               ],
               [
                 html.img([
@@ -89,7 +89,7 @@ pub fn about(_model: Model) -> Element(Msg) {
                   attribute.src(
                     "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/Caroline-and-John-1.jpg",
                   ),
-                  attribute.style([
+                  attribute.styles([
                     #("max-width", "100%"),
                     #("height", "auto"),
                     #("max-height", "400px"),
@@ -102,11 +102,11 @@ pub fn about(_model: Model) -> Element(Msg) {
             ),
             // Directors information
             html.div(
-              [attribute.style([#("flex", "1 1 400px"), #("padding", "1rem")])],
+              [attribute.styles([#("flex", "1 1 400px"), #("padding", "1rem")])],
               [
                 html.p(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("margin-bottom", "1.5rem"),
                       #("font-size", "1.1rem"),
                     ]),
@@ -119,7 +119,7 @@ pub fn about(_model: Model) -> Element(Msg) {
                 ),
                 html.p(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("margin-bottom", "1.5rem"),
                       #("font-size", "1.1rem"),
                     ]),
@@ -130,7 +130,7 @@ pub fn about(_model: Model) -> Element(Msg) {
                     ),
                   ],
                 ),
-                html.p([attribute.style([#("font-size", "1.1rem")])], [
+                html.p([attribute.styles([#("font-size", "1.1rem")])], [
                   text(
                     "With backgrounds in music education and performance, they specialize in helping choir members develop their vocal skills while fostering a strong sense of community and enjoyment.",
                   ),
@@ -143,7 +143,7 @@ pub fn about(_model: Model) -> Element(Msg) {
       // Choir information section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -155,7 +155,7 @@ pub fn about(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -165,11 +165,11 @@ pub fn about(_model: Model) -> Element(Msg) {
             [text("Our Choir")],
           ),
           html.div(
-            [attribute.style([#("max-width", "900px"), #("margin", "0 auto")])],
+            [attribute.styles([#("max-width", "900px"), #("margin", "0 auto")])],
             [
               html.p(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("margin-bottom", "1.5rem"),
                     #("font-size", "1.1rem"),
                     #("text-align", "center"),
@@ -183,7 +183,7 @@ pub fn about(_model: Model) -> Element(Msg) {
               ),
               html.div(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("display", "flex"),
                     #("flex-wrap", "wrap"),
                     #("gap", "2rem"),
@@ -213,7 +213,7 @@ pub fn about(_model: Model) -> Element(Msg) {
       // Rehearsal information
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -225,7 +225,7 @@ pub fn about(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("color", "#1a365d"),
                 #("text-align", "center"),
@@ -237,7 +237,7 @@ pub fn about(_model: Model) -> Element(Msg) {
             // Rehearsal details
             html.div(
               [
-                attribute.style([
+                attribute.styles([
                   #("flex", "1 1 400px"),
                   #("padding", "2rem"),
                   #("background-color", "rgba(255, 255, 255, 0.7)"),
@@ -248,7 +248,7 @@ pub fn about(_model: Model) -> Element(Msg) {
               [
                 html.h3(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("font-size", "1.5rem"),
                       #("margin-bottom", "1rem"),
                       #("color", "#2c5282"),
@@ -256,12 +256,12 @@ pub fn about(_model: Model) -> Element(Msg) {
                   ],
                   [text("When & Where")],
                 ),
-                html.p([attribute.style([#("margin-bottom", "1rem")])], [
+                html.p([attribute.styles([#("margin-bottom", "1rem")])], [
                   text("Tuesday Evenings"),
                   html.br([]),
                   text("7:30 PM - 9:30 PM"),
                 ]),
-                html.p([attribute.style([#("margin-bottom", "1.5rem")])], [
+                html.p([attribute.styles([#("margin-bottom", "1.5rem")])], [
                   text("University of Chichester"),
                   html.br([]),
                   text("College Ln"),
@@ -273,7 +273,7 @@ pub fn about(_model: Model) -> Element(Msg) {
                   html.a(
                     [
                       attribute.href("mailto:caroline@chicommunitychoir.com"),
-                      attribute.style([
+                      attribute.styles([
                         #("color", "#2c5282"),
                         #("font-weight", "600"),
                         #("text-decoration", "underline"),
@@ -287,7 +287,7 @@ pub fn about(_model: Model) -> Element(Msg) {
             // What to expect
             html.div(
               [
-                attribute.style([
+                attribute.styles([
                   #("flex", "1 1 400px"),
                   #("padding", "2rem"),
                   #("background-color", "rgba(255, 255, 255, 0.7)"),
@@ -298,7 +298,7 @@ pub fn about(_model: Model) -> Element(Msg) {
               [
                 html.h3(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("font-size", "1.5rem"),
                       #("margin-bottom", "1rem"),
                       #("color", "#2c5282"),
@@ -308,22 +308,22 @@ pub fn about(_model: Model) -> Element(Msg) {
                 ),
                 html.ul(
                   [
-                    attribute.style([
+                    attribute.styles([
                       #("list-style-type", "disc"),
                       #("padding-left", "1.5rem"),
                     ]),
                   ],
                   [
-                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                    html.li([attribute.styles([#("margin-bottom", "0.5rem")])], [
                       text("Warm-up exercises to prepare your voice"),
                     ]),
-                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                    html.li([attribute.styles([#("margin-bottom", "0.5rem")])], [
                       text("Section practice for each voice part"),
                     ]),
-                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                    html.li([attribute.styles([#("margin-bottom", "0.5rem")])], [
                       text("Full ensemble work on current repertoire"),
                     ]),
-                    html.li([attribute.style([#("margin-bottom", "0.5rem")])], [
+                    html.li([attribute.styles([#("margin-bottom", "0.5rem")])], [
                       text("A mix of sight-reading and learning by ear"),
                     ]),
                     html.li([], [text("Plenty of laughter and enjoyment!")]),
@@ -337,7 +337,7 @@ pub fn about(_model: Model) -> Element(Msg) {
       // History section
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("max-width", "1200px"),
             #("margin", "0 auto 3rem auto"),
             #("padding", "2rem"),
@@ -349,7 +349,7 @@ pub fn about(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
                 #("color", "#1a365d"),
@@ -359,11 +359,11 @@ pub fn about(_model: Model) -> Element(Msg) {
             [text("Our History")],
           ),
           html.div(
-            [attribute.style([#("max-width", "800px"), #("margin", "0 auto")])],
+            [attribute.styles([#("max-width", "800px"), #("margin", "0 auto")])],
             [
               html.p(
                 [
-                  attribute.style([
+                  attribute.styles([
                     #("margin-bottom", "1.5rem"),
                     #("font-size", "1.1rem"),
                     #("text-align", "center"),
@@ -382,7 +382,7 @@ pub fn about(_model: Model) -> Element(Msg) {
       // Join us call to action
       html.section(
         [
-          attribute.style([
+          attribute.styles([
             #("background-color", "#1a365d"),
             #("color", "white"),
             #("padding", "3rem 1rem"),
@@ -392,7 +392,7 @@ pub fn about(_model: Model) -> Element(Msg) {
         [
           html.h2(
             [
-              attribute.style([
+              attribute.styles([
                 #("font-size", "2rem"),
                 #("margin-bottom", "1.5rem"),
               ]),
@@ -401,7 +401,7 @@ pub fn about(_model: Model) -> Element(Msg) {
           ),
           html.p(
             [
-              attribute.style([
+              attribute.styles([
                 #("max-width", "600px"),
                 #("margin", "0 auto 1.5rem auto"),
                 #("font-size", "1.2rem"),
@@ -416,7 +416,7 @@ pub fn about(_model: Model) -> Element(Msg) {
           html.a(
             [
               attribute.href("membership"),
-              attribute.style([
+              attribute.styles([
                 #("display", "inline-block"),
                 #("background-color", "white"),
                 #("color", "#1a365d"),
@@ -444,7 +444,7 @@ pub fn about(_model: Model) -> Element(Msg) {
 fn choir_feature(title: String, description: String) -> Element(Msg) {
   html.div(
     [
-      attribute.style([
+      attribute.styles([
         #("background-color", "#f8fafc"),
         #("border-radius", "8px"),
         #("padding", "1.5rem"),
@@ -456,7 +456,7 @@ fn choir_feature(title: String, description: String) -> Element(Msg) {
     [
       html.h3(
         [
-          attribute.style([
+          attribute.styles([
             #("color", "#2c5282"),
             #("font-size", "1.3rem"),
             #("margin-bottom", "0.75rem"),
@@ -467,7 +467,7 @@ fn choir_feature(title: String, description: String) -> Element(Msg) {
       ),
       html.p(
         [
-          attribute.style([
+          attribute.styles([
             #("color", "#4a5568"),
             #("text-align", "center"),
             #("margin", "0"),
