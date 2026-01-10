@@ -1,56 +1,84 @@
-# CLAUDE.md - Next.js Rewrite
+# CLAUDE.md
 
-This file provides guidance for the Claude Code agent and new developers working on rewriting this choir website from Gleam to Next.js.
+This file provides guidance for the Claude Code agent and developers working on the **Chichester Community Choir** website.
 
 ## Project Context
 
-This was a Gleam-based full-stack web application for the **Chichester Community Choir**. The original codebase is being replaced with a Next.js static site to enable easier maintenance by future developers and content updates by non-technical choir members.
-
-## Goal
-
-Create a **low-maintenance static website** where the choir leader can update blog posts, events, and news by editing markdown files.
-
-## Implementation Reference
-
-See the full plan in: [implementation_plan.md](./implementation_plan.md)
+This is a Next.js static website for the **Chichester Community Choir**. Built with TypeScript, Tailwind CSS, and markdown-based content management to enable easy maintenance by developers and content updates by non-technical choir members.
 
 ## Quick Start
 
 ```bash
-# Create new Next.js project in this directory
-bunx create-next-app@latest . --typescript --tailwind --app --no-src-dir --no-import-alias
+# Install dependencies
+bun install
 
-# Install markdown dependencies
-bun install gray-matter remark remark-html
+# Start development server
+bun run dev
+
+# Build for production
+bun run build
+
+# Start production server
+bun run start
 ```
 
-## Pages to Implement
-
-| Route | Source Reference | Content |
-|-------|-----------------|---------|
-| `/` | `client/src/client/routes/index.gleam` | Hero banner, info boxes (rehearsal, join, news) |
-| `/about` | `client/src/client/routes/about.gleam` | Directors section, choir info, rehearsal info |
-| `/events` | `client/src/client/routes/events.gleam` | List of posts from `content/posts/` |
-| `/events/[slug]` | `client/src/client/routes/events.gleam` | Individual post, markdown rendered |
-| `/find-us` | `client/src/client/routes/find_us.gleam` | Location info with embedded map |
-| `/membership` | `client/src/client/routes/membership.gleam` | Joining info, contact details |
-| `/repertoire` | `client/src/client/routes/repertoire.gleam` | Public song listing |
-| `/repertoire/[slug]` | `client/src/client/routes/repertoire.gleam` | Song detail with external link |
-
-## Key Components
+## Project Structure
 
 ```
-components/
-├── Navbar.tsx       # Main navigation (from client/src/client/components/navbar.gleam)
-├── Footer.tsx       # Footer with contact/social links
-├── PostCard.tsx     # Event/post preview card
-├── HeroSection.tsx  # Reusable hero banner
-└── InfoBox.tsx      # Feature/info boxes from homepage
+chi-comm-choir/
+├── app/                    # Next.js app directory (routes)
+│   ├── about/
+│   ├── events/
+│   │   └── [slug]/        # Dynamic event pages
+│   ├── find-us/
+│   ├── membership/
+│   ├── repertoire/
+│   ├── layout.tsx         # Root layout with nav/footer
+│   └── page.tsx           # Homepage
+├── components/            # React components
+│   ├── Navbar.tsx
+│   ├── Footer.tsx
+│   ├── HeroSection.tsx
+│   ├── InfoBox.tsx
+│   └── PostCard.tsx
+├── content/               # Markdown content
+│   ├── posts/            # Blog posts/events
+│   └── songs/            # Repertoire (future)
+├── lib/                   # Utility functions
+│   └── posts.ts          # Markdown processing
+└── public/                # Static assets
 ```
 
-## Content Structure
+## Pages
 
-Create `content/posts/` directory for blog posts:
+| Route | File | Content |
+|-------|------|---------|
+| `/` | `app/page.tsx` | Hero banner, info boxes (rehearsal, join, news) |
+| `/about` | `app/about/page.tsx` | Directors section, choir info, rehearsal info |
+| `/events` | `app/events/page.tsx` | List of posts from `content/posts/` |
+| `/events/[slug]` | `app/events/[slug]/page.tsx` | Individual post, markdown rendered |
+| `/find-us` | `app/find-us/page.tsx` | Location info with embedded map |
+| `/membership` | `app/membership/page.tsx` | Joining info, contact details |
+| `/repertoire` | `app/repertoire/page.tsx` | Public song listing |
+
+## Components
+
+| Component | Purpose |
+|-----------|---------|
+| `Navbar.tsx` | Main navigation with responsive menu |
+| `Footer.tsx` | Footer with contact info and social links |
+| `PostCard.tsx` | Event/post preview card for listings |
+| `HeroSection.tsx` | Reusable hero banner component |
+| `InfoBox.tsx` | Feature/info boxes used on homepage |
+
+## Content Management
+
+Blog posts and events are managed as markdown files in `content/posts/`.
+
+### Adding a New Post
+
+1. Create a new file: `content/posts/YYYY-MM-DD-slug.md`
+2. Add frontmatter and content:
 
 ```markdown
 ---
@@ -64,68 +92,58 @@ tags: ["concert", "event"]
 Full markdown content here...
 ```
 
+3. Commit and push to trigger deployment
+
 ## Styling Guidelines
 
-- Use Tailwind CSS for all styling
+- Tailwind CSS for all styling
 - Color palette: Blues (`#1a365d`, `#2c5282`, `#2a4365`), white, light grays
-- Match the existing aesthetic from Gleam views
 - Responsive design with mobile-first approach
+- Consistent spacing and typography using Tailwind utilities
 
-## Existing Assets
+## Assets
 
 - Banner image: `https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/2019-12-13-Choir-Header-1.png`
-- Director photos: Same CDN space
-- Keep using DigitalOcean Spaces for images
+- Director photos hosted on DigitalOcean Spaces CDN
+- All external images should use the DigitalOcean CDN
 
-## Data Migration
+## Technology Stack
 
-Export existing data from SQLite database `lfs.db`:
+- **Framework**: Next.js 15 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Content**: Markdown with gray-matter, remark, remark-html
+- **Runtime**: Bun (Node.js compatible)
+- **Deployment**: Vercel
 
-```sql
--- Export posts
-SELECT title, content, excerpt, author, slug, created_at FROM posts;
+## Development Notes
 
--- Export songs (if keeping repertoire)
-SELECT title, slug, href FROM songs;
-```
-
-Convert to markdown files in `content/posts/` and `content/songs/`.
-
-## What NOT to Implement
-
-- Admin login/authentication (use GitHub for content editing)
-- User sessions
-- Song creation UI
-- Post creation UI (create markdown files instead)
-- SQLite database
-
-## Testing Checklist
-
-1. [ ] All pages render without errors
-2. [ ] Markdown posts render correctly
-3. [ ] Navigation works on all pages
-4. [ ] Mobile responsive on all pages
-5. [ ] Deploy to Vercel succeeds
-6. [ ] Images load from CDN
+- No authentication or admin interface (content managed via Git)
+- Static site generation for optimal performance
+- Markdown files are the source of truth for content
+- All routes pre-rendered at build time
 
 ## Development Workflow
 
 ```bash
-# Start dev server
+# Start development server
 bun run dev
 
-# Check for errors
+# Build for production (check for errors)
 bun run build
 
 # Type check
 bunx tsc --noEmit
 
-# Lint
+# Lint code
 bun run lint
 ```
 
 ## Deployment
 
-1. Push to GitHub
-2. Connect repo to Vercel
-3. Vercel auto-deploys on push to main
+The site is deployed to Vercel with automatic deployments:
+- Push to `main` branch triggers production deployment
+- Pull requests generate preview deployments
+- Build errors will prevent deployment
+
+See `DEPLOYMENT.md` for detailed deployment information.
