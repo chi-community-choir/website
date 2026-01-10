@@ -38,8 +38,8 @@ git remote add origin https://github.com/[choir-username]/chi-comm-choir.git
 git push -u origin main
 ```
 
-- [ ] Verify code is on GitHub
-- [ ] Check all files are present (including content/posts/)
+- [x] Verify code is on GitHub
+- [x] Check all files are present (including content/posts/)
 
 ## Phase 3: Vercel Deployment
 
