@@ -44,31 +44,31 @@ git push -u origin main
 ## Phase 3: Vercel Deployment
 
 ### Import Project
-- [ ] Log into Vercel (choir account)
-- [ ] Click "Add New Project"
-- [ ] Import from GitHub
-- [ ] Select `chi-comm-choir` repository
-- [ ] Framework preset: Next.js (should auto-detect)
-- [ ] Build settings:
+- [x] Log into Vercel (choir account)
+- [x] Click "Add New Project"
+- [x] Import from GitHub
+- [x] Select `chi-comm-choir` repository
+- [x] Framework preset: Next.js (should auto-detect)
+- [x] Build settings:
   - Build Command: `npm run build` or `bun run build`
   - Output Directory: (leave default)
   - Install Command: `npm install` or `bun install`
 
 ### Deploy
-- [ ] Click "Deploy"
-- [ ] Wait for build (2-3 minutes)
-- [ ] Check for green "✓" success
-- [ ] Get deployment URL: `chi-comm-choir.vercel.app`
-- [ ] Test deployment URL - verify site loads
+- [x] Click "Deploy"
+- [x] Wait for build (2-3 minutes)
+- [x] Check for green "✓" success
+- [x] Get deployment URL: `chi-comm-choir.vercel.app`
+- [x] Test deployment URL - verify site loads
 
 ### Initial Testing
-- [ ] Homepage loads correctly
-- [ ] Navigation works (click all nav links)
-- [ ] Events page shows sample post
-- [ ] Individual event post loads
-- [ ] All static pages render (About, Find Us, etc.)
-- [ ] Images load from CDN
-- [ ] Mobile responsive (test on phone)
+- [x] Homepage loads correctly
+- [x] Navigation works (click all nav links)
+- [x] Events page shows sample post
+- [x] Individual event post loads
+- [x] All static pages render (About, Find Us, etc.)
+- [x] Images load from CDN
+- [x] Mobile responsive (test on phone)
 
 ## Phase 4: DNS Configuration (Cloudflare)
 
