@@ -20,7 +20,7 @@ export default function AboutPage() {
         <div className="flex flex-wrap gap-8 items-center">
           <div className="flex-1 min-w-[300px]">
             <img
-              src="https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/Caroline-and-John-1.jpg"
+              src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/Caroline-and-John-1.jpg"
               alt="Directors Caroline and John"
               className="w-full h-auto max-h-96 object-contain rounded-lg shadow-md"
             />
