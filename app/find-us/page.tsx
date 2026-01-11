@@ -64,7 +64,7 @@ export default function FindUsPage() {
           </div>
         </a>
         <img
-          src="https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/better_directions.png"
+          src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/better_directions.png"
           alt="Directions to rehearsal room"
           className="w-full h-auto rounded-lg shadow-md"
         />
