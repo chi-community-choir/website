@@ -1,11 +1,13 @@
+import { getAllSongs } from '@/lib/songs'
+import SongCard from '@/components/SongCard'
+
 export const metadata = {
   title: 'Repertoire | Chichester Community Choir',
   description: 'Our current and past repertoire',
 }
 
 export default function RepertoirePage() {
-  // In a real implementation, this would read from content/songs/*.md files
-  const songs: Array<{ title: string; slug: string }> = []
+  const songs = getAllSongs()
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -26,11 +28,7 @@ export default function RepertoirePage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {songs.map((song) => (
-            <div key={song.slug} className="bg-white border-2 border-gray-200 rounded-xl p-6 hover:border-choir-blue hover:shadow-lg transition-all">
-              <h2 className="text-choir-blue-dark text-xl font-bold">
-                {song.title}
-              </h2>
-            </div>
+            <SongCard key={song.slug} song={song} />
           ))}
         </div>
       )}
