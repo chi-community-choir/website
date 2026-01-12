@@ -8,8 +8,11 @@ interface EventsClientProps {
   posts: Post[]
 }
 
+const ITEMS_PER_PAGE = 20
+
 export default function EventsClient({ posts }: EventsClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
 
   const filteredPosts = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -23,6 +26,21 @@ export default function EventsClient({ posts }: EventsClientProps) {
       post.tags?.some(tag => tag.toLowerCase().includes(query))
     )
   }, [posts, searchQuery])
+
+  const displayedPosts = useMemo(() => {
+    // When searching, show all filtered results
+    if (searchQuery.trim()) {
+      return filteredPosts
+    }
+    // When not searching, limit by visibleCount
+    return filteredPosts.slice(0, visibleCount)
+  }, [filteredPosts, searchQuery, visibleCount])
+
+  const hasMore = !searchQuery.trim() && visibleCount < filteredPosts.length
+
+  const loadMore = () => {
+    setVisibleCount(prev => prev + ITEMS_PER_PAGE)
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -68,18 +86,31 @@ export default function EventsClient({ posts }: EventsClientProps) {
             )}
           </div>
 
-          {filteredPosts.length === 0 ? (
+          {displayedPosts.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-xl text-gray-600">
                 No events found matching &ldquo;{searchQuery}&rdquo;
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {filteredPosts.map((post) => (
-                <PostCard key={post.slug} post={post} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {displayedPosts.map((post) => (
+                  <PostCard key={post.slug} post={post} />
+                ))}
+              </div>
+
+              {hasMore && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={loadMore}
+                    className="px-6 py-3 bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors"
+                  >
+                    Load More Events
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </>
       )}
