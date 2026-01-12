@@ -1,6 +1,7 @@
 import { getSongBySlug, getAllSongSlugs } from '@/lib/songs'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import MarkdownContent from '@/components/MarkdownContent'
 
 interface PageProps {
   params: Promise<{
@@ -141,9 +142,9 @@ export default async function SongPage({ params }: PageProps) {
 
         {/* Content */}
         {song.content && (
-          <div
+          <MarkdownContent
+            content={song.content}
             className="prose prose-lg max-w-none"
-            dangerouslySetInnerHTML={{ __html: song.content }}
           />
         )}
       </article>

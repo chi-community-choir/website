@@ -1,6 +1,7 @@
 import { getPostBySlug, getAllPostSlugs } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
+import MarkdownContent from '@/components/MarkdownContent'
 
 interface PageProps {
   params: Promise<{
@@ -79,9 +80,9 @@ export default async function PostPage({ params }: PageProps) {
           </div>
         )}
 
-        <div
+        <MarkdownContent
+          content={post.content || ''}
           className="prose prose-lg max-w-none"
-          dangerouslySetInnerHTML={{ __html: post.content || '' }}
         />
       </article>
     </div>
