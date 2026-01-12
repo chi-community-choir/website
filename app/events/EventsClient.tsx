@@ -15,7 +15,7 @@ interface BucketGroup {
 }
 
 const ITEMS_PER_PAGE = 20
-const SCROLL_OFFSET = 220
+const SCROLL_OFFSET = 240
 
 export default function EventsClient({ posts }: EventsClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
