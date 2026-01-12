@@ -3,7 +3,6 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import type { Post } from '@/lib/posts'
 import PostCard from '@/components/PostCard'
-import BucketHeader from '@/components/BucketHeader'
 import TimelineFilter from '@/components/TimelineFilter'
 
 interface EventsClientProps {
@@ -100,6 +99,34 @@ export default function EventsClient({ posts }: EventsClientProps) {
     }
   }, [hasMore])
 
+  // Custom smooth scroll with easing for gentle animation
+  const smoothScrollTo = (element: HTMLElement) => {
+    const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - 20
+    const startPosition = window.pageYOffset
+    const distance = targetPosition - startPosition
+    const duration = 1500 // 1.5 seconds for gentle scroll
+    let start: number | null = null
+
+    const easeInOutCubic = (t: number): number => {
+      return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
+    }
+
+    const animation = (currentTime: number) => {
+      if (start === null) start = currentTime
+      const timeElapsed = currentTime - start
+      const progress = Math.min(timeElapsed / duration, 1)
+      const easing = easeInOutCubic(progress)
+
+      window.scrollTo(0, startPosition + distance * easing)
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(animation)
+      }
+    }
+
+    requestAnimationFrame(animation)
+  }
+
   const handleBucketClick = (bucket: string) => {
     setActiveBucket(bucket)
 
@@ -113,11 +140,11 @@ export default function EventsClient({ posts }: EventsClientProps) {
         setVisibleCount(Math.max(minVisible, ITEMS_PER_PAGE))
       }
 
-      // Smooth scroll to the bucket header
+      // Gentle smooth scroll to the bucket header
       setTimeout(() => {
         const element = document.getElementById(`bucket-${bucket}`)
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+          smoothScrollTo(element)
         }
       }, 100)
     }
@@ -128,104 +155,140 @@ export default function EventsClient({ posts }: EventsClientProps) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-12">
-      <h1 className="text-choir-blue-dark text-4xl font-bold mb-8 text-center">
-        Events & News
-      </h1>
+    <div className="min-h-screen">
+      {/* Header with Search (center) and Date Jumplist (right) */}
+      <div className="bg-white border-b-2 border-gray-200 sticky top-0 z-30 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-6">
+          <div className="flex flex-col lg:flex-row gap-6 items-start">
+            {/* Left/Center: Title and Search */}
+            <div className="flex-1 w-full">
+              <h1 className="text-choir-blue-dark text-4xl font-bold mb-4 text-center lg:text-left">
+                Events & News
+              </h1>
 
+              {posts.length > 0 && (
+                <div className="max-w-2xl lg:max-w-none">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search events..."
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-choir-blue transition-colors"
+                    />
+                    <svg
+                      className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                      />
+                    </svg>
+                  </div>
+
+                  {searchQuery && (
+                    <p className="text-sm text-gray-600 text-center lg:text-left mt-2">
+                      Found {filteredPosts.length} {filteredPosts.length === 1 ? 'event' : 'events'}
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Right: Date Jumplist (desktop only) */}
+            {posts.length > 0 && (
+              <div className="hidden lg:block w-64 flex-shrink-0">
+                <TimelineFilter
+                  buckets={availableBuckets}
+                  activeBucket={activeBucket}
+                  onBucketClick={handleBucketClick}
+                  onClear={handleClearBucket}
+                />
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Area */}
       {posts.length === 0 ? (
-        <div className="text-center py-12">
+        <div className="text-center py-12 px-4">
           <p className="text-xl text-gray-600">
             No events posted yet. Check back soon for updates on our upcoming performances!
           </p>
         </div>
       ) : (
-        <>
-          <div className="mb-8 max-w-2xl mx-auto space-y-4">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search events..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-choir-blue transition-colors"
-              />
-              <svg
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
+        <div className="max-w-7xl mx-auto px-4 py-8">
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Posts List - Left/Center */}
+            <div className="flex-1 min-w-0 max-w-3xl">
+              {displayedPosts.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-xl text-gray-600">
+                    No events found matching &ldquo;{searchQuery}&rdquo;
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="space-y-4">
+                    {displayedPosts.map((post) => (
+                      <PostCard key={post.slug} post={post} />
+                    ))}
+                  </div>
+
+                  {/* Sentinel for infinite scroll */}
+                  <div ref={sentinelRef} className="h-4" />
+
+                  {/* Fallback "Load More" button */}
+                  {hasMore && (
+                    <div className="text-center mt-8">
+                      <button
+                        onClick={loadMore}
+                        className="px-6 py-3 bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors"
+                      >
+                        Load More Events
+                      </button>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
 
-            <TimelineFilter
-              buckets={availableBuckets}
-              activeBucket={activeBucket}
-              onBucketClick={handleBucketClick}
-              onClear={handleClearBucket}
-            />
+            {/* Date Markers - Right Side (desktop only) */}
+            {displayedPosts.length > 0 && (
+              <div className="hidden lg:block w-64 flex-shrink-0 relative">
+                <div className="sticky top-36">
+                  {(() => {
+                    const markers: React.ReactElement[] = []
+                    let lastBucket: string | null = null
 
-            {searchQuery && (
-              <p className="text-sm text-gray-600 text-center">
-                Found {filteredPosts.length} {filteredPosts.length === 1 ? 'event' : 'events'}
-              </p>
+                    displayedPosts.forEach((post) => {
+                      if (post.bucket && post.bucket !== lastBucket) {
+                        markers.push(
+                          <div
+                            key={`marker-${post.bucket}`}
+                            id={`bucket-${post.bucket}`}
+                            className="mb-4 bg-choir-blue-dark text-white py-2 px-4 rounded-lg shadow-md"
+                          >
+                            <h3 className="text-lg font-bold">{post.bucket}</h3>
+                          </div>
+                        )
+                        lastBucket = post.bucket
+                      }
+                    })
+
+                    return markers
+                  })()}
+                </div>
+              </div>
             )}
           </div>
-
-          {displayedPosts.length === 0 ? (
-            <div className="text-center py-12">
-              <p className="text-xl text-gray-600">
-                No events found matching &ldquo;{searchQuery}&rdquo;
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="max-w-3xl mx-auto space-y-4">
-                {(() => {
-                  const elements: React.ReactElement[] = []
-                  let lastBucket: string | null = null
-
-                  displayedPosts.forEach((post) => {
-                    // Inject bucket header when bucket changes
-                    if (post.bucket && post.bucket !== lastBucket) {
-                      elements.push(
-                        <BucketHeader key={`header-${post.bucket}`} bucket={post.bucket} />
-                      )
-                      lastBucket = post.bucket
-                    }
-
-                    // Add the post card
-                    elements.push(<PostCard key={post.slug} post={post} />)
-                  })
-
-                  return elements
-                })()}
-              </div>
-
-              {/* Sentinel for infinite scroll */}
-              <div ref={sentinelRef} className="h-4" />
-
-              {/* Fallback "Load More" button */}
-              {hasMore && (
-                <div className="text-center mt-8">
-                  <button
-                    onClick={loadMore}
-                    className="px-6 py-3 bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors"
-                  >
-                    Load More Events
-                  </button>
-                </div>
-              )}
-            </>
-          )}
-        </>
+        </div>
       )}
     </div>
   )
