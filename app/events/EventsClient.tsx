@@ -9,7 +9,14 @@ interface EventsClientProps {
   posts: Post[]
 }
 
+interface BucketGroup {
+  bucket: string
+  posts: Post[]
+}
+
 const ITEMS_PER_PAGE = 20
+// Height of sticky header (py-6 = 24px*2 = 48px padding + ~60px content ≈ 140px, plus some margin)
+const SCROLL_OFFSET = 160
 
 export default function EventsClient({ posts }: EventsClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
@@ -59,6 +66,36 @@ export default function EventsClient({ posts }: EventsClientProps) {
     return buckets
   }, [filteredPosts])
 
+  // Group displayed posts by bucket for rendering
+  const bucketGroups = useMemo((): BucketGroup[] => {
+    const groups: BucketGroup[] = []
+    let currentBucket: string | null = null
+    let currentGroup: Post[] = []
+
+    for (const post of displayedPosts) {
+      const bucket = post.bucket || 'Unknown'
+
+      if (bucket !== currentBucket) {
+        // Save previous group if exists
+        if (currentBucket !== null && currentGroup.length > 0) {
+          groups.push({ bucket: currentBucket, posts: currentGroup })
+        }
+        // Start new group
+        currentBucket = bucket
+        currentGroup = [post]
+      } else {
+        currentGroup.push(post)
+      }
+    }
+
+    // Don't forget the last group
+    if (currentBucket !== null && currentGroup.length > 0) {
+      groups.push({ bucket: currentBucket, posts: currentGroup })
+    }
+
+    return groups
+  }, [displayedPosts])
+
   const hasMore = !searchQuery.trim() && visibleCount < filteredPosts.length
 
   const loadMore = () => {
@@ -99,34 +136,6 @@ export default function EventsClient({ posts }: EventsClientProps) {
     }
   }, [hasMore])
 
-  // Custom smooth scroll with easing for gentle animation
-  const smoothScrollTo = (element: HTMLElement) => {
-    const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - 20
-    const startPosition = window.pageYOffset
-    const distance = targetPosition - startPosition
-    const duration = 1500 // 1.5 seconds for gentle scroll
-    let start: number | null = null
-
-    const easeInOutCubic = (t: number): number => {
-      return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1
-    }
-
-    const animation = (currentTime: number) => {
-      if (start === null) start = currentTime
-      const timeElapsed = currentTime - start
-      const progress = Math.min(timeElapsed / duration, 1)
-      const easing = easeInOutCubic(progress)
-
-      window.scrollTo(0, startPosition + distance * easing)
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(animation)
-      }
-    }
-
-    requestAnimationFrame(animation)
-  }
-
   const handleBucketClick = (bucket: string) => {
     setActiveBucket(bucket)
 
@@ -140,13 +149,19 @@ export default function EventsClient({ posts }: EventsClientProps) {
         setVisibleCount(Math.max(minVisible, ITEMS_PER_PAGE))
       }
 
-      // Gentle smooth scroll to the bucket header
-      setTimeout(() => {
-        const element = document.getElementById(`bucket-${bucket}`)
-        if (element) {
-          smoothScrollTo(element)
-        }
-      }, 100)
+      // Wait for state update and DOM render, then scroll
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const element = document.getElementById(`bucket-${bucket}`)
+          if (element) {
+            const elementTop = element.getBoundingClientRect().top + window.scrollY
+            window.scrollTo({
+              top: elementTop - SCROLL_OFFSET,
+              behavior: 'smooth'
+            })
+          }
+        })
+      })
     }
   }
 
@@ -224,70 +239,56 @@ export default function EventsClient({ posts }: EventsClientProps) {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 py-8">
-          <div className="flex flex-col lg:flex-row gap-8">
-            {/* Posts List - Left/Center */}
-            <div className="flex-1 min-w-0 max-w-3xl">
-              {displayedPosts.length === 0 ? (
-                <div className="text-center py-12">
-                  <p className="text-xl text-gray-600">
-                    No events found matching &ldquo;{searchQuery}&rdquo;
-                  </p>
-                </div>
-              ) : (
-                <>
-                  <div className="space-y-4">
-                    {displayedPosts.map((post) => (
+          {displayedPosts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-xl text-gray-600">
+                No events found matching &ldquo;{searchQuery}&rdquo;
+              </p>
+            </div>
+          ) : (
+            <>
+              {/* Bucket groups with aligned markers */}
+              {bucketGroups.map((group) => (
+                <div
+                  key={group.bucket}
+                  id={`bucket-${group.bucket}`}
+                  className="flex flex-col lg:flex-row gap-4 lg:gap-8 mb-8"
+                >
+                  {/* Posts column */}
+                  <div className="flex-1 min-w-0 max-w-3xl space-y-4">
+                    {group.posts.map((post) => (
                       <PostCard key={post.slug} post={post} />
                     ))}
                   </div>
 
-                  {/* Sentinel for infinite scroll */}
-                  <div ref={sentinelRef} className="h-4" />
-
-                  {/* Fallback "Load More" button */}
-                  {hasMore && (
-                    <div className="text-center mt-8">
-                      <button
-                        onClick={loadMore}
-                        className="px-6 py-3 bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors"
-                      >
-                        Load More Events
-                      </button>
+                  {/* Date marker - aligned with this bucket group (desktop only) */}
+                  <div className="hidden lg:block w-64 flex-shrink-0">
+                    <div
+                      className="sticky bg-choir-blue-dark text-white py-2 px-4 rounded-lg shadow-md"
+                      style={{ top: `${SCROLL_OFFSET}px` }}
+                    >
+                      <h3 className="text-lg font-bold">{group.bucket}</h3>
                     </div>
-                  )}
-                </>
-              )}
-            </div>
-
-            {/* Date Markers - Right Side (desktop only) */}
-            {displayedPosts.length > 0 && (
-              <div className="hidden lg:block w-64 flex-shrink-0 relative">
-                <div className="sticky top-36">
-                  {(() => {
-                    const markers: React.ReactElement[] = []
-                    let lastBucket: string | null = null
-
-                    displayedPosts.forEach((post) => {
-                      if (post.bucket && post.bucket !== lastBucket) {
-                        markers.push(
-                          <div
-                            key={`marker-${post.bucket}`}
-                            id={`bucket-${post.bucket}`}
-                            className="mb-4 bg-choir-blue-dark text-white py-2 px-4 rounded-lg shadow-md"
-                          >
-                            <h3 className="text-lg font-bold">{post.bucket}</h3>
-                          </div>
-                        )
-                        lastBucket = post.bucket
-                      }
-                    })
-
-                    return markers
-                  })()}
+                  </div>
                 </div>
-              </div>
-            )}
-          </div>
+              ))}
+
+              {/* Sentinel for infinite scroll */}
+              <div ref={sentinelRef} className="h-4" />
+
+              {/* Fallback "Load More" button */}
+              {hasMore && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={loadMore}
+                    className="px-6 py-3 bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors"
+                  >
+                    Load More Events
+                  </button>
+                </div>
+              )}
+            </>
+          )}
         </div>
       )}
     </div>
