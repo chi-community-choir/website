@@ -9,7 +9,7 @@ interface InfoBoxProps {
 
 export default function InfoBox({ title, children, linkHref, linkText }: InfoBoxProps) {
   return (
-    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center">
+    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center transition-all hover:shadow-lg hover:scale-[1.02]">
       <h2 className="text-choir-blue-dark text-2xl font-bold mb-4">{title}</h2>
       <div className="text-gray-700 text-lg mb-4">{children}</div>
       {linkHref && linkText && (
