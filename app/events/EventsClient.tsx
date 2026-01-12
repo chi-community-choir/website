@@ -15,8 +15,7 @@ interface BucketGroup {
 }
 
 const ITEMS_PER_PAGE = 20
-// Height of sticky header (py-6 = 24px*2 = 48px padding + ~60px content ≈ 140px, plus some margin)
-const SCROLL_OFFSET = 160
+const SCROLL_OFFSET = 220
 
 export default function EventsClient({ posts }: EventsClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
