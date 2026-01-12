@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export const metadata = {
   title: 'About Us | Chichester Community Choir',
   description: 'Learn about the Chichester Community Choir, our directors, and our mission',
@@ -19,7 +21,7 @@ export default function AboutPage() {
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Directors</h2>
         <div className="flex flex-wrap gap-8 items-center">
           <div className="flex-1 min-w-[300px]">
-            <img
+            <Image
               src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/Caroline-and-John-1.jpg"
               alt="Directors Caroline and John"
               className="w-full h-auto max-h-96 object-contain rounded-lg shadow-md"
