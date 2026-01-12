@@ -13,19 +13,40 @@ const ITEMS_PER_PAGE = 20
 export default function EventsClient({ posts }: EventsClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
+  const [startMonth, setStartMonth] = useState('')
+  const [endMonth, setEndMonth] = useState('')
 
   const filteredPosts = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return posts
+    let filtered = posts
+
+    // Apply date range filter
+    if (startMonth || endMonth) {
+      filtered = filtered.filter((post) => {
+        if (!post.date) return false
+
+        // Extract YYYY-MM from post date (format: YYYY-MM-DD)
+        const postMonth = post.date.substring(0, 7)
+
+        const afterStart = !startMonth || postMonth >= startMonth
+        const beforeEnd = !endMonth || postMonth <= endMonth
+
+        return afterStart && beforeEnd
+      })
     }
-    const query = searchQuery.toLowerCase()
-    return posts.filter((post) =>
-      post.title.toLowerCase().includes(query) ||
-      post.author?.toLowerCase().includes(query) ||
-      post.excerpt?.toLowerCase().includes(query) ||
-      post.tags?.some(tag => tag.toLowerCase().includes(query))
-    )
-  }, [posts, searchQuery])
+
+    // Apply search filter
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter((post) =>
+        post.title.toLowerCase().includes(query) ||
+        post.author?.toLowerCase().includes(query) ||
+        post.excerpt?.toLowerCase().includes(query) ||
+        post.tags?.some(tag => tag.toLowerCase().includes(query))
+      )
+    }
+
+    return filtered
+  }, [posts, searchQuery, startMonth, endMonth])
 
   const displayedPosts = useMemo(() => {
     // When searching, show all filtered results
@@ -42,6 +63,13 @@ export default function EventsClient({ posts }: EventsClientProps) {
     setVisibleCount(prev => prev + ITEMS_PER_PAGE)
   }
 
+  const clearFilters = () => {
+    setStartMonth('')
+    setEndMonth('')
+  }
+
+  const hasDateFilter = startMonth || endMonth
+
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
       <h1 className="text-choir-blue-dark text-4xl font-bold mb-8 text-center">
@@ -56,7 +84,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
         </div>
       ) : (
         <>
-          <div className="mb-8 max-w-md mx-auto">
+          <div className="mb-8 max-w-2xl mx-auto space-y-4">
             <div className="relative">
               <input
                 type="text"
@@ -79,8 +107,49 @@ export default function EventsClient({ posts }: EventsClientProps) {
                 />
               </svg>
             </div>
-            {searchQuery && (
-              <p className="text-sm text-gray-600 mt-2">
+
+            <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-4">
+              <div className="flex items-center justify-between mb-3">
+                <label className="text-sm font-semibold text-gray-700">Filter by Date Range</label>
+                {hasDateFilter && (
+                  <button
+                    onClick={clearFilters}
+                    className="text-sm text-choir-blue hover:text-choir-blue-dark transition-colors"
+                  >
+                    Clear
+                  </button>
+                )}
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label htmlFor="startMonth" className="block text-xs text-gray-600 mb-1">
+                    From
+                  </label>
+                  <input
+                    type="month"
+                    id="startMonth"
+                    value={startMonth}
+                    onChange={(e) => setStartMonth(e.target.value)}
+                    className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-choir-blue transition-colors"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="endMonth" className="block text-xs text-gray-600 mb-1">
+                    To
+                  </label>
+                  <input
+                    type="month"
+                    id="endMonth"
+                    value={endMonth}
+                    onChange={(e) => setEndMonth(e.target.value)}
+                    className="w-full px-3 py-2 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-choir-blue transition-colors"
+                  />
+                </div>
+              </div>
+            </div>
+
+            {(searchQuery || hasDateFilter) && (
+              <p className="text-sm text-gray-600 text-center">
                 Found {filteredPosts.length} {filteredPosts.length === 1 ? 'event' : 'events'}
               </p>
             )}
