@@ -10,12 +10,8 @@ function deriveTimeBucket(dateString: string): { year: string; month: string; bu
   }
 
   const postDate = new Date(dateString)
-  const now = new Date()
-
   const postYear = postDate.getFullYear()
   const postMonth = postDate.getMonth()
-  const currentYear = now.getFullYear()
-  const currentMonth = now.getMonth()
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -25,21 +21,8 @@ function deriveTimeBucket(dateString: string): { year: string; month: string; bu
   const year = postYear.toString()
   const month = `${monthNames[postMonth]} ${postYear}`
 
-  // Determine bucket label
-  let bucket: string
-
-  if (postYear === currentYear && postMonth === currentMonth) {
-    bucket = 'This Month'
-  } else if (
-    postYear === currentYear && postMonth === currentMonth - 1 ||
-    (currentMonth === 0 && postYear === currentYear - 1 && postMonth === 11)
-  ) {
-    bucket = 'Last Month'
-  } else if (postYear === currentYear) {
-    bucket = month
-  } else {
-    bucket = year
-  }
+  // Format as MM/YYYY (zero-padded month)
+  const bucket = `${String(postMonth + 1).padStart(2, '0')}/${postYear}`
 
   return { year, month, bucket }
 }
