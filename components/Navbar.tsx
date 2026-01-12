@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Navbar() {
   return (
-    <div className="bg-[#40359b] text-center">
+    <div className="bg-choir-blue-dark text-center">
       <nav className="flex justify-center items-center gap-4 flex-wrap py-4 px-4">
         <NavLink href="/" label="Home" />
         <NavLink href="/about" label="About" />
@@ -17,10 +17,11 @@ export default function Navbar() {
 
 function NavLink({ href, label }: { href: string; label: string }) {
   return (
-    <Link href={href} className="no-underline">
-      <button className="bg-white text-black text-xl font-semibold rounded-lg border-2 border-black px-6 py-3 transition-all duration-200 hover:bg-[#f0f4f8] hover:border-[#2c5282] focus:outline-[#90cdf4] focus:outline-offset-2 active:translate-y-[1px]">
-        {label}
-      </button>
+    <Link
+      href={href}
+      className="text-white text-lg font-semibold px-6 py-2 rounded-lg transition-all duration-200 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-choir-blue-dark active:translate-y-[1px] no-underline"
+    >
+      {label}
     </Link>
   )
 }
