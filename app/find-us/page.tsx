@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export const metadata = {
   title: 'Find Us | Chichester Community Choir',
   description: 'Location and directions to our rehearsals',
@@ -63,7 +65,7 @@ export default function FindUsPage() {
             </p>
           </div>
         </a>
-        <img
+        <Image
           src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/better_directions.png"
           alt="Directions to rehearsal room"
           className="w-full h-auto rounded-lg shadow-md"
