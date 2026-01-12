@@ -1,8 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { remark } from 'remark'
-import html from 'remark-html'
 
 const songsDirectory = path.join(process.cwd(), 'content/songs')
 
@@ -71,10 +69,6 @@ export async function getSongBySlug(slug: string): Promise<Song | null> {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
-  // Convert markdown to HTML
-  const processedContent = await remark().use(html).process(content)
-  const contentHtml = processedContent.toString()
-
   return {
     slug,
     title: data.title || 'Untitled',
@@ -84,7 +78,7 @@ export async function getSongBySlug(slug: string): Promise<Song | null> {
     tags: data.tags || [],
     sheetMusic: data.sheetMusic || [],
     audio: data.audio || [],
-    content: contentHtml,
+    content: content,
   }
 }
 

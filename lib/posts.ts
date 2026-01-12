@@ -1,8 +1,6 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import { remark } from 'remark'
-import html from 'remark-html'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
 
@@ -65,10 +63,6 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
-  // Convert markdown to HTML
-  const processedContent = await remark().use(html).process(content)
-  const contentHtml = processedContent.toString()
-
   return {
     slug,
     title: data.title || 'Untitled',
@@ -76,7 +70,7 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
     excerpt: data.excerpt || '',
     author: data.author || '',
     tags: data.tags || [],
-    content: contentHtml,
+    content: content,
   }
 }
 
