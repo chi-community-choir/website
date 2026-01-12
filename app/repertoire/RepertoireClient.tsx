@@ -8,8 +8,11 @@ interface RepertoireClientProps {
   songs: Song[]
 }
 
+const ITEMS_PER_PAGE = 24
+
 export default function RepertoireClient({ songs }: RepertoireClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
 
   const filteredSongs = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -24,6 +27,21 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
       song.tags?.some(tag => tag.toLowerCase().includes(query))
     )
   }, [songs, searchQuery])
+
+  const displayedSongs = useMemo(() => {
+    // When searching, show all filtered results
+    if (searchQuery.trim()) {
+      return filteredSongs
+    }
+    // When not searching, limit by visibleCount
+    return filteredSongs.slice(0, visibleCount)
+  }, [filteredSongs, searchQuery, visibleCount])
+
+  const hasMore = !searchQuery.trim() && visibleCount < filteredSongs.length
+
+  const loadMore = () => {
+    setVisibleCount(prev => prev + ITEMS_PER_PAGE)
+  }
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -73,18 +91,31 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
             )}
           </div>
 
-          {filteredSongs.length === 0 ? (
+          {displayedSongs.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-xl text-gray-600">
                 No songs found matching &ldquo;{searchQuery}&rdquo;
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredSongs.map((song) => (
-                <SongCard key={song.slug} song={song} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {displayedSongs.map((song) => (
+                  <SongCard key={song.slug} song={song} />
+                ))}
+              </div>
+
+              {hasMore && (
+                <div className="text-center mt-8">
+                  <button
+                    onClick={loadMore}
+                    className="px-6 py-3 bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors"
+                  >
+                    Load More Songs
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </>
       )}
