@@ -8,7 +8,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Welcome Section */}
-      <section className="max-w-4xl mx-auto mb-12 p-8 bg-gray-50 rounded-xl text-center">
+      <section className="max-w-4xl mx-auto mb-12 p-8 bg-gray-50 rounded-lg text-center">
         <h1 className="text-choir-blue-dark text-4xl font-bold mb-6">
           Welcome to Chichester Community Choir
         </h1>
@@ -34,7 +34,7 @@ export default function Home() {
             </p>
             <a
               href="mailto:caroline@chicommunitychoir.com"
-              className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline transition-colors hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2"
+              className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline transition-all hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2 active:translate-y-[1px]"
             >
               Contact Us to Join
             </a>
@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       {/* CTA Bottom */}
-      <section className="bg-gray-100 py-8 px-8 text-center rounded-xl max-w-4xl mx-auto mb-12">
+      <section className="bg-gray-100 p-8 text-center rounded-lg max-w-4xl mx-auto mb-12">
         <h2 className="text-choir-blue-dark text-3xl font-bold mb-4">
           Come Sing With Us!
         </h2>
