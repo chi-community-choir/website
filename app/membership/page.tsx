@@ -5,7 +5,7 @@ export const metadata = {
 
 export default function MembershipPage() {
   return (
-    <div className="bg-gray-100 text-xl leading-relaxed">
+    <div className="bg-gray-100 text-lg leading-relaxed">
       {/* Hero */}
       <section className="bg-choir-blue text-white py-12 text-center">
         <h1 className="text-5xl mb-4">Membership</h1>
@@ -57,10 +57,10 @@ export default function MembershipPage() {
           <p className="italic text-gray-600">
             Note: Membership fees are due on the 1st of each month.
           </p>
-          <div className="mt-6 bg-blue-500 text-white p-6 rounded-lg text-center">
+          <div className="mt-6 bg-choir-blue text-white p-6 rounded-lg text-center">
             <p className="font-bold text-xl mb-2">Payment Details</p>
             <p className="mb-1">Contact us for bank details:</p>
-            <a href="mailto:caroline@chicommunitychoir.com" className="underline">
+            <a href="mailto:caroline@chicommunitychoir.com" className="underline hover:text-gray-200 transition-colors">
               caroline@chicommunitychoir.com
             </a>
           </div>

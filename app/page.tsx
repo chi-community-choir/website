@@ -12,7 +12,7 @@ export default function Home() {
         <h1 className="text-choir-blue-dark text-4xl font-bold mb-6">
           Welcome to Chichester Community Choir
         </h1>
-        <p className="text-xl text-gray-700">
+        <p className="text-lg text-gray-700">
           Join us in the joy of singing! No auditions required - just bring your enthusiasm and love for music.
         </p>
       </section>
@@ -34,7 +34,7 @@ export default function Home() {
             </p>
             <a
               href="mailto:caroline@chicommunitychoir.com"
-              className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline transition-colors hover:bg-choir-blue-light"
+              className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline transition-colors hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2"
             >
               Contact Us to Join
             </a>
@@ -51,7 +51,7 @@ export default function Home() {
         <h2 className="text-choir-blue-dark text-3xl font-bold mb-4">
           Come Sing With Us!
         </h2>
-        <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
           Experience the joy of singing together in a friendly, welcoming environment. No previous experience needed!
         </p>
       </section>

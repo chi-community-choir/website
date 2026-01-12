@@ -109,7 +109,7 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
                 <div className="text-center mt-8">
                   <button
                     onClick={loadMore}
-                    className="px-6 py-3 bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors"
+                    className="px-6 py-3 text-lg bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2"
                   >
                     Load More Songs
                   </button>
