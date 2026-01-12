@@ -17,7 +17,10 @@ export default function EventsClient({ posts }: EventsClientProps) {
     }
     const query = searchQuery.toLowerCase()
     return posts.filter((post) =>
-      post.title.toLowerCase().includes(query)
+      post.title.toLowerCase().includes(query) ||
+      post.author?.toLowerCase().includes(query) ||
+      post.excerpt?.toLowerCase().includes(query) ||
+      post.tags?.some(tag => tag.toLowerCase().includes(query))
     )
   }, [posts, searchQuery])
 
@@ -39,7 +42,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search events by title..."
+                placeholder="Search events..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-choir-blue transition-colors"

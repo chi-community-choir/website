@@ -17,7 +17,11 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
     }
     const query = searchQuery.toLowerCase()
     return songs.filter((song) =>
-      song.title.toLowerCase().includes(query)
+      song.title.toLowerCase().includes(query) ||
+      song.composer?.toLowerCase().includes(query) ||
+      song.arranger?.toLowerCase().includes(query) ||
+      song.excerpt?.toLowerCase().includes(query) ||
+      song.tags?.some(tag => tag.toLowerCase().includes(query))
     )
   }, [songs, searchQuery])
 
@@ -43,7 +47,7 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
             <div className="relative">
               <input
                 type="text"
-                placeholder="Search songs by title..."
+                placeholder="Search songs..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-choir-blue transition-colors"
