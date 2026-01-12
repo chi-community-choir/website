@@ -251,10 +251,10 @@ export default function EventsClient({ posts }: EventsClientProps) {
                 <div
                   key={group.bucket}
                   id={`bucket-${group.bucket}`}
-                  className="flex flex-col lg:flex-row gap-4 lg:gap-8 mb-8"
+                  className="flex flex-col lg:flex-row gap-6 mb-8"
                 >
                   {/* Posts column */}
-                  <div className="flex-1 min-w-0 max-w-3xl space-y-4">
+                  <div className="flex-1 min-w-0 space-y-4">
                     {group.posts.map((post) => (
                       <PostCard key={post.slug} post={post} />
                     ))}
