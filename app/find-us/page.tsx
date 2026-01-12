@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function FindUsPage() {
   return (
-    <div className="bg-gray-100 text-xl leading-relaxed">
+    <div className="bg-gray-100 text-lg leading-relaxed">
       {/* Hero */}
       <section className="bg-choir-blue text-white py-12 text-center">
         <h1 className="text-5xl mb-4">Find Us</h1>
@@ -45,7 +45,7 @@ export default function FindUsPage() {
               <ul className="list-disc pl-6">
                 <li>Stagecoach Bus Routes: 50 and U7</li>
                 <li>
-                  <a href="https://www.stagecoachbus.com/timetables" className="text-blue-600 underline">
+                  <a href="https://www.stagecoachbus.com/timetables" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
                     View bus timetables
                   </a>
                 </li>
@@ -60,7 +60,7 @@ export default function FindUsPage() {
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Accessing the Rehearsal Room</h2>
         <a href="https://maps.chi.ac.uk/#room=C01-0-31" className="block mb-4">
           <div className="bg-gray-200 p-4 rounded-lg text-center hover:bg-gray-300 transition-colors">
-            <p className="text-blue-600 underline font-semibold">
+            <p className="text-choir-blue hover:text-choir-blue-light underline transition-colors font-semibold">
               Click here to see a detailed map of the university campus
             </p>
           </div>
@@ -89,7 +89,7 @@ export default function FindUsPage() {
             <div className="flex flex-wrap gap-6">
               <div className="bg-gray-50 rounded p-4 flex-1 min-w-[200px]">
                 <h4 className="text-choir-blue font-semibold mb-2">Link</h4>
-                <a href="https://m2.paybyphone.co.uk/parking" className="text-blue-600 underline">
+                <a href="https://m2.paybyphone.co.uk/parking" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
                   m2.paybyphone.co.uk
                 </a>
               </div>
@@ -108,7 +108,7 @@ export default function FindUsPage() {
             <p className="mb-4">
               There is accessible parking available throughout the university campus.
             </p>
-            <a href="https://maps.chi.ac.uk/" className="text-blue-600 underline font-semibold">
+            <a href="https://maps.chi.ac.uk/" className="text-choir-blue hover:text-choir-blue-light underline transition-colors font-semibold">
               See the campus map for more precise parking details
             </a>
           </div>

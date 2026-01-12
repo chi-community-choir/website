@@ -15,7 +15,7 @@ export default function InfoBox({ title, children, linkHref, linkText }: InfoBox
       {linkHref && linkText && (
         <Link
           href={linkHref}
-          className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline mt-2 transition-colors hover:bg-choir-blue-light"
+          className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline mt-2 transition-colors hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2"
         >
           {linkText}
         </Link>

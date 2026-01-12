@@ -7,7 +7,7 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="bg-gray-100 text-xl leading-relaxed">
+    <div className="bg-gray-100 text-lg leading-relaxed">
       {/* Hero Section */}
       <section className="bg-choir-blue text-white py-12 text-center mb-8">
         <h1 className="text-5xl mb-4">About Us</h1>
@@ -82,7 +82,7 @@ export default function AboutPage() {
             </p>
             <p>
               For details on how to join us, email:{' '}
-              <a href="mailto:caroline@chicommunitychoir.com" className="text-choir-blue font-semibold underline">
+              <a href="mailto:caroline@chicommunitychoir.com" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
                 caroline@chicommunitychoir.com
               </a>
             </p>
@@ -118,7 +118,7 @@ export default function AboutPage() {
         </p>
         <a
           href="/membership"
-          className="inline-block bg-white text-choir-blue-dark font-bold py-4 px-8 rounded text-xl no-underline transition-transform hover:translate-y-[-2px] hover:bg-gray-100"
+          className="inline-block bg-white text-choir-blue-dark font-bold px-8 py-4 rounded-lg text-xl no-underline transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-choir-blue-dark"
         >
           Learn About Membership
         </a>
