@@ -1,5 +1,7 @@
 'use client'
 
+import { useState, useMemo } from 'react'
+
 interface TimelineFilterProps {
   buckets: string[]
   activeBucket: string | null
@@ -13,39 +15,100 @@ export default function TimelineFilter({
   onBucketClick,
   onClear,
 }: TimelineFilterProps) {
-  if (buckets.length === 0) {
+  // Parse buckets into year-month structure
+  const yearMonthData = useMemo(() => {
+    const data: Record<string, Set<string>> = {}
+
+    buckets.forEach((bucket) => {
+      // Bucket format is MM/YYYY
+      const [month, year] = bucket.split('/')
+      if (year && month) {
+        if (!data[year]) {
+          data[year] = new Set()
+        }
+        data[year].add(month)
+      }
+    })
+
+    return data
+  }, [buckets])
+
+  // Get sorted years (most recent first)
+  const years = useMemo(() => {
+    return Object.keys(yearMonthData).sort((a, b) => parseInt(b) - parseInt(a))
+  }, [yearMonthData])
+
+  // Default to most recent year
+  const [selectedYear, setSelectedYear] = useState(() => years[0] || '')
+
+  if (buckets.length === 0 || years.length === 0) {
     return null
   }
 
+  const monthsInYear = yearMonthData[selectedYear] || new Set()
+
+  // All months for grid display
+  const allMonths = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+
   return (
     <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-3 shadow-sm">
-      <h3 className="text-xs font-bold text-choir-blue-dark mb-2 uppercase tracking-wide">
-        Jump to Date
-      </h3>
-
-      {activeBucket && (
-        <button
-          onClick={onClear}
-          className="w-full mb-2 px-2 py-1 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
-        >
-          Clear Selection
-        </button>
-      )}
-
-      <div className="space-y-1 max-h-48 overflow-y-auto pr-1">
-        {buckets.map((bucket) => (
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-xs font-bold text-choir-blue-dark uppercase tracking-wide">
+          Jump to Date
+        </h3>
+        {activeBucket && (
           <button
-            key={bucket}
-            onClick={() => onBucketClick(bucket)}
-            className={`w-full px-2 py-1.5 text-left text-xs rounded transition-colors ${
-              activeBucket === bucket
-                ? 'bg-choir-blue text-white font-semibold'
-                : 'text-gray-700 hover:bg-gray-100'
-            }`}
+            onClick={onClear}
+            className="px-2 py-0.5 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
           >
-            {bucket}
+            Clear
           </button>
-        ))}
+        )}
+      </div>
+
+      {/* Year selector - horizontal scrollable */}
+      <div className="mb-3 overflow-x-auto">
+        <div className="flex gap-2 pb-1">
+          {years.map((year) => (
+            <button
+              key={year}
+              onClick={() => setSelectedYear(year)}
+              className={`px-3 py-1.5 text-sm font-semibold rounded-lg whitespace-nowrap transition-colors ${
+                selectedYear === year
+                  ? 'bg-choir-blue text-white'
+                  : 'bg-white text-gray-700 border border-gray-300 hover:border-choir-blue'
+              }`}
+            >
+              {year}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Month grid - 6x2 layout */}
+      <div className="grid grid-cols-6 gap-1.5">
+        {allMonths.map((month) => {
+          const hasPost = monthsInYear.has(month)
+          const bucket = `${month}/${selectedYear}`
+          const isActive = activeBucket === bucket
+
+          return (
+            <button
+              key={month}
+              onClick={() => hasPost && onBucketClick(bucket)}
+              disabled={!hasPost}
+              className={`px-2 py-1.5 text-xs font-medium rounded transition-colors ${
+                isActive
+                  ? 'bg-choir-blue text-white'
+                  : hasPost
+                  ? 'bg-white text-gray-700 border border-gray-300 hover:border-choir-blue hover:bg-gray-50'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
+              }`}
+            >
+              {month}
+            </button>
+          )
+        })}
       </div>
     </div>
   )
