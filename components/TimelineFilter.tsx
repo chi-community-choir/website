@@ -59,7 +59,7 @@ export default function TimelineFilter({
         {activeBucket && (
           <button
             onClick={onClear}
-            className="px-2 py-0.5 text-xs bg-gray-200 text-gray-700 rounded hover:bg-gray-300 transition-colors"
+            className="px-2 py-0.5 text-xs bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-all focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-1 active:translate-y-[1px]"
           >
             Clear
           </button>
@@ -73,7 +73,7 @@ export default function TimelineFilter({
             <button
               key={year}
               onClick={() => setSelectedYear(year)}
-              className={`px-3 py-1.5 text-sm font-semibold rounded-lg whitespace-nowrap transition-colors ${
+              className={`px-3 py-1.5 text-sm font-semibold rounded-lg whitespace-nowrap transition-all focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-1 active:translate-y-[1px] ${
                 selectedYear === year
                   ? 'bg-choir-blue text-white'
                   : 'bg-white text-gray-700 border border-gray-300 hover:border-choir-blue'
@@ -97,11 +97,11 @@ export default function TimelineFilter({
               key={month}
               onClick={() => hasPost && onBucketClick(bucket)}
               disabled={!hasPost}
-              className={`px-2 py-1.5 text-xs font-medium rounded transition-colors ${
+              className={`px-2 py-1.5 text-xs font-medium rounded-md transition-all ${
                 isActive
                   ? 'bg-choir-blue text-white'
                   : hasPost
-                  ? 'bg-white text-gray-700 border border-gray-300 hover:border-choir-blue hover:bg-gray-50'
+                  ? 'bg-white text-gray-700 border border-gray-300 hover:border-choir-blue hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-1 active:translate-y-[1px]'
                   : 'bg-gray-100 text-gray-400 cursor-not-allowed opacity-50'
               }`}
             >

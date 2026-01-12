@@ -3,6 +3,7 @@
 import { useState, useMemo } from 'react'
 import type { Song } from '@/lib/songs'
 import SongCard from '@/components/SongCard'
+import SearchInput from '@/components/SearchInput'
 
 interface RepertoireClientProps {
   songs: Song[]
@@ -62,28 +63,11 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
       ) : (
         <>
           <div className="mb-8 max-w-md mx-auto">
-            <div className="relative">
-              <input
-                type="text"
-                placeholder="Search songs..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full px-4 py-3 pr-10 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-choir-blue transition-colors"
-              />
-              <svg
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </div>
+            <SearchInput
+              value={searchQuery}
+              onChange={setSearchQuery}
+              placeholder="Search songs..."
+            />
             {searchQuery && (
               <p className="text-sm text-gray-600 mt-2">
                 Found {filteredSongs.length} {filteredSongs.length === 1 ? 'song' : 'songs'}
@@ -109,7 +93,7 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
                 <div className="text-center mt-8">
                   <button
                     onClick={loadMore}
-                    className="px-6 py-3 text-lg bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-colors focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2"
+                    className="px-6 py-3 text-lg bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-all focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2 active:translate-y-[1px]"
                   >
                     Load More Songs
                   </button>

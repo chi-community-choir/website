@@ -87,13 +87,13 @@ export default function FindUsPage() {
               Parking at the university is managed by paybyphone. See below for details:
             </p>
             <div className="flex flex-wrap gap-6">
-              <div className="bg-gray-50 rounded p-4 flex-1 min-w-[200px]">
+              <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[200px]">
                 <h4 className="text-choir-blue font-semibold mb-2">Link</h4>
                 <a href="https://m2.paybyphone.co.uk/parking" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
                   m2.paybyphone.co.uk
                 </a>
               </div>
-              <div className="bg-gray-50 rounded p-4 flex-1 min-w-[200px]">
+              <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[200px]">
                 <h4 className="text-choir-blue font-semibold mb-2">Location Number</h4>
                 <p>808365</p>
               </div>

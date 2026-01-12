@@ -9,13 +9,13 @@ interface InfoBoxProps {
 
 export default function InfoBox({ title, children, linkHref, linkText }: InfoBoxProps) {
   return (
-    <div className="bg-white border-2 border-gray-200 rounded-xl p-6 text-center transition-all hover:shadow-lg hover:scale-[1.02]">
+    <div className="bg-white border-2 border-gray-200 rounded-lg p-6 text-center transition-all hover:shadow-lg hover:scale-[1.02]">
       <h2 className="text-choir-blue-dark text-2xl font-bold mb-4">{title}</h2>
       <div className="text-gray-700 text-lg mb-4">{children}</div>
       {linkHref && linkText && (
         <Link
           href={linkHref}
-          className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline mt-2 transition-colors hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2"
+          className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline mt-2 transition-all hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2 active:translate-y-[1px]"
         >
           {linkText}
         </Link>

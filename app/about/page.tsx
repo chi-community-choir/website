@@ -118,7 +118,7 @@ export default function AboutPage() {
         </p>
         <a
           href="/membership"
-          className="inline-block bg-white text-choir-blue-dark font-bold px-8 py-4 rounded-lg text-xl no-underline transition-colors hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-choir-blue-dark"
+          className="inline-block bg-white text-choir-blue-dark font-bold px-8 py-4 rounded-lg text-xl no-underline transition-all hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-choir-blue-dark active:translate-y-[1px]"
         >
           Learn About Membership
         </a>
