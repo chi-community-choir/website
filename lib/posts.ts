@@ -4,6 +4,46 @@ import matter from 'gray-matter'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
 
+function deriveTimeBucket(dateString: string): { year: string; month: string; bucket: string } {
+  if (!dateString) {
+    return { year: '', month: '', bucket: 'Unknown' }
+  }
+
+  const postDate = new Date(dateString)
+  const now = new Date()
+
+  const postYear = postDate.getFullYear()
+  const postMonth = postDate.getMonth()
+  const currentYear = now.getFullYear()
+  const currentMonth = now.getMonth()
+
+  const monthNames = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ]
+
+  const year = postYear.toString()
+  const month = `${monthNames[postMonth]} ${postYear}`
+
+  // Determine bucket label
+  let bucket: string
+
+  if (postYear === currentYear && postMonth === currentMonth) {
+    bucket = 'This Month'
+  } else if (
+    postYear === currentYear && postMonth === currentMonth - 1 ||
+    (currentMonth === 0 && postYear === currentYear - 1 && postMonth === 11)
+  ) {
+    bucket = 'Last Month'
+  } else if (postYear === currentYear) {
+    bucket = month
+  } else {
+    bucket = year
+  }
+
+  return { year, month, bucket }
+}
+
 export interface Post {
   slug: string
   title: string
@@ -12,6 +52,9 @@ export interface Post {
   author: string
   tags?: string[]
   content?: string
+  year?: string
+  month?: string
+  bucket?: string
 }
 
 export function getAllPosts(): Post[] {
@@ -29,13 +72,19 @@ export function getAllPosts(): Post[] {
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
 
+      const date = data.date || ''
+      const { year, month, bucket } = deriveTimeBucket(date)
+
       return {
         slug,
         title: data.title || 'Untitled',
-        date: data.date || '',
+        date,
         excerpt: data.excerpt || '',
         author: data.author || '',
         tags: data.tags || [],
+        year,
+        month,
+        bucket,
       }
     })
 
