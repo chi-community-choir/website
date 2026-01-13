@@ -49,36 +49,40 @@ export default async function PostPage({ params }: PageProps) {
         ← Back to Events
       </Link>
 
-      <article className="bg-white rounded-xl border-2 border-gray-200 p-8">
-        <h1 className="text-choir-blue-dark text-4xl font-bold mb-4">
-          {post.title}
-        </h1>
+      <article className="bg-white rounded-lg border-2 border-gray-200 p-8 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6 pb-6 border-b border-gray-200">
+          <div className="flex-1">
+            <h1 className="text-choir-blue-dark text-4xl font-bold mb-4">
+              {post.title}
+            </h1>
 
-        <div className="text-gray-600 mb-6 pb-6 border-b border-gray-200">
-          {post.date && (
-            <span className="mr-4">
-              {new Date(post.date).toLocaleDateString('en-GB', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </span>
-          )}
-          {post.author && <span>By {post.author}</span>}
-        </div>
-
-        {post.tags && post.tags.length > 0 && (
-          <div className="mb-6 flex flex-wrap gap-2">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
-              >
-                {tag}
-              </span>
-            ))}
+            <div className="text-gray-600">
+              {post.date && (
+                <span className="mr-4">
+                  {new Date(post.date).toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </span>
+              )}
+              {post.author && <span>By {post.author}</span>}
+            </div>
           </div>
-        )}
+
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 lg:max-w-xs">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
 
         <MarkdownContent
           content={post.content || ''}
