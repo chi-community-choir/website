@@ -86,7 +86,7 @@ export default async function PostPage({ params }: PageProps) {
 
         <MarkdownContent
           content={post.content || ''}
-          className="prose prose-lg max-w-none"
+          className="max-w-none"
         />
       </article>
     </div>
