@@ -17,3 +17,37 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* Typography Improvements */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-lora), Georgia, serif;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Improved body text readability */
+p, li {
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+/* Better link styling */
+a {
+  transition: color 0.2s ease;
+}

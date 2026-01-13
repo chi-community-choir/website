@@ -8,6 +8,13 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        serif: ['var(--font-lora)', 'Georgia', 'serif'],
+        sans: ['var(--font-source-sans)', 'system-ui', 'sans-serif'],
+      },
+      fontSize: {
+        base: ['19px', '1.7'],
+      },
       colors: {
         // Primary blues
         'choir-blue-dark': '#1a365d',
@@ -30,6 +37,20 @@ const config: Config = {
       typography: {
         DEFAULT: {
           css: {
+            '--tw-prose-body': '#374151',
+            '--tw-prose-headings': '#1a365d',
+            fontSize: '19px',
+            lineHeight: '1.7',
+            'h1, h2, h3, h4, h5, h6': {
+              fontFamily: 'var(--font-lora), Georgia, serif',
+              fontWeight: '700',
+              letterSpacing: '-0.015em',
+            },
+            'p': {
+              fontFamily: 'var(--font-source-sans), system-ui, sans-serif',
+              lineHeight: '1.7',
+              letterSpacing: '0.01em',
+            },
             'img': {
               maxWidth: '65%',
               marginLeft: 'auto',
