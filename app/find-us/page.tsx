@@ -9,15 +9,18 @@ export default function FindUsPage() {
   return (
     <div className="text-lg leading-relaxed">
       {/* Hero */}
-      <section className="bg-gradient-to-r from-choir-blue to-choir-blue-light text-white py-12 text-center">
-        <h1 className="text-5xl mb-4">Find Us</h1>
-        <p className="max-w-3xl mx-auto px-4">
-          Join us for rehearsals! Here&apos;s where you can find the Chichester Community Choir.
-        </p>
+      <section className="bg-gradient-to-br from-choir-blue via-choir-blue to-choir-blue-light text-white py-12 text-center relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.08),transparent_50%)]"></div>
+        <div className="relative z-10">
+          <h1 className="text-5xl mb-4">Find Us</h1>
+          <p className="max-w-3xl mx-auto px-4">
+            Join us for rehearsals! Here&apos;s where you can find the Chichester Community Choir.
+          </p>
+        </div>
       </section>
 
       {/* Location */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Location</h2>
         <div className="flex flex-wrap gap-8 items-start">
           <div className="flex-1 min-w-[300px]">
@@ -56,7 +59,7 @@ export default function FindUsPage() {
       </section>
 
       {/* Directions */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Accessing the Rehearsal Room</h2>
         <a href="https://maps.chi.ac.uk/#room=C01-0-31" className="block mb-4">
           <div className="bg-choir-peach-tint p-4 rounded-lg text-center hover:bg-choir-peach/30 transition-colors border border-choir-warm-gray">
@@ -68,12 +71,12 @@ export default function FindUsPage() {
         <Image
           src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/better_directions.png"
           alt="Directions to rehearsal room"
-          className="w-full h-auto rounded-lg shadow-md"
+          className="w-full h-auto rounded-lg shadow-warm-md"
         />
       </section>
 
       {/* Parking */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Parking Information</h2>
         <p className="text-center max-w-3xl mx-auto mb-4">
           Several parking options are available on the university grounds near our rehearsal space.

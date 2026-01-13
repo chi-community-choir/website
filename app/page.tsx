@@ -8,7 +8,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Welcome Section */}
-      <section className="max-w-4xl mx-auto mb-12 p-8 bg-white rounded-lg text-center shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-4xl mx-auto mb-12 p-8 bg-white rounded-lg text-center shadow-warm-md border-2 border-choir-warm-gray">
         <h1 className="text-choir-blue-dark text-4xl font-bold mb-6">
           Welcome to Chichester Community Choir
         </h1>
@@ -46,7 +46,7 @@ export default function Home() {
       </section>
 
       {/* CTA Bottom */}
-      <section className="bg-gradient-to-br from-choir-peach/20 to-choir-sunshine p-12 text-center rounded-xl max-w-4xl mx-auto mb-12 border-4 border-choir-gold shadow-2xl relative overflow-hidden">
+      <section className="bg-gradient-to-br from-choir-peach/20 to-choir-sunshine p-12 text-center rounded-xl max-w-4xl mx-auto mb-12 border-4 border-choir-gold shadow-warm-2xl relative overflow-hidden">
         {/* Decorative element */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.3),transparent_50%)]"></div>
         <div className="relative z-10">
@@ -58,7 +58,7 @@ export default function Home() {
           </p>
           <a
             href="/membership"
-            className="inline-block bg-gradient-to-r from-choir-coral-dark to-choir-coral text-white px-12 py-5 rounded-xl text-2xl font-bold no-underline transition-all hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-choir-gold focus:ring-offset-2 active:translate-y-[1px] shadow-xl border-2 border-white/30"
+            className="inline-block bg-gradient-to-r from-choir-coral-dark to-choir-coral text-white px-12 py-5 rounded-xl text-2xl font-bold no-underline transition-all hover:scale-105 hover:shadow-warm-2xl focus:outline-none focus:ring-4 focus:ring-choir-gold focus:ring-offset-2 active:translate-y-[1px] shadow-warm-xl border-2 border-white/30"
           >
             Join the Choir
           </a>
