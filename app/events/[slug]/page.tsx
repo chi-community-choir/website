@@ -49,7 +49,7 @@ export default async function PostPage({ params }: PageProps) {
         ← Back to Events
       </Link>
 
-      <article className="bg-white rounded-lg border-2 border-gray-200 p-8 shadow-sm">
+      <article className="bg-white rounded-lg border-2 border-choir-warm-gray p-8 shadow-warm-sm">
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6 pb-6 border-b border-gray-200">
           <div className="flex-1">
             <h1 className="text-choir-blue-dark text-4xl font-bold mb-4">

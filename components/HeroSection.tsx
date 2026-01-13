@@ -8,7 +8,7 @@ export default function HeroSection() {
           <Image
             src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/2019-12-13-Choir-Header-1.png"
             alt="Chichester Community Choir banner"
-            className="w-full h-auto shadow-md"
+            className="w-full h-auto shadow-warm-md"
             priority
           />
         </div>

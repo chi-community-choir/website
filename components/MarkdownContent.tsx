@@ -50,7 +50,7 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
             alt={alt || ''}
             width={800}
             height={600}
-            className="rounded-lg shadow-md mx-auto"
+            className="rounded-lg shadow-warm-md mx-auto"
             style={{ maxWidth: '65%', height: 'auto' }}
           />
         </span>

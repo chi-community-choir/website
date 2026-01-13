@@ -11,7 +11,7 @@ export default function SongCard({ song }: SongCardProps) {
 
   return (
     <Link href={`/repertoire/${song.slug}`} className="no-underline">
-      <div className="bg-white border-2 border-choir-warm-gray rounded-xl p-6 transition-all hover:border-choir-coral hover:shadow-lg h-full flex flex-col">
+      <div className="bg-white border-2 border-choir-warm-gray rounded-xl p-6 transition-all hover:border-choir-coral hover:shadow-warm-lg shadow-warm-sm h-full flex flex-col">
         <h2 className="text-choir-blue-dark text-2xl font-bold mb-2">
           {song.title}
         </h2>

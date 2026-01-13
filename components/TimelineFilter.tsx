@@ -51,7 +51,7 @@ export default function TimelineFilter({
   const allMonths = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
 
   return (
-    <div className="bg-gray-50 border-2 border-gray-200 rounded-lg p-3 shadow-sm">
+    <div className="bg-choir-peach-tint border-2 border-choir-warm-gray rounded-lg p-3 shadow-warm-sm">
       <div className="flex items-center justify-between mb-3">
         <h3 className="text-xs font-bold text-choir-blue-dark uppercase tracking-wide">
           Jump to Date
