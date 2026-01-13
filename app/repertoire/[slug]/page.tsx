@@ -53,34 +53,38 @@ export default async function SongPage({ params }: PageProps) {
         ← Back to Repertoire
       </Link>
 
-      <article className="bg-white rounded-xl border-2 border-gray-200 p-8">
-        <h1 className="text-choir-blue-dark text-4xl font-bold mb-4">
-          {song.title}
-        </h1>
+      <article className="bg-white rounded-lg border-2 border-gray-200 p-8 shadow-sm">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6 pb-6 border-b border-gray-200">
+          <div className="flex-1">
+            <h1 className="text-choir-blue-dark text-4xl font-bold mb-4">
+              {song.title}
+            </h1>
 
-        <div className="text-gray-600 mb-6 pb-6 border-b border-gray-200">
-          <div className="text-lg">
-            <span className="font-semibold">Composer:</span> {song.composer}
+            <div className="text-gray-600">
+              <div className="text-lg">
+                <span className="font-semibold">Composer:</span> {song.composer}
+              </div>
+              {song.arranger && (
+                <div className="text-sm mt-1">
+                  <span className="font-semibold">Arranged by:</span> {song.arranger}
+                </div>
+              )}
+            </div>
           </div>
-          {song.arranger && (
-            <div className="text-sm mt-1">
-              <span className="font-semibold">Arranged by:</span> {song.arranger}
+
+          {song.tags && song.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 lg:max-w-xs">
+              {song.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           )}
         </div>
-
-        {song.tags && song.tags.length > 0 && (
-          <div className="mb-6 flex flex-wrap gap-2">
-            {song.tags.map((tag) => (
-              <span
-                key={tag}
-                className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
 
         {/* Resources Section */}
         {(hasSheetMusic || hasAudio) && (
