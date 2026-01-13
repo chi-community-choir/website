@@ -47,13 +47,19 @@ export default function Home() {
       </section>
 
       {/* CTA Bottom */}
-      <section className="bg-gray-100 p-8 text-center rounded-lg max-w-4xl mx-auto mb-12">
-        <h2 className="text-choir-blue-dark text-3xl font-bold mb-4">
+      <section className="bg-choir-blue/5 p-8 text-center rounded-lg max-w-4xl mx-auto mb-12 border-2 border-choir-blue/20 shadow-lg">
+        <h2 className="text-choir-blue-dark text-4xl font-bold mb-4">
           Come Sing With Us!
         </h2>
-        <p className="text-lg text-gray-700 max-w-2xl mx-auto">
+        <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-6">
           Experience the joy of singing together in a friendly, welcoming environment. No previous experience needed!
         </p>
+        <a
+          href="/membership"
+          className="inline-block bg-choir-blue text-white px-8 py-4 rounded-lg text-xl font-semibold no-underline transition-all hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2 active:translate-y-[1px] shadow-md"
+        >
+          Join the Choir
+        </a>
       </section>
     </div>
   )
