@@ -172,7 +172,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
   return (
     <div className="min-h-screen">
       {/* Header with Search (center) and Date Jumplist (right) */}
-      <div className="bg-choir-warm-white border-b-2 border-choir-warm-gray sticky top-0 z-30 shadow-sm">
+      <div className="bg-white border-b-2 border-choir-warm-gray sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col lg:flex-row gap-6 items-start">
             {/* Left/Center: Title and Search */}
@@ -264,7 +264,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
                 <div className="text-center mt-8">
                   <button
                     onClick={loadMore}
-                    className="px-6 py-3 text-lg bg-choir-coral text-white rounded-lg hover:bg-choir-coral/90 transition-all focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 active:translate-y-[1px] shadow-md"
+                    className="px-6 py-3 text-lg bg-choir-coral-dark text-white rounded-lg hover:bg-choir-coral-dark/90 transition-all focus:outline-none focus:ring-2 focus:ring-choir-coral-dark focus:ring-offset-2 active:translate-y-[1px] shadow-md"
                   >
                     Load More Events
                   </button>

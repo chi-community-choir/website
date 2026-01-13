@@ -51,7 +51,7 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
       </h1>
 
       {songs.length === 0 ? (
-        <div className="text-center py-12 bg-choir-warm-white rounded-lg border-2 border-choir-warm-gray p-8">
+        <div className="text-center py-12 bg-white rounded-lg border-2 border-choir-warm-gray p-8">
           <p className="text-xl text-gray-600 mb-4">
             Our repertoire listing is being updated. Check back soon!
           </p>
@@ -93,7 +93,7 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
                 <div className="text-center mt-8">
                   <button
                     onClick={loadMore}
-                    className="px-6 py-3 text-lg bg-choir-coral text-white rounded-lg hover:bg-choir-coral/90 transition-all focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 active:translate-y-[1px] shadow-md"
+                    className="px-6 py-3 text-lg bg-choir-coral-dark text-white rounded-lg hover:bg-choir-coral-dark/90 transition-all focus:outline-none focus:ring-2 focus:ring-choir-coral-dark focus:ring-offset-2 active:translate-y-[1px] shadow-md"
                   >
                     Load More Songs
                   </button>

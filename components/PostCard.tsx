@@ -8,7 +8,7 @@ interface PostCardProps {
 export default function PostCard({ post }: PostCardProps) {
   return (
     <Link href={`/events/${post.slug}`} className="no-underline">
-      <div className="bg-choir-warm-white border-2 border-choir-warm-gray rounded-lg p-6 transition-all hover:border-choir-coral hover:shadow-lg">
+      <div className="bg-white border-2 border-choir-warm-gray rounded-lg p-6 transition-all hover:border-choir-coral hover:shadow-lg">
         <h2 className="text-choir-blue-dark text-2xl font-bold mb-2">
           {post.title}
         </h2>

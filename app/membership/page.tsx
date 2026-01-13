@@ -15,7 +15,7 @@ export default function MembershipPage() {
       </section>
 
       {/* Membership Fees */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Membership Fees</h2>
         <p className="text-center max-w-3xl mx-auto mb-4">
           Our choir is run as a non-profit organization, and membership fees help cover our essential costs.
@@ -26,7 +26,7 @@ export default function MembershipPage() {
           - no need to worry about payment until you decide to join.
         </p>
 
-        <div className="max-w-3xl mx-auto bg-choir-warm-white border border-choir-warm-gray rounded-lg shadow-md p-8 mb-8">
+        <div className="max-w-3xl mx-auto bg-white border border-choir-warm-gray rounded-lg shadow-md p-8 mb-8">
           <h3 className="text-2xl text-choir-blue text-center mb-4">Membership Information</h3>
           <div className="text-center mb-6 p-4 bg-choir-peach-tint rounded-lg border border-choir-warm-gray">
             <span className="text-4xl font-bold text-choir-blue">£28</span>
@@ -68,7 +68,7 @@ export default function MembershipPage() {
       </section>
 
       {/* Where Fees Go */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Where Your Membership Fees Go</h2>
         <div className="text-center max-w-3xl mx-auto">
           <p className="mb-4">
@@ -83,7 +83,7 @@ export default function MembershipPage() {
       </section>
 
       {/* FAQ */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Frequently Asked Questions</h2>
         <div className="space-y-6">
           <FAQItem

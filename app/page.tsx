@@ -8,7 +8,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Welcome Section */}
-      <section className="max-w-4xl mx-auto mb-12 p-8 bg-choir-peach-tint rounded-lg text-center shadow-sm">
+      <section className="max-w-4xl mx-auto mb-12 p-8 bg-white rounded-lg text-center shadow-md border-2 border-choir-warm-gray">
         <h1 className="text-choir-blue-dark text-4xl font-bold mb-6">
           Welcome to Chichester Community Choir
         </h1>
@@ -28,38 +28,41 @@ export default function Home() {
             </p>
           </InfoBox>
 
-          <InfoBox title="Want to Join?">
-            <p className="mb-4">
-              Your first session is free! Come along and give it a try.
+          <InfoBox title="Want to Join?" linkHref="mailto:caroline@chicommunitychoir.com" linkText="Contact Us to Join">
+            <p>
+              Your first session is free!<br />
+              Come along and give it a try.<br />
             </p>
-            <a
-              href="mailto:caroline@chicommunitychoir.com"
-              className="inline-block bg-choir-coral text-white px-6 py-3 rounded-lg text-lg no-underline transition-all hover:bg-choir-coral/90 focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 active:translate-y-[1px] shadow-md"
-            >
-              Contact Us to Join
-            </a>
           </InfoBox>
 
           <InfoBox title="Latest News" linkHref="/events" linkText="View Events">
-            <p>Stay tuned for upcoming performances and events!</p>
+            <p>
+              Stay tuned for upcoming<br />
+              performances and events.<br />
+              See you there!
+            </p>
           </InfoBox>
         </div>
       </section>
 
       {/* CTA Bottom */}
-      <section className="bg-gradient-to-br from-choir-peach-tint to-choir-warm-white p-8 text-center rounded-lg max-w-4xl mx-auto mb-12 border-2 border-choir-gold/30 shadow-lg">
-        <h2 className="text-choir-blue-dark text-4xl font-bold mb-4">
-          Come Sing With Us!
-        </h2>
-        <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-6">
-          Experience the joy of singing together in a friendly, welcoming environment. No previous experience needed!
-        </p>
-        <a
-          href="/membership"
-          className="inline-block bg-choir-coral text-white px-8 py-4 rounded-lg text-xl font-semibold no-underline transition-all hover:bg-choir-coral/90 focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 active:translate-y-[1px] shadow-md"
-        >
-          Join the Choir
-        </a>
+      <section className="bg-gradient-to-br from-choir-peach/20 to-choir-sunshine p-12 text-center rounded-xl max-w-4xl mx-auto mb-12 border-4 border-choir-gold shadow-2xl relative overflow-hidden">
+        {/* Decorative element */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0.3),transparent_50%)]"></div>
+        <div className="relative z-10">
+          <h2 className="text-choir-blue-dark text-5xl font-bold mb-6 drop-shadow-sm">
+            Come Sing With Us!
+          </h2>
+          <p className="text-xl text-gray-800 max-w-2xl mx-auto mb-8 leading-relaxed">
+            Experience the joy of singing together in a friendly, welcoming environment. No previous experience needed!
+          </p>
+          <a
+            href="/membership"
+            className="inline-block bg-gradient-to-r from-choir-coral-dark to-choir-coral text-white px-12 py-5 rounded-xl text-2xl font-bold no-underline transition-all hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-choir-gold focus:ring-offset-2 active:translate-y-[1px] shadow-xl border-2 border-white/30"
+          >
+            Join the Choir
+          </a>
+        </div>
       </section>
     </div>
   )

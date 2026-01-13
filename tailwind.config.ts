@@ -15,14 +15,16 @@ const config: Config = {
         'choir-blue-light': '#4a6fa5',
 
         // Warm accents
-        'choir-coral': '#e8856e',
+        'choir-coral': '#7c082f',
+        'choir-coral-dark': '#4a051C', // Darker coral for accessible buttons
         'choir-peach': '#f4b088',
         'choir-gold': '#d4a574',
+        'choir-sunshine': '#ffd816', // Bright and warm for CTA
 
         // Warm backgrounds
-        'choir-cream': '#faf7f2',
-        'choir-warm-white': '#fdfbf7',
-        'choir-warm-gray': '#e8e3db',
+        'choir-cream': '#f5f3ef', // Slightly darker for better container contrast
+        'choir-warm-white': '#ffffff', // Pure white for containers
+        'choir-warm-gray': '#ddd8cc',
         'choir-peach-tint': '#fff5ee',
       },
       typography: {
