@@ -7,9 +7,9 @@ export const metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="bg-gray-100 text-lg leading-relaxed">
+    <div className="text-lg leading-relaxed">
       {/* Hero Section */}
-      <section className="bg-choir-blue text-white py-12 text-center mb-8">
+      <section className="bg-gradient-to-r from-choir-blue to-choir-blue-light text-white py-12 text-center mb-8">
         <h1 className="text-5xl mb-4">About Us</h1>
         <p className="max-w-3xl mx-auto text-xl px-4">
           Learn about the Chichester Community Choir, our directors, and our mission to bring people together through music.
@@ -17,7 +17,7 @@ export default function AboutPage() {
       </section>
 
       {/* Directors Section */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Directors</h2>
         <div className="flex flex-wrap gap-8 items-center">
           <div className="flex-1 min-w-[300px]">
@@ -42,7 +42,7 @@ export default function AboutPage() {
       </section>
 
       {/* Choir Information */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
         <div className="max-w-4xl mx-auto">
           <p className="mb-6 text-lg text-center">
@@ -66,10 +66,10 @@ export default function AboutPage() {
       </section>
 
       {/* Rehearsal Information */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Information</h2>
         <div className="flex flex-wrap gap-4 justify-center">
-          <div className="flex-1 min-w-[300px] p-8 bg-gray-50 rounded-lg m-4">
+          <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
             <h3 className="text-2xl mb-4 text-choir-blue">When & Where</h3>
             <p className="mb-4">
               Tuesday Evenings<br />
@@ -87,7 +87,7 @@ export default function AboutPage() {
               </a>
             </p>
           </div>
-          <div className="flex-1 min-w-[300px] p-8 bg-gray-50 rounded-lg m-4">
+          <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
             <h3 className="text-2xl mb-4 text-choir-blue">What to Expect</h3>
             <ul className="list-disc pl-6">
               <li className="mb-2">Warm-up exercises to prepare your voice</li>
@@ -101,7 +101,7 @@ export default function AboutPage() {
       </section>
 
       {/* History */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our History</h2>
         <div className="max-w-3xl mx-auto">
           <p className="text-lg text-center">
@@ -118,7 +118,7 @@ export default function AboutPage() {
         </p>
         <a
           href="/membership"
-          className="inline-block bg-white text-choir-blue-dark font-bold px-8 py-4 rounded-lg text-xl no-underline transition-all hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-choir-blue-dark active:translate-y-[1px]"
+          className="inline-block bg-choir-coral text-white font-bold px-8 py-4 rounded-lg text-xl no-underline transition-all hover:bg-choir-coral/90 focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 focus:ring-offset-choir-blue-dark active:translate-y-[1px] shadow-md"
         >
           Learn About Membership
         </a>
@@ -129,7 +129,7 @@ export default function AboutPage() {
 
 function ChoirFeature({ title, description }: { title: string; description: string }) {
   return (
-    <div className="bg-gray-50 rounded-lg p-6 shadow-sm w-64 max-w-full">
+    <div className="bg-choir-peach-tint rounded-lg p-6 shadow-sm w-64 max-w-full border border-choir-warm-gray">
       <h3 className="text-choir-blue text-xl mb-3 text-center">{title}</h3>
       <p className="text-gray-600 text-center text-base">{description}</p>
     </div>

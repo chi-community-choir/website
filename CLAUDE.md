@@ -1,4 +1,4 @@
-# CLAUDE.md
+# CLAUDE.md -- OUTDATED, rewrite in progress. Inspect the workspace carefully as some aspects will be different.
 
 This file provides guidance for the Claude Code agent and developers working on the **Chichester Community Choir** website.
 
@@ -33,6 +33,7 @@ chi-comm-choir/
 │   ├── find-us/
 │   ├── membership/
 │   ├── repertoire/
+│   │   └── [slug]/        # Dynamic song pages
 │   ├── layout.tsx         # Root layout with nav/footer
 │   └── page.tsx           # Homepage
 ├── components/            # React components
@@ -43,7 +44,7 @@ chi-comm-choir/
 │   └── PostCard.tsx
 ├── content/               # Markdown content
 │   ├── posts/            # Blog posts/events
-│   └── songs/            # Repertoire (future)
+│   └── songs/            # Repertoire
 ├── lib/                   # Utility functions
 │   └── posts.ts          # Markdown processing
 └── public/                # Static assets
@@ -94,20 +95,20 @@ Full markdown content here...
 
 3. Commit and push to trigger deployment
 
-## Styling Guidelines
+## Styling Guidelines -- changing soon
 
 - Tailwind CSS for all styling
 - Color palette: Blues (`#1a365d`, `#2c5282`, `#2a4365`), white, light grays
 - Responsive design with mobile-first approach
 - Consistent spacing and typography using Tailwind utilities
 
-## Assets
+## Assets -- old, moved to vercel blob
 
 - Banner image: `https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/2019-12-13-Choir-Header-1.png`
 - Director photos hosted on DigitalOcean Spaces CDN
 - All external images should use the DigitalOcean CDN
 
-## Technology Stack
+## Technology Stack -- plugin list incomplete
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript
