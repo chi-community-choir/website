@@ -8,7 +8,7 @@ interface PostCardProps {
 export default function PostCard({ post }: PostCardProps) {
   return (
     <Link href={`/events/${post.slug}`} className="no-underline">
-      <div className="bg-white border-2 border-gray-200 rounded-lg p-6 transition-all hover:border-choir-blue hover:shadow-lg">
+      <div className="bg-choir-warm-white border-2 border-choir-warm-gray rounded-lg p-6 transition-all hover:border-choir-coral hover:shadow-lg">
         <h2 className="text-choir-blue-dark text-2xl font-bold mb-2">
           {post.title}
         </h2>
@@ -33,7 +33,7 @@ export default function PostCard({ post }: PostCardProps) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="bg-gray-100 text-gray-700 px-3 py-2 rounded-full text-sm"
+                className="bg-choir-peach-tint text-gray-700 px-3 py-2 rounded-full text-sm border border-choir-peach/30"
               >
                 {tag}
               </span>

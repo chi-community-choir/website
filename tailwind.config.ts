@@ -9,9 +9,21 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Primary blues
         'choir-blue-dark': '#1a365d',
         'choir-blue': '#2c5282',
-        'choir-blue-light': '#2a4365',
+        'choir-blue-light': '#4a6fa5',
+
+        // Warm accents
+        'choir-coral': '#e8856e',
+        'choir-peach': '#f4b088',
+        'choir-gold': '#d4a574',
+
+        // Warm backgrounds
+        'choir-cream': '#faf7f2',
+        'choir-warm-white': '#fdfbf7',
+        'choir-warm-gray': '#e8e3db',
+        'choir-peach-tint': '#fff5ee',
       },
       typography: {
         DEFAULT: {

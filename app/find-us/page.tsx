@@ -7,9 +7,9 @@ export const metadata = {
 
 export default function FindUsPage() {
   return (
-    <div className="bg-gray-100 text-lg leading-relaxed">
+    <div className="text-lg leading-relaxed">
       {/* Hero */}
-      <section className="bg-choir-blue text-white py-12 text-center">
+      <section className="bg-gradient-to-r from-choir-blue to-choir-blue-light text-white py-12 text-center">
         <h1 className="text-5xl mb-4">Find Us</h1>
         <p className="max-w-3xl mx-auto px-4">
           Join us for rehearsals! Here&apos;s where you can find the Chichester Community Choir.
@@ -17,7 +17,7 @@ export default function FindUsPage() {
       </section>
 
       {/* Location */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Location</h2>
         <div className="flex flex-wrap gap-8 items-start">
           <div className="flex-1 min-w-[300px]">
@@ -56,10 +56,10 @@ export default function FindUsPage() {
       </section>
 
       {/* Directions */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Accessing the Rehearsal Room</h2>
         <a href="https://maps.chi.ac.uk/#room=C01-0-31" className="block mb-4">
-          <div className="bg-gray-200 p-4 rounded-lg text-center hover:bg-gray-300 transition-colors">
+          <div className="bg-choir-peach-tint p-4 rounded-lg text-center hover:bg-choir-peach/30 transition-colors border border-choir-warm-gray">
             <p className="text-choir-blue hover:text-choir-blue-light underline transition-colors font-semibold">
               Click here to see a detailed map of the university campus
             </p>
@@ -73,13 +73,13 @@ export default function FindUsPage() {
       </section>
 
       {/* Parking */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Parking Information</h2>
         <p className="text-center max-w-3xl mx-auto mb-4">
           Several parking options are available on the university grounds near our rehearsal space.
         </p>
-        <div className="border border-gray-200 rounded-lg overflow-hidden mb-6">
-          <div className="bg-choir-blue text-white p-4">
+        <div className="border border-choir-warm-gray rounded-lg overflow-hidden mb-6">
+          <div className="bg-gradient-to-r from-choir-blue to-choir-blue-light text-white p-4">
             <h3 className="text-2xl m-0">Paying to Park</h3>
           </div>
           <div className="p-6">
@@ -87,21 +87,21 @@ export default function FindUsPage() {
               Parking at the university is managed by paybyphone. See below for details:
             </p>
             <div className="flex flex-wrap gap-6">
-              <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[200px]">
+              <div className="bg-choir-peach-tint rounded-lg p-4 flex-1 min-w-[200px] border border-choir-warm-gray">
                 <h4 className="text-choir-blue font-semibold mb-2">Link</h4>
                 <a href="https://m2.paybyphone.co.uk/parking" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
                   m2.paybyphone.co.uk
                 </a>
               </div>
-              <div className="bg-gray-50 rounded-lg p-4 flex-1 min-w-[200px]">
+              <div className="bg-choir-peach-tint rounded-lg p-4 flex-1 min-w-[200px] border border-choir-warm-gray">
                 <h4 className="text-choir-blue font-semibold mb-2">Location Number</h4>
                 <p>808365</p>
               </div>
             </div>
           </div>
         </div>
-        <div className="border border-gray-200 rounded-lg overflow-hidden">
-          <div className="bg-choir-blue text-white p-4">
+        <div className="border border-choir-warm-gray rounded-lg overflow-hidden">
+          <div className="bg-gradient-to-r from-choir-blue to-choir-blue-light text-white p-4">
             <h3 className="text-2xl m-0">Accessible Parking</h3>
           </div>
           <div className="p-6">

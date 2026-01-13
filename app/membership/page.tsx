@@ -5,9 +5,9 @@ export const metadata = {
 
 export default function MembershipPage() {
   return (
-    <div className="bg-gray-100 text-lg leading-relaxed">
+    <div className="text-lg leading-relaxed">
       {/* Hero */}
-      <section className="bg-choir-blue text-white py-12 text-center">
+      <section className="bg-gradient-to-r from-choir-blue to-choir-blue-light text-white py-12 text-center">
         <h1 className="text-5xl mb-4">Membership</h1>
         <p className="max-w-3xl mx-auto px-4">
           Join our choir community and help support our mission through your membership.
@@ -15,7 +15,7 @@ export default function MembershipPage() {
       </section>
 
       {/* Membership Fees */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Membership Fees</h2>
         <p className="text-center max-w-3xl mx-auto mb-4">
           Our choir is run as a non-profit organization, and membership fees help cover our essential costs.
@@ -26,9 +26,9 @@ export default function MembershipPage() {
           - no need to worry about payment until you decide to join.
         </p>
 
-        <div className="max-w-3xl mx-auto bg-white border border-gray-200 rounded-lg shadow-md p-8 mb-8">
+        <div className="max-w-3xl mx-auto bg-choir-warm-white border border-choir-warm-gray rounded-lg shadow-md p-8 mb-8">
           <h3 className="text-2xl text-choir-blue text-center mb-4">Membership Information</h3>
-          <div className="text-center mb-6 p-4 bg-gray-50 rounded-lg">
+          <div className="text-center mb-6 p-4 bg-choir-peach-tint rounded-lg border border-choir-warm-gray">
             <span className="text-4xl font-bold text-choir-blue">£28</span>
             <span className="text-xl text-gray-600 ml-2">per month</span>
           </div>
@@ -48,7 +48,7 @@ export default function MembershipPage() {
           </div>
         </div>
 
-        <div className="bg-gray-50 rounded-lg p-6 mb-8">
+        <div className="bg-choir-peach-tint rounded-lg p-6 mb-8 border border-choir-warm-gray">
           <h3 className="text-2xl text-choir-blue mb-4">Payment Options</h3>
           <ul className="list-disc pl-6 mb-4">
             <li className="mb-2">Please pay via bank transfer.</li>
@@ -57,7 +57,7 @@ export default function MembershipPage() {
           <p className="italic text-gray-600">
             Note: Membership fees are due on the 1st of each month.
           </p>
-          <div className="mt-6 bg-choir-blue text-white p-6 rounded-lg text-center">
+          <div className="mt-6 bg-gradient-to-br from-choir-blue to-choir-blue-light text-white p-6 rounded-lg text-center shadow-md">
             <p className="font-bold text-xl mb-2">Payment Details</p>
             <p className="mb-1">Contact us for bank details:</p>
             <a href="mailto:caroline@chicommunitychoir.com" className="underline hover:text-gray-200 transition-colors">
@@ -68,7 +68,7 @@ export default function MembershipPage() {
       </section>
 
       {/* Where Fees Go */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Where Your Membership Fees Go</h2>
         <div className="text-center max-w-3xl mx-auto">
           <p className="mb-4">
@@ -83,7 +83,7 @@ export default function MembershipPage() {
       </section>
 
       {/* FAQ */}
-      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-md">
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Frequently Asked Questions</h2>
         <div className="space-y-6">
           <FAQItem
@@ -122,7 +122,7 @@ export default function MembershipPage() {
 
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   return (
-    <div className="border-b border-gray-200 pb-6">
+    <div className="border-b border-choir-warm-gray pb-6">
       <h3 className="text-xl text-choir-blue mb-3">{question}</h3>
       <p className="text-gray-600">{answer}</p>
     </div>

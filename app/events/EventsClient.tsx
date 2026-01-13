@@ -172,7 +172,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
   return (
     <div className="min-h-screen">
       {/* Header with Search (center) and Date Jumplist (right) */}
-      <div className="bg-white border-b-2 border-gray-200 sticky top-0 z-30 shadow-sm">
+      <div className="bg-choir-warm-white border-b-2 border-choir-warm-gray sticky top-0 z-30 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex flex-col lg:flex-row gap-6 items-start">
             {/* Left/Center: Title and Search */}
@@ -247,7 +247,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
                   {/* Date marker - aligned with this bucket group (desktop only) */}
                   <div className="hidden lg:block w-64 flex-shrink-0">
                     <div
-                      className="sticky bg-choir-blue-dark text-white py-2 px-4 rounded-lg shadow-md"
+                      className="sticky bg-gradient-to-br from-choir-blue-dark to-choir-blue text-white py-2 px-4 rounded-lg shadow-md"
                       style={{ top: `${SCROLL_OFFSET}px` }}
                     >
                       <h3 className="text-lg font-bold">{group.bucket}</h3>
@@ -264,7 +264,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
                 <div className="text-center mt-8">
                   <button
                     onClick={loadMore}
-                    className="px-6 py-3 text-lg bg-choir-blue text-white rounded-lg hover:bg-choir-blue-dark transition-all focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2 active:translate-y-[1px]"
+                    className="px-6 py-3 text-lg bg-choir-coral text-white rounded-lg hover:bg-choir-coral/90 transition-all focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 active:translate-y-[1px] shadow-md"
                   >
                     Load More Events
                   </button>

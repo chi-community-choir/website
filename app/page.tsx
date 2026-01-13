@@ -8,7 +8,7 @@ export default function Home() {
       <HeroSection />
 
       {/* Welcome Section */}
-      <section className="max-w-4xl mx-auto mb-12 p-8 bg-gray-50 rounded-lg text-center">
+      <section className="max-w-4xl mx-auto mb-12 p-8 bg-choir-peach-tint rounded-lg text-center shadow-sm">
         <h1 className="text-choir-blue-dark text-4xl font-bold mb-6">
           Welcome to Chichester Community Choir
         </h1>
@@ -34,7 +34,7 @@ export default function Home() {
             </p>
             <a
               href="mailto:caroline@chicommunitychoir.com"
-              className="inline-block bg-choir-blue text-white px-6 py-3 rounded-lg text-lg no-underline transition-all hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2 active:translate-y-[1px]"
+              className="inline-block bg-choir-coral text-white px-6 py-3 rounded-lg text-lg no-underline transition-all hover:bg-choir-coral/90 focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 active:translate-y-[1px] shadow-md"
             >
               Contact Us to Join
             </a>
@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       {/* CTA Bottom */}
-      <section className="bg-choir-blue/5 p-8 text-center rounded-lg max-w-4xl mx-auto mb-12 border-2 border-choir-blue/20 shadow-lg">
+      <section className="bg-gradient-to-br from-choir-peach-tint to-choir-warm-white p-8 text-center rounded-lg max-w-4xl mx-auto mb-12 border-2 border-choir-gold/30 shadow-lg">
         <h2 className="text-choir-blue-dark text-4xl font-bold mb-4">
           Come Sing With Us!
         </h2>
@@ -56,7 +56,7 @@ export default function Home() {
         </p>
         <a
           href="/membership"
-          className="inline-block bg-choir-blue text-white px-8 py-4 rounded-lg text-xl font-semibold no-underline transition-all hover:bg-choir-blue-dark focus:outline-none focus:ring-2 focus:ring-choir-blue focus:ring-offset-2 active:translate-y-[1px] shadow-md"
+          className="inline-block bg-choir-coral text-white px-8 py-4 rounded-lg text-xl font-semibold no-underline transition-all hover:bg-choir-coral/90 focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 active:translate-y-[1px] shadow-md"
         >
           Join the Choir
         </a>
