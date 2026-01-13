@@ -143,7 +143,7 @@ export default async function SongPage({ params }: PageProps) {
         {song.content && (
           <MarkdownContent
             content={song.content}
-            className="prose prose-lg max-w-none"
+            className="max-w-none"
           />
         )}
       </article>
