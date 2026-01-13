@@ -40,7 +40,7 @@ export default function Home() {
             </a>
           </InfoBox>
 
-          <InfoBox title="Latest News">
+          <InfoBox title="Latest News" linkHref="/events" linkText="View Events">
             <p>Stay tuned for upcoming performances and events!</p>
           </InfoBox>
         </div>
