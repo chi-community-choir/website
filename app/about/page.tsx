@@ -17,7 +17,7 @@ export default function AboutPage() {
       </section>
 
       {/* Directors Section */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Directors</h2>
         <div className="flex flex-wrap gap-8 items-center">
           <div className="flex-1 min-w-[300px]">
@@ -42,7 +42,7 @@ export default function AboutPage() {
       </section>
 
       {/* Choir Information */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
         <div className="max-w-4xl mx-auto">
           <p className="mb-6 text-lg text-center">
@@ -66,7 +66,7 @@ export default function AboutPage() {
       </section>
 
       {/* Rehearsal Information */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Information</h2>
         <div className="flex flex-wrap gap-4 justify-center">
           <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
@@ -101,7 +101,7 @@ export default function AboutPage() {
       </section>
 
       {/* History */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-choir-warm-white rounded-lg shadow-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our History</h2>
         <div className="max-w-3xl mx-auto">
           <p className="text-lg text-center">
@@ -118,7 +118,7 @@ export default function AboutPage() {
         </p>
         <a
           href="/membership"
-          className="inline-block bg-choir-coral text-white font-bold px-8 py-4 rounded-lg text-xl no-underline transition-all hover:bg-choir-coral/90 focus:outline-none focus:ring-2 focus:ring-choir-coral focus:ring-offset-2 focus:ring-offset-choir-blue-dark active:translate-y-[1px] shadow-md"
+          className="inline-block bg-choir-coral-dark text-white font-bold px-8 py-4 rounded-lg text-xl no-underline transition-all hover:bg-choir-coral-dark/90 focus:outline-none focus:ring-2 focus:ring-choir-coral-dark focus:ring-offset-2 focus:ring-offset-choir-blue-dark active:translate-y-[1px] shadow-md"
         >
           Learn About Membership
         </a>
