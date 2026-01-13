@@ -49,9 +49,9 @@ export function getAllSongs(): Song[] {
       }
     })
 
-  // Sort songs alphabetically by title
+  // Sort songs alphabetically by title (with numeric sorting)
   return allSongsData.sort((a, b) => {
-    return a.title.localeCompare(b.title)
+    return a.title.localeCompare(b.title, undefined, { numeric: true, sensitivity: 'base' })
   })
 }
 
