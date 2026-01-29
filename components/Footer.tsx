@@ -16,7 +16,7 @@ export default function Footer() {
             <h3 className="font-bold text-xl mb-4 text-white">Rehearsals</h3>
             <p className="text-gray-300">
               Every Tuesday<br />
-              7:30 PM - 9:30 PM<br />
+              6:45 PM - 8:15 PM<br />
               University of Chichester
             </p>
           </div>
