@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function Navbar() {
   return (
     <div className="bg-choir-blue-dark text-center border-b-2 border-choir-gold/50">
-      <nav className="flex justify-center items-center gap-4 flex-wrap py-4 px-4">
+      <nav className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-0 py-4 px-4 max-w-5xl mx-auto">
         <NavLink href="/" label="Home" />
         <NavLink href="/about" label="About" />
         <NavLink href="/find-us" label="Find Us" />
