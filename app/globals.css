@@ -23,9 +23,10 @@ body {
       transparent,
       rgb(var(--background-end-rgb))
     ),
-    url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='2' cy='2' r='1' fill='%23D4A574' fill-opacity='0.55'/%3E%3Ccircle cx='14' cy='2' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3Ccircle cx='2' cy='14' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3Ccircle cx='14' cy='14' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='1' fill='%23D4A574' fill-opacity='0.55'/%3E%3Ccircle cx='18' cy='6' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3Ccircle cx='6' cy='18' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3Ccircle cx='18' cy='18' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3C/svg%3E");
   background-blend-mode: normal;
   background-size: 100%, 24px 24px;
+  background-position: center, center;
   background-attachment: fixed, scroll;
 }
 
