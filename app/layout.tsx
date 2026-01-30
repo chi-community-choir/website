@@ -3,6 +3,7 @@ import { Lora, Source_Sans_3 } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { Analytics } from '@vercel/analytics/next'
 
 // Font configurations
 const lora = Lora({
@@ -35,6 +36,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   )
