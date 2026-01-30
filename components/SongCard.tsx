@@ -10,8 +10,18 @@ export default function SongCard({ song }: SongCardProps) {
   const hasAudio = song.audio && song.audio.length > 0
 
   return (
-    <Link href={`/repertoire/${song.slug}`} className="no-underline">
-      <div className="bg-white border-2 border-choir-warm-gray rounded-xl p-6 transition-all hover:border-choir-coral hover:shadow-warm-lg shadow-warm-sm h-full flex flex-col">
+    <Link href={`/repertoire/${song.slug}`} className="
+      no-underline group block rounded-xl
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-choir-coral focus-visible:ring-offset-2
+      transition-transform duration-200
+      hover:scale-[1.015] hover:-translate-y-1
+    ">
+      <div className="
+        bg-white border-2 border-choir-warm-gray rounded-xl p-6
+        shadow-warm-sm h-full flex flex-col
+        transition-all
+        group-hover:border-choir-coral group-hover:shadow-warm-lg
+      ">
         <h2 className="text-choir-blue-dark text-2xl font-bold mb-2">
           {song.title}
         </h2>

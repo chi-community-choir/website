@@ -60,7 +60,7 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
   }
 
   return (
-    <div className={className}>
+    <div className={`markdown-content ${className}`}>
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={components}

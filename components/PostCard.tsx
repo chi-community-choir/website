@@ -7,8 +7,18 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   return (
-    <Link href={`/events/${post.slug}`} className="no-underline">
-      <div className="bg-white border-2 border-choir-warm-gray rounded-lg p-6 transition-all hover:border-choir-coral hover:shadow-warm-lg shadow-warm-sm">
+    <Link href={`/events/${post.slug}`} className="
+      no-underline group block rounded-xl
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-choir-coral focus-visible:ring-offset-2
+      transition-transform duration-200
+      hover:scale-[1.015] hover:-translate-y-1
+    ">
+      <div className="
+        bg-white border-2 border-choir-warm-gray rounded-xl p-6
+        shadow-warm-sm h-full
+        transition-all
+        group-hover:border-choir-coral group-hover:shadow-warm-lg
+      ">
         <h2 className="text-choir-blue-dark text-2xl font-bold mb-2">
           {post.title}
         </h2>
