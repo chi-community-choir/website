@@ -71,6 +71,8 @@ export default function FindUsPage() {
         <Image
           src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/better_directions.png"
           alt="Directions to rehearsal room"
+          width={800}
+          height={600}
           className="w-full h-auto rounded-lg shadow-warm-md"
         />
       </section>

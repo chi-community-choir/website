@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { IconDivider } from '@/components/IconDivider'
 
 export const metadata = {
   title: 'About Us | Chichester Community Choir',
@@ -20,13 +21,15 @@ export default function AboutPage() {
       </section>
 
       {/* Directors Section */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Directors</h2>
         <div className="flex flex-wrap gap-8 items-center">
           <div className="flex-1 min-w-[300px]">
             <Image
               src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/Caroline-and-John-1.jpg"
               alt="Directors Caroline and John"
+              width={600}
+              height={800}
               className="w-full h-auto max-h-96 object-contain rounded-lg shadow-warm-md"
             />
           </div>
@@ -44,8 +47,10 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <IconDivider icon='treble-clef'/>
+
       {/* Choir Information */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
         <div className="max-w-4xl mx-auto">
           <p className="mb-6 text-lg text-center">
@@ -68,8 +73,10 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <IconDivider icon='alto-clef'/>
+
       {/* Rehearsal Information */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+      <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Information</h2>
         <div className="flex flex-wrap gap-4 justify-center">
           <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
@@ -102,6 +109,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <IconDivider icon='bass-clef'/>
 
       {/* History */}
       <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
