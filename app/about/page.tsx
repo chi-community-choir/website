@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { IconDivider } from '@/components/IconDivider'
 
 export const metadata = {
   title: 'About Us | Chichester Community Choir',
@@ -44,6 +45,9 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <IconDivider icon='treble-clef'/>
+      <IconDivider icon='treble-8v-clef'/>
+
       {/* Choir Information */}
       <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
@@ -67,6 +71,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <IconDivider icon='alto-clef'/>
 
       {/* Rehearsal Information */}
       <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
@@ -102,6 +108,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <IconDivider icon='bass-clef'/>
 
       {/* History */}
       <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
