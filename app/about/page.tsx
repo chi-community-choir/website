@@ -49,7 +49,7 @@ export default function AboutPage() {
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
         <div className="max-w-4xl mx-auto">
           <p className="mb-6 text-lg text-center">
-            Meeting every Tuesday evening from 7:30 PM to 9:30 PM, we provide singers with the opportunity to explore a wide variety of musical styles. We perform in rich harmony using SATB voice parts: from madrigals to mash-ups, rounds to rock and canons to classical.
+            Meeting every Tuesday evening from 6:45 PM to 8:15 PM, we provide singers with the opportunity to explore a wide variety of musical styles. We perform in rich harmony using SATB voice parts: from madrigals to mash-ups, rounds to rock and canons to classical.
           </p>
           <div className="flex flex-wrap gap-8 justify-center mt-8">
             <ChoirFeature
@@ -76,7 +76,7 @@ export default function AboutPage() {
             <h3 className="text-2xl mb-4 text-choir-blue">When & Where</h3>
             <p className="mb-4">
               Tuesday Evenings<br />
-              7:30 PM - 9:30 PM
+              6:45 PM - 8:15 PM
             </p>
             <p className="mb-6">
               University of Chichester<br />
