@@ -5,11 +5,12 @@ interface InfoBoxProps {
   children: React.ReactNode
   linkHref?: string
   linkText?: string
+  className?: string
 }
 
-export default function InfoBox({ title, children, linkHref, linkText }: InfoBoxProps) {
+export default function InfoBox({ title, children, linkHref, linkText, className = '' }: InfoBoxProps) {
   return (
-    <div className="bg-white border-2 border-choir-warm-gray rounded-lg p-6 text-center transition-all hover:shadow-warm-lg hover:scale-[1.02] hover:border-choir-peach shadow-warm">
+    <div className={`${className || 'bg-white'} border-2 border-choir-warm-gray rounded-lg p-6 text-center transition-all hover:shadow-warm-lg hover:scale-[1.02] hover:border-choir-peach shadow-warm`}>
       <h2 className="text-choir-blue-dark text-2xl font-bold mb-4">{title}</h2>
       <div className="text-gray-700 text-lg mb-4">{children}</div>
       {linkHref && linkText && (
