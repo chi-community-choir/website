@@ -25,7 +25,7 @@ export default function Home() {
           <InfoBox title="Next Rehearsal" linkHref="/find-us" linkText="Find Us">
             <p>
               Every Tuesday<br />
-              7:30 PM - 9:30 PM<br />
+              6:45 PM - 8:15 PM<br />
               University of Chichester
             </p>
           </InfoBox>

@@ -40,7 +40,7 @@ export default function FindUsPage() {
             <h3 className="text-2xl text-choir-blue mb-2">University of Chichester</h3>
             <p className="mb-4">College Ln, Chichester, PO19 6PF</p>
             <p className="mb-4">
-              We rehearse every Tuesday evening from 7:30 PM to 9:30 PM in the cloisters at the University of Chichester.
+              We rehearse every Tuesday evening from 6:45 PM to 8:15 PM in the cloisters at the University of Chichester.
               The building is accessible via public transit, with parking also available on the university grounds.
             </p>
             <div className="mt-6">
