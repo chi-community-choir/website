@@ -1,6 +1,7 @@
 import Image from 'next/image'
+import type { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Find Us | Chichester Community Choir',
   description: 'Location and directions to our rehearsals',
 }
