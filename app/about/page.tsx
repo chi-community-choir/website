@@ -1,7 +1,8 @@
 import Image from 'next/image'
-import { IconDivider } from '@/components/IconDivider'
+import type { Metadata } from 'next'
+import { MusicalDivider } from '@/components/MusicalDivider'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'About Us | Chichester Community Choir',
   description: 'Learn about the Chichester Community Choir, our directors, and our mission',
 }
@@ -47,7 +48,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <IconDivider icon='treble-clef'/>
+      <MusicalDivider variant='icon' image='treble-clef'/>
 
       {/* Choir Information */}
       <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
@@ -73,7 +74,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <IconDivider icon='alto-clef'/>
+      <MusicalDivider image='alto-clef'/>
 
       {/* Rehearsal Information */}
       <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
@@ -110,7 +111,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <IconDivider icon='bass-clef'/>
+      <MusicalDivider image='bass-clef'/>
 
       {/* History */}
       <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
