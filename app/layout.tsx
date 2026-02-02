@@ -1,22 +1,24 @@
 import type { Metadata } from 'next'
 import { Analytics } from '@vercel/analytics/next'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import { Lora, Source_Sans_3 } from 'next/font/google'
+import localFont from 'next/font/local'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 
-// Font configurations
-const lora = Lora({
-  subsets: ['latin'],
+// Font configurations - using local fonts for privacy and performance
+const lora = localFont({
+  src: '../public/fonts/Lora/Lora-VariableFont_wght.ttf',
   variable: '--font-lora',
   display: 'swap',
+  weight: '100 900',
 })
 
-const sourceSans = Source_Sans_3({
-  subsets: ['latin'],
+const sourceSans = localFont({
+  src: '../public/fonts/Source_Sans_3/SourceSans3-VariableFont_wght.ttf',
   variable: '--font-source-sans',
   display: 'swap',
+  weight: '100 900',
 })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dev.chicommunitychoir.com' // TODO: correct SITE_URL when deploying publicly
