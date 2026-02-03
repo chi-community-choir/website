@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
 import { SelectableEmailButton } from '@/components/SelectableEmailButton'
+import { MusicalDivider } from '@/components/MusicalDivider'
 
 export const metadata: Metadata = {
   title: 'Find Us | Chichester Community Choir',
@@ -60,6 +61,8 @@ export default function FindUsPage() {
         </div>
       </section>
 
+      <MusicalDivider variant='icon' image='treble-clef'/>
+
       {/* Directions */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Accessing the Rehearsal Room</h2>
@@ -78,6 +81,8 @@ export default function FindUsPage() {
           className="w-full h-auto rounded-lg shadow-warm-md"
         />
       </section>
+
+      <MusicalDivider variant='icon' image='bass-clef'/>
 
       {/* Parking */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
