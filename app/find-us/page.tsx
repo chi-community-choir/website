@@ -66,13 +66,17 @@ export default function FindUsPage() {
       {/* Directions */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Accessing the Rehearsal Room</h2>
-        <a href="https://maps.chi.ac.uk/#room=C01-0-31" className="block mb-4">
-          <div className="bg-choir-peach-tint p-4 rounded-lg text-center hover:bg-choir-peach/30 transition-colors border border-choir-warm-gray">
-            <p className="text-choir-blue hover:text-choir-blue-light underline transition-colors font-semibold">
-              Click here to see a detailed map of the university campus
-            </p>
-          </div>
-        </a>
+        <div className="flex justify-center">
+          <a
+            href="https://maps.chi.ac.uk/#room=C01-0-31"
+            className="inline-flex items-center justify-center gap-3 w-full sm:w-auto mb-6 bg-choir-coral hover:bg-choir-coral/90 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+          </svg>
+          Click Here To Show Our Location On The Complete Campus Map
+          </a>
+        </div>
         <Image
           src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/better_directions.png"
           alt="Directions to rehearsal room"
@@ -120,9 +124,17 @@ export default function FindUsPage() {
             <p className="mb-4">
               There is accessible parking available throughout the university campus.
             </p>
-            <a href="https://maps.chi.ac.uk/" className="text-choir-blue hover:text-choir-blue-light underline transition-colors font-semibold">
-              See the campus map for more precise parking details
-            </a>
+            <div className="flex justify-center">
+              <a
+                href="https://maps.chi.ac.uk/"
+                className="inline-flex items-center justify-center gap-3 w-full sm:w-auto bg-choir-coral hover:bg-choir-coral/90 text-white font-bold text-base px-8 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-0.5"
+              >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
+              </svg>
+              Click Here To View Campus Map
+              </a>
+            </div>
           </div>
         </div>
       </section>
