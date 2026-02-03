@@ -124,17 +124,20 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-choir-blue-dark text-white py-12 text-center">
-        <h2 className="text-3xl mb-6">Join Our Choir Family</h2>
-        <p className="max-w-2xl mx-auto text-xl mb-6 px-4">
-          No auditions required! We welcome singers of all experience levels who share our passion for music and community.
-        </p>
-        <a
-          href="/membership"
-          className="inline-block bg-choir-coral-dark text-white font-bold px-8 py-4 rounded-lg text-xl no-underline transition-all hover:bg-choir-coral-dark/90 focus:outline-none focus:ring-2 focus:ring-choir-coral-dark focus:ring-offset-2 focus:ring-offset-choir-blue-dark active:translate-y-[1px] shadow-warm-md"
-        >
-          Learn About Membership
-        </a>
+      <section className="bg-gradient-to-br from-choir-blue-dark to-choir-blue text-white py-16 text-center">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-4xl mb-4">Join Our Choir Family</h2>
+          <p className="text-xl mb-8 opacity-90">
+            No auditions required! We welcome singers of all experience levels who share our passion for music and community.
+          </p>
+          <a
+            href="/membership"
+            className="inline-flex flex-col sm:flex-row items-center gap-2 sm:gap-3 bg-choir-coral hover:bg-choir-coral/90 text-white font-bold text-lg sm:text-xl px-8 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+          >
+            <Image src="/icons/star.svg" alt="Star icon" width={24} height={24} className="shrink-0 brightness-0 invert" />
+            Learn About Membership
+          </a>
+        </div>
       </section>
     </div>
   )

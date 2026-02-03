@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import { SelectableEmailButton } from '@/components/SelectableEmailButton'
+
 export const metadata = {
   title: 'Membership | Chichester Community Choir',
   description: 'Information about joining our choir and membership fees',
@@ -109,14 +112,13 @@ export default function MembershipPage() {
       </section>
 
       {/* Contact */}
-      <section className="bg-choir-blue-dark text-white py-12 text-center">
-        <h2 className="text-3xl mb-6">Questions About Membership?</h2>
-        <p className="max-w-2xl mx-auto mb-6 px-4">
-          If you have any questions about membership fees or payment options, feel free to get in touch!
-        </p>
-        <div>
-          <p className="font-bold">Email</p>
-          <p>caroline@chicommunitychoir.com</p>
+      <section className="bg-gradient-to-br from-choir-blue-dark to-choir-blue text-white py-16 text-center">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-4xl mb-4">Questions About Membership?</h2>
+          <p className="text-xl mb-8 opacity-90">
+            If you have any questions about membership fees or payment options, feel free to get in touch!
+          </p>
+          <SelectableEmailButton email="caroline@chicommunitychoir.com" />
         </div>
       </section>
     </div>
