@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import { SelectableEmailButton } from '@/components/SelectableEmailButton'
+import { MusicalDivider } from '@/components/MusicalDivider';
 
 export const metadata = {
   title: 'Membership | Chichester Community Choir',
@@ -19,6 +20,7 @@ export default function MembershipPage() {
           </p>
         </div>
       </section>
+
 
       {/* Membership Fees */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
@@ -53,17 +55,22 @@ export default function MembershipPage() {
             </ul>
           </div>
         </div>
+      </section>
 
-        <div className="bg-choir-peach-tint rounded-lg p-6 mb-8 border border-choir-warm-gray">
-          <h3 className="text-2xl text-choir-blue mb-4">Payment Options</h3>
+      <MusicalDivider variant='icon' image='treble-clef'/>
+
+      {/* Payment Options */}
+      <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+        <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Payment Options</h2>
+        <div className="max-w-3xl mx-auto bg-choir-peach-tint rounded-lg p-8 border border-choir-warm-gray">
           <ul className="list-disc pl-6 mb-4">
             <li className="mb-2">Please pay via bank transfer.</li>
             <li>Financial assistance available - please speak with Caroline in confidence</li>
           </ul>
-          <p className="italic text-gray-600">
+          <p className="italic text-gray-600 mb-6">
             Note: Membership fees are due on the 1st of each month.
           </p>
-          <div className="mt-6 bg-gradient-to-br from-choir-blue to-choir-blue-light text-white p-6 rounded-lg text-center shadow-warm-md">
+          <div className="bg-gradient-to-br from-choir-blue to-choir-blue-light text-white p-6 rounded-lg text-center shadow-warm-md">
             <p className="font-bold text-xl mb-2">Payment Details</p>
             <p className="mb-1">Contact us for bank details:</p>
             <a href="mailto:caroline@chicommunitychoir.com" className="underline hover:text-gray-200 transition-colors">
@@ -72,6 +79,8 @@ export default function MembershipPage() {
           </div>
         </div>
       </section>
+
+      <MusicalDivider variant='icon' image='alto-clef'/>
 
       {/* Where Fees Go */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
@@ -87,6 +96,8 @@ export default function MembershipPage() {
           </p>
         </div>
       </section>
+
+      <MusicalDivider variant='icon' image='bass-clef'/>
 
       {/* FAQ */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
