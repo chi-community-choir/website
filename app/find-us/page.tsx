@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
+import { SelectableEmailButton } from '@/components/SelectableEmailButton'
 
 export const metadata: Metadata = {
   title: 'Find Us | Chichester Community Choir',
@@ -122,16 +123,13 @@ export default function FindUsPage() {
       </section>
 
       {/* Contact */}
-      <section className="bg-choir-blue-dark text-white py-12 text-center">
-        <h2 className="text-3xl mb-6">Contact Us for Directions</h2>
-        <p className="max-w-2xl mx-auto mb-6 px-4">
-          Need help finding us? Have questions about parking or accessibility? We&apos;re here to help!
-        </p>
-        <div className="flex flex-wrap justify-center gap-8">
-          <div>
-            <p className="font-bold">Email</p>
-            <p>caroline@chicommunitychoir.com</p>
-          </div>
+      <section className="bg-gradient-to-br from-choir-blue-dark to-choir-blue text-white py-16 text-center">
+        <div className="max-w-3xl mx-auto px-4">
+          <h2 className="text-4xl mb-4">Need Help Finding Us?</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Have questions about parking, accessibility, or anything else? We&apos;re happy to help!
+          </p>
+          <SelectableEmailButton email="caroline@chicommunitychoir.com" />
         </div>
       </section>
     </div>
