@@ -31,16 +31,17 @@ const config: Config = {
 
         // Warm accents
         'choir-coral': '#7c082f',
-        'choir-coral-dark': '#4a051C', // Darker coral for accessible buttons
+        'choir-coral-dark': '#4a051C',
         'choir-peach': '#f4b088',
         'choir-gold': '#d4a574',
-        'choir-sunshine': '#ffd816', // Bright and warm for CTA
+        'choir-sunshine': '#ffd816',
 
         // Warm backgrounds
-        'choir-cream': '#f5f3ef', // Slightly darker for better container contrast
-        'choir-warm-white': '#ffffff', // Pure white for containers
+        'choir-cream': '#f2eee4',
+        'choir-warm-white': '#e6dfcc',
         'choir-warm-gray': '#ddd8cc',
         'choir-peach-tint': '#fff5ee',
+        'choir-sand': '#f2e4c5',
       },
       typography: {
         DEFAULT: {

@@ -51,3 +51,4 @@ next-env.d.ts
 .bun
 .claude/settings.local.json
 *.prose
+next-env.d.ts
