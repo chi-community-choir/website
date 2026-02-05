@@ -25,8 +25,8 @@ export default function FindUsPage() {
       {/* Location */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Location</h2>
-        <div className="flex flex-wrap gap-8 items-start">
-          <div className="flex-1 min-w-[300px]">
+        <div className="flex flex-col sm:flex-row gap-8 items-start">
+          <div className="w-full">
             <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1497.9585302692021!2d-0.7732953214085532!3d50.84494506711625!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48744d7d47c733ab%3A0x4fe7a9a44e3150fc!2sUniversity%20of%20Chichester!5e0!3m2!1sen!2suk!4v1740943878324!5m2!1sen!2suk"
@@ -39,7 +39,7 @@ export default function FindUsPage() {
               />
             </div>
           </div>
-          <div className="flex-1 min-w-[400px] p-4">
+          <div className="w-full sm:flex-1 p-4">
             <h3 className="text-2xl text-choir-blue mb-2">University of Chichester</h3>
             <p className="mb-4">College Ln, Chichester, PO19 6PF</p>
             <p className="mb-4">
@@ -69,12 +69,12 @@ export default function FindUsPage() {
         <div className="flex justify-center">
           <a
             href="https://maps.chi.ac.uk/#room=C01-0-31"
-            className="inline-flex items-center justify-center gap-3 w-full sm:w-auto mb-6 bg-choir-coral hover:bg-choir-coral/90 text-white font-bold text-lg px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+            className="inline-flex items-center justify-center gap-2 sm:gap-3 w-full sm:w-auto mb-6 bg-choir-coral hover:bg-choir-coral/90 text-white font-bold text-base sm:text-lg px-6 sm:px-10 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 text-center"
           >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 shrink-0">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498 4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 0 0-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0Z" />
           </svg>
-          Click Here To Show Our Location On The Complete Campus Map
+          <span className="text-sm sm:text-base">View Our Location On Campus Map</span>
           </a>
         </div>
         <Image
@@ -102,14 +102,14 @@ export default function FindUsPage() {
             <p className="mb-4">
               Parking at the university is managed by paybyphone. See below for details:
             </p>
-            <div className="flex flex-wrap gap-6">
-              <div className="bg-choir-peach-tint rounded-lg p-4 flex-1 min-w-[200px] border border-choir-warm-gray">
+            <div className="flex flex-col sm:flex-row gap-4">
+              <div className="bg-choir-peach-tint rounded-lg p-4 sm:flex-1 border border-choir-warm-gray">
                 <h4 className="text-choir-blue font-semibold mb-2">Link</h4>
-                <a href="https://m2.paybyphone.co.uk/parking" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
+                <a href="https://m2.paybyphone.co.uk/parking" className="text-choir-blue hover:text-choir-blue-light underline transition-colors break-all">
                   m2.paybyphone.co.uk
                 </a>
               </div>
-              <div className="bg-choir-peach-tint rounded-lg p-4 flex-1 min-w-[200px] border border-choir-warm-gray">
+              <div className="bg-choir-peach-tint rounded-lg p-4 sm:flex-1 border border-choir-warm-gray">
                 <h4 className="text-choir-blue font-semibold mb-2">Location Number</h4>
                 <p>808365</p>
               </div>

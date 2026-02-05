@@ -41,7 +41,7 @@ const config: Config = {
         'choir-warm-white': '#e6dfcc',
         'choir-warm-gray': '#ddd8cc',
         'choir-peach-tint': '#fff5ee',
-        'choir-sand': '#f2e4c5',
+        'choir-sand': '#f6ecd5',
       },
       typography: {
         DEFAULT: {
