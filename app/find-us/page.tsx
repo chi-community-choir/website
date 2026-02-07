@@ -24,22 +24,20 @@ export default function FindUsPage() {
 
       {/* Location */}
       <section className="max-w-6xl mx-auto my-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
-        <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Location</h2>
-        <div className="flex flex-col sm:flex-row gap-8 items-start">
-          <div className="w-full">
-            <div className="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1497.9585302692021!2d-0.7732953214085532!3d50.84494506711625!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48744d7d47c733ab%3A0x4fe7a9a44e3150fc!2sUniversity%20of%20Chichester!5e0!3m2!1sen!2suk!4v1740943878324!5m2!1sen!2suk"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+        <h2 className="text-3xl text-choir-blue-dark text-center mb-6">Rehearsal Location</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="bg-gray-200 rounded-lg h-80 md:h-96 flex items-center justify-center">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d1497.9585302692021!2d-0.7732953214085532!3d50.84494506711625!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48744d7d47c733ab%3A0x4fe7a9a44e3150fc!2sUniversity%20of%20Chichester!5e0!3m2!1sen!2suk!4v1740943878324!5m2!1sen!2suk"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
-          <div className="w-full sm:flex-1 p-4">
+          <div className="p-4">
             <h3 className="text-2xl text-choir-blue mb-2">University of Chichester</h3>
             <p className="mb-4">College Ln, Chichester, PO19 6PF</p>
             <p className="mb-4">
