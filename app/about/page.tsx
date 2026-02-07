@@ -22,27 +22,29 @@ export default function AboutPage() {
       </section>
 
       {/* Directors Section */}
-      <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
-        <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Directors</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
-          <div className="relative aspect-[941/1015] w-full max-w-md mx-auto">
-            <Image
-              src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/Caroline-and-John-1.jpg"
-              alt="Directors Caroline and John"
-              fill
-              className="object-cover rounded-lg shadow-warm-md"
-            />
-          </div>
-          <div className="p-4">
-            <p className="mb-6 text-lg">
-              Our choir leaders have extensive knowledge and years of experience in building fabulous vocal groups, and vast amounts of enthusiasm to get our local community singing!
-            </p>
-            <p className="mb-6 text-lg">
-              Caroline and John bring a blend of classical training and contemporary approaches to choral direction, creating an inclusive and dynamic environment for singers of all levels.
-            </p>
-            <p className="text-lg">
-              With backgrounds in music education and performance, they specialize in helping choir members develop their vocal skills while fostering a strong sense of community and enjoyment.
-            </p>
+      <section className="px-4">
+        <div className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+          <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Directors</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+            <div className="relative aspect-[941/1015] w-full max-w-md mx-auto">
+              <Image
+                src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/Caroline-and-John-1.jpg"
+                alt="Directors Caroline and John"
+                fill
+                className="object-cover rounded-lg shadow-warm-md"
+              />
+            </div>
+            <div className="p-4">
+              <p className="mb-6 text-lg">
+                Our choir leaders have extensive knowledge and years of experience in building fabulous vocal groups, and vast amounts of enthusiasm to get our local community singing!
+              </p>
+              <p className="mb-6 text-lg">
+                Caroline and John bring a blend of classical training and contemporary approaches to choral direction, creating an inclusive and dynamic environment for singers of all levels.
+              </p>
+              <p className="text-lg">
+                With backgrounds in music education and performance, they specialize in helping choir members develop their vocal skills while fostering a strong sense of community and enjoyment.
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -50,25 +52,27 @@ export default function AboutPage() {
       <MusicalDivider variant='icon' image='treble-clef'/>
 
       {/* Choir Information */}
-      <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
-        <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
-        <div className="max-w-4xl mx-auto">
-          <p className="mb-6 text-lg text-center">
-            Meeting every Tuesday evening from 6:45 PM to 8:15 PM, we provide singers with the opportunity to explore a wide variety of musical styles. We perform in rich harmony using SATB voice parts: from madrigals to mash-ups, rounds to rock and canons to classical.
-          </p>
-          <div className="flex flex-wrap gap-8 justify-center mt-8">
-            <ChoirFeature
-              title="Inclusive Environment"
-              description="We welcome singers of all abilities, from beginners to experienced performers, in a supportive atmosphere."
-            />
-            <ChoirFeature
-              title="Diverse Repertoire"
-              description="Our performances span multiple genres and eras, ensuring there's something for everyone to enjoy."
-            />
-            <ChoirFeature
-              title="Community Focused"
-              description="Beyond making music, we build connections and friendships within our local community."
-            />
+      <section className="px-4">
+        <div className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+          <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
+          <div className="max-w-4xl mx-auto">
+            <p className="mb-6 text-lg text-center">
+              Meeting every Tuesday evening from 6:45 PM to 8:15 PM, we provide singers with the opportunity to explore a wide variety of musical styles. We perform in rich harmony using SATB voice parts: from madrigals to mash-ups, rounds to rock and canons to classical.
+            </p>
+            <div className="flex flex-wrap gap-8 justify-center mt-8">
+              <ChoirFeature
+                title="Inclusive Environment"
+                description="We welcome singers of all abilities, from beginners to experienced performers, in a supportive atmosphere."
+              />
+              <ChoirFeature
+                title="Diverse Repertoire"
+                description="Our performances span multiple genres and eras, ensuring there's something for everyone to enjoy."
+              />
+              <ChoirFeature
+                title="Community Focused"
+                description="Beyond making music, we build connections and friendships within our local community."
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -76,36 +80,38 @@ export default function AboutPage() {
       <MusicalDivider variant='icon' image='alto-clef'/>
 
       {/* Rehearsal Information */}
-      <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
-        <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Information</h2>
-        <div className="flex flex-wrap gap-4 justify-center">
-          <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
-            <h3 className="text-2xl mb-4 text-choir-blue">When & Where</h3>
-            <p className="mb-4">
-              Tuesday Evenings<br />
-              6:45 PM - 8:15 PM
-            </p>
-            <p className="mb-6">
-              University of Chichester<br />
-              College Ln<br />
-              PO19 6PF
-            </p>
-            <p>
-              For details on how to join us, email:{' '}
-              <a href="mailto:caroline@chicommunitychoir.com" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
-                caroline@chicommunitychoir.com
-              </a>
-            </p>
-          </div>
-          <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
-            <h3 className="text-2xl mb-4 text-choir-blue">What to Expect</h3>
-            <ul className="list-disc pl-6">
-              <li className="mb-2">Warm-up exercises to prepare your voice</li>
-              <li className="mb-2">Section practice for each voice part</li>
-              <li className="mb-2">Full ensemble work on current repertoire</li>
-              <li className="mb-2">A mix of sight-reading and learning by ear</li>
-              <li>Plenty of laughter and enjoyment!</li>
-            </ul>
+      <section className="px-4">
+        <div className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+          <h2 className="text-3xl text-choir-blue-dark text-center mb-4">Rehearsal Information</h2>
+          <div className="flex flex-wrap gap-4 justify-center">
+            <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
+              <h3 className="text-2xl mb-4 text-choir-blue">When & Where</h3>
+              <p className="mb-4">
+                Tuesday Evenings<br />
+                6:45 PM - 8:15 PM
+              </p>
+              <p className="mb-6">
+                University of Chichester<br />
+                College Ln<br />
+                PO19 6PF
+              </p>
+              <p>
+                For details on how to join us, email:{' '}
+                <a href="mailto:caroline@chicommunitychoir.com" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
+                  caroline@chicommunitychoir.com
+                </a>
+              </p>
+            </div>
+            <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
+              <h3 className="text-2xl mb-4 text-choir-blue">What to Expect</h3>
+              <ul className="list-disc pl-6">
+                <li className="mb-2">Warm-up exercises to prepare your voice</li>
+                <li className="mb-2">Section practice for each voice part</li>
+                <li className="mb-2">Full ensemble work on current repertoire</li>
+                <li className="mb-2">A mix of sight-reading and learning by ear</li>
+                <li>Plenty of laughter and enjoyment!</li>
+              </ul>
+            </div>
           </div>
         </div>
       </section>
@@ -113,12 +119,14 @@ export default function AboutPage() {
       <MusicalDivider variant='icon' image='bass-clef'/>
 
       {/* History */}
-      <section className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
-        <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our History</h2>
-        <div className="max-w-3xl mx-auto">
-          <p className="text-lg text-center">
-            Chichester Community Choir was founded by Steve Flashman, who soon realised that not everyone could make it to evening rehearsals. He set up satellite daytime choirs to complement the CCC, which are now run by Caroline as Upbeat Singers, in Southbourne and East Preston. John also runs a daytime choir, the Ok Chorale.
-          </p>
+      <section className="px-4">
+        <div className="max-w-6xl mx-auto mb-12 p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
+          <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our History</h2>
+          <div className="max-w-3xl mx-auto">
+            <p className="text-lg text-center">
+              Chichester Community Choir was founded by Steve Flashman, who soon realised that not everyone could make it to evening rehearsals. He set up satellite daytime choirs to complement the CCC, which are now run by Caroline as Upbeat Singers, in Southbourne and East Preston. John also runs a daytime choir, the Ok Chorale.
+            </p>
+          </div>
         </div>
       </section>
 
