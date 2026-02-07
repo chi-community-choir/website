@@ -154,9 +154,9 @@ export default function EventsClient({ posts }: EventsClientProps) {
           if (textTerms) {
             textMatches =
               post.title.toLowerCase().includes(textTerms) ||
-              post.author?.toLowerCase().includes(textTerms) ||
-              post.excerpt?.toLowerCase().includes(textTerms) ||
-              post.tags?.some(tag => tag.toLowerCase().includes(textTerms))
+              (post.author?.toLowerCase().includes(textTerms) ?? false) ||
+              (post.excerpt?.toLowerCase().includes(textTerms) ?? false) ||
+              (post.tags?.some(tag => tag.toLowerCase().includes(textTerms)) ?? false)
           }
 
           return dateMatches && textMatches
