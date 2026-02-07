@@ -25,18 +25,154 @@ export default function EventsClient({ posts }: EventsClientProps) {
   const sentinelRef = useRef<HTMLDivElement>(null)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
+  // Parse a search query to extract potential date patterns
+  const parseDateQuery = (query: string): Date | null => {
+    // Try various date formats
+    const formats = [
+      /^(\d{4})-(\d{1,2})-(\d{1,2})$/,      // YYYY-MM-DD
+      /^(\d{1,2})\/(\d{1,2})\/(\d{4})$/,    // DD/MM/YYYY or MM/DD/YYYY
+      /^(\d{1,2})-(\d{1,2})-(\d{4})$/,      // DD-MM-YYYY or MM-DD-YYYY
+      /^(\d{4})$/,                          // YYYY (year only)
+    ]
+
+    for (const format of formats) {
+      const match = query.match(format)
+      if (match) {
+        const parts = match.slice(1)
+        if (format === formats[3]) {
+          // Year only
+          return new Date(parseInt(parts[0]), 0, 1)
+        }
+        // Try both day/month and month/day interpretations
+        const [a, b, c] = parts.map(Number)
+        // Assume DD/MM/YYYY format (UK standard for this choir)
+        if (b >= 1 && b <= 12 && c >= 1000) {
+          const date = new Date(c, b - 1, a)
+          if (!isNaN(date.getTime())) return date
+        }
+        // Try MM/DD/YYYY as fallback
+        if (a >= 1 && a <= 12 && c >= 1000) {
+          const date = new Date(c, a - 1, b)
+          if (!isNaN(date.getTime())) return date
+        }
+      }
+    }
+    return null
+  }
+
   const filteredPosts = useMemo(() => {
     let filtered = posts
 
     // Apply search filter
     if (searchQuery.trim()) {
       const query = searchQuery.toLowerCase()
-      filtered = filtered.filter((post) =>
-        post.title.toLowerCase().includes(query) ||
-        post.author?.toLowerCase().includes(query) ||
-        post.excerpt?.toLowerCase().includes(query) ||
-        post.tags?.some(tag => tag.toLowerCase().includes(query))
-      )
+
+      // First, try to parse the entire query as a date (for exact date searches)
+      const fullDateMatch = parseDateQuery(searchQuery.trim())
+
+      // If not a full date, extract date components and text separately
+      let extractedYear: number | null = null
+      let extractedMonth: number | null = null
+      let textTerms = query
+
+      if (!fullDateMatch) {
+        // Extract year (4 digits starting with 1 or 2)
+        const yearMatch = query.match(/\b(1[8-9]\d{2}|20\d{2})\b/)
+        if (yearMatch) {
+          extractedYear = parseInt(yearMatch[1])
+          textTerms = textTerms.replace(yearMatch[0], ' ').trim()
+        }
+
+        // Extract month name
+        const monthNames = [
+          'january', 'february', 'march', 'april', 'may', 'june',
+          'july', 'august', 'september', 'october', 'november', 'december'
+        ]
+        const shortMonthNames = [
+          'jan', 'feb', 'mar', 'apr', 'may', 'jun',
+          'jul', 'aug', 'sep', 'oct', 'nov', 'dec'
+        ]
+
+        for (let i = 0; i < monthNames.length; i++) {
+          const fullName = monthNames[i]
+          const shortName = shortMonthNames[i]
+
+          // Use word boundary to avoid partial matches (e.g., "mar" matching "March")
+          const fullRegex = new RegExp(`\\b${fullName}\\b`, 'i')
+          const shortRegex = new RegExp(`\\b${shortName}\\b`, 'i')
+
+          if (fullRegex.test(query)) {
+            extractedMonth = i
+            textTerms = textTerms.replace(fullRegex, ' ').trim()
+            break
+          } else if (shortRegex.test(query)) {
+            extractedMonth = i
+            textTerms = textTerms.replace(shortRegex, ' ').trim()
+            break
+          }
+        }
+
+        // Clean up multiple spaces
+        textTerms = textTerms.replace(/\s+/g, ' ').trim()
+      }
+
+      filtered = filtered.filter((post) => {
+        // Case 1: Full date match (e.g., "2024-01-15" or "15/01/2024")
+        if (fullDateMatch && post.date) {
+          const postDate = new Date(post.date)
+          if (!isNaN(postDate.getTime())) {
+            const sameYear = postDate.getFullYear() === fullDateMatch.getFullYear()
+            const sameMonth = postDate.getMonth() === fullDateMatch.getMonth()
+            const sameDay = postDate.getDate() === fullDateMatch.getDate()
+            // Match if year matches (year-only search) or year+month or full date
+            if (sameYear) return true
+          }
+        }
+
+        // Case 2: Extracted date components + text search (e.g., "2025 january" or "February Test")
+        if (extractedYear !== null || extractedMonth !== null) {
+          // Check date match
+          let dateMatches = true
+          if (post.date) {
+            const postDate = new Date(post.date)
+            if (!isNaN(postDate.getTime())) {
+              if (extractedYear !== null && postDate.getFullYear() !== extractedYear) {
+                dateMatches = false
+              }
+              if (extractedMonth !== null && postDate.getMonth() !== extractedMonth) {
+                dateMatches = false
+              }
+            } else {
+              dateMatches = false
+            }
+          } else {
+            dateMatches = false
+          }
+
+          // Check text match (only if there are text terms remaining)
+          let textMatches = true
+          if (textTerms) {
+            textMatches =
+              post.title.toLowerCase().includes(textTerms) ||
+              post.author?.toLowerCase().includes(textTerms) ||
+              post.excerpt?.toLowerCase().includes(textTerms) ||
+              post.tags?.some(tag => tag.toLowerCase().includes(textTerms))
+          }
+
+          return dateMatches && textMatches
+        }
+
+        // Case 3: Text-only search (no date components detected)
+        // Also match against bucket format (MM/YYYY)
+        const bucketMatch = post.bucket?.toLowerCase().includes(query)
+        const textMatch =
+          post.title.toLowerCase().includes(query) ||
+          post.author?.toLowerCase().includes(query) ||
+          post.excerpt?.toLowerCase().includes(query) ||
+          post.tags?.some(tag => tag.toLowerCase().includes(query))
+
+        return textMatch || bucketMatch
+      })
     }
 
     return filtered
@@ -186,7 +322,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
                   <SearchInput
                     value={searchQuery}
                     onChange={setSearchQuery}
-                    placeholder="Search events..."
+                    placeholder="Search events by title, content, tags or date"
                   />
 
                   {searchQuery && (
