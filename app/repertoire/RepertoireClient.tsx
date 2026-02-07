@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import type { Song } from '@/lib/songs'
 import SongCard from '@/components/SongCard'
 import SearchInput from '@/components/SearchInput'
@@ -14,6 +14,8 @@ const ITEMS_PER_PAGE = 24
 export default function RepertoireClient({ songs }: RepertoireClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
+  const sentinelRef = useRef<HTMLDivElement>(null)
+  const observerRef = useRef<IntersectionObserver | null>(null)
 
   const filteredSongs = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -43,6 +45,38 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
   const loadMore = () => {
     setVisibleCount(prev => prev + ITEMS_PER_PAGE)
   }
+
+  // Set up IntersectionObserver for infinite scroll
+  useEffect(() => {
+    if (!sentinelRef.current) return
+
+    if (observerRef.current) {
+      observerRef.current.disconnect()
+    }
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        if (entry.isIntersecting && hasMore) {
+          loadMore()
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px', // Start loading a bit before reaching the sentinel
+        threshold: 0.1,
+      }
+    )
+
+    observerRef.current.observe(sentinelRef.current)
+
+    // Cleanup
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect()
+      }
+    }
+  }, [hasMore])
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -89,6 +123,10 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
                 ))}
               </div>
 
+              {/* Sentinel for infinite scroll */}
+              <div ref={sentinelRef} className="h-4" />
+
+              {/* Fallback "Load More" button */}
               {hasMore && (
                 <div className="text-center mt-8">
                   <button
