@@ -10,8 +10,7 @@ export default function MembershipPage() {
   return (
     <div className="text-lg leading-relaxed">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-choir-blue via-choir-blue to-choir-blue-light text-white py-12 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.08),transparent_50%)]"></div>
+      <section className="bg-gradient-to-br from-choir-blue/95 via-choir-blue/95 to-choir-blue-light/95 text-white py-12 text-center relative overflow-hidden">
         <div className="relative z-10">
           <h1 className="text-5xl mb-4">Membership</h1>
           <p className="max-w-3xl mx-auto px-4">
