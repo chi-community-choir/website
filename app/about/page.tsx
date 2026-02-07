@@ -24,19 +24,18 @@ export default function AboutPage() {
       {/* Directors Section */}
       <section className="max-w-6xl mx-auto p-8 bg-white rounded-lg shadow-warm-md border-2 border-choir-warm-gray">
         <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Directors</h2>
-        <div className="flex flex-col sm:flex-row gap-8 items-center">
-          <div className="w-full sm:flex-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center">
+          <div className="relative aspect-[941/1015] w-full max-w-md mx-auto">
             <Image
               src="https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/Caroline-and-John-1.jpg"
               alt="Directors Caroline and John"
-              width={600}
-              height={800}
-              className="w-full h-auto max-h-96 object-contain rounded-lg shadow-warm-md"
+              fill
+              className="object-cover rounded-lg shadow-warm-md"
             />
           </div>
-          <div className="w-full sm:flex-1 p-4">
+          <div className="p-4">
             <p className="mb-6 text-lg">
-              Both our choir leaders have extensive knowledge and years of experience in building fabulous vocal groups, and vast amounts of enthusiasm to get our local community singing!
+              Our choir leaders have extensive knowledge and years of experience in building fabulous vocal groups, and vast amounts of enthusiasm to get our local community singing!
             </p>
             <p className="mb-6 text-lg">
               Caroline and John bring a blend of classical training and contemporary approaches to choral direction, creating an inclusive and dynamic environment for singers of all levels.

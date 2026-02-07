@@ -242,12 +242,10 @@ export default function EventsClient({ posts }: EventsClientProps) {
   useEffect(() => {
     if (!sentinelRef.current) return
 
-    // Clean up previous observer
     if (observerRef.current) {
       observerRef.current.disconnect()
     }
 
-    // Create new observer
     observerRef.current = new IntersectionObserver(
       (entries) => {
         const [entry] = entries
