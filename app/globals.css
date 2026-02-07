@@ -16,11 +16,12 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
-  /* Subtle warm dotted pattern */
+  /* Subtle warm dotted pattern - scrolls with content using parallax */
   background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='1' fill='%23D4A574' fill-opacity='0.55'/%3E%3Ccircle cx='18' cy='6' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3Ccircle cx='6' cy='18' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3Ccircle cx='18' cy='18' r='1' fill='%23D4A574' fill-opacity='0.15'/%3E%3C/svg%3E");
   background-size: 24px 24px;
-  background-position: center, center;
-  background-attachment: fixed, scroll;
+  background-attachment: scroll;
+  /* Subtle parallax: moves at 50% of scroll speed */
+  background-position-y: calc(50% + (var(--scroll-y, 0px) * 0.5));
 }
 
 /* Typography Improvements */

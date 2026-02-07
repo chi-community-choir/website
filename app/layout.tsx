@@ -5,6 +5,7 @@ import localFont from 'next/font/local'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { ParallaxBackground } from '@/components/ParallaxBackground'
 
 // Font configurations - using local fonts for privacy and performance
 const lora = localFont({
@@ -81,6 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lora.variable} ${sourceSans.variable}`}>
       <body className={`${sourceSans.className} antialiased flex flex-col min-h-screen`}>
+        <ParallaxBackground />
         <Navbar />
         <main className="flex-grow">
           {children}
