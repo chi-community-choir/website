@@ -123,11 +123,47 @@ Another section after a divider with more content.
 
 ## Images
 
-Below is a test image:
+Below is a test image (default - medium size, centered):
 
 ![Choir Rehearsal](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg)
 
 Images should be displayed with rounded corners, warm shadow, and a caption showing the alt text below.
+
+### Image Size Tests
+
+#### Small Image (300px)
+![Small Portrait](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "small")
+
+#### Medium Image (500px)
+![Medium Photo](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "medium")
+
+#### Large Image (900px)
+![Large Landscape](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "large")
+
+#### Full Width Image
+![Full Width Hero](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "full")
+
+### Image Alignment Tests
+
+#### Left Aligned (small)
+![Left aligned small](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "small left")
+
+#### Centered (medium - default)
+![Centered medium](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "medium center")
+
+#### Right Aligned (small)
+![Right aligned small](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "small right")
+
+### Combined Size and Alignment
+
+#### Large Left
+![Large left aligned](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "large left")
+
+#### Large Center
+![Large centered](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "large center")
+
+#### Large Right
+![Large right aligned](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "large right")
 
 ## Combined Features
 
@@ -167,6 +203,9 @@ This test post covers all markdown elements:
 10. ✅ Strong and emphasis text
 11. ✅ Tables with proper styling
 12. ✅ Images with captions
-13. ✅ Horizontal rules with coral accent
+13. ✅ **Image sizes: small, medium, large, full**
+14. ✅ **Image alignments: left, center, right**
+15. ✅ **Combined size and alignment modifiers**
+16. ✅ Horizontal rules with coral accent
 
 If everything above renders correctly, the markdown styling system is working as designed!
