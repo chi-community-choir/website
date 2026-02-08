@@ -45,7 +45,7 @@ export default async function SongPage({ params }: PageProps) {
   const hasAudio = song.audio && song.audio.length > 0
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <Link
         href="/repertoire"
         className="text-choir-blue hover:text-choir-blue-dark mb-6 inline-block"

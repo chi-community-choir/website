@@ -41,7 +41,7 @@ export default async function PostPage({ params }: PageProps) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
+    <div className="max-w-6xl mx-auto px-4 py-12">
       <Link
         href="/events"
         className="text-choir-blue hover:text-choir-blue-dark mb-6 inline-block"
