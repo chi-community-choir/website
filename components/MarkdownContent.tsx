@@ -10,6 +10,47 @@ interface MarkdownContentProps {
   className?: string
 }
 
+ import { visit } from 'unist-util-visit';
+
+function remarkFigure() {
+  return (tree: any) => {
+    visit(tree, 'paragraph', (node, index, parent) => {
+      if (!parent || index == null) return;
+      if (node.children?.length !== 1) return;
+
+      const img = node.children[0];
+      if (img.type !== 'image') return;
+
+      parent.children[index] = {
+        type: 'figure',
+        data: {
+          hName: 'figure',
+          hChildren: [
+            {
+              type: 'element',
+              tagName: 'img',
+              properties: {
+                src: img.url,
+                alt: img.alt || '',
+              },
+              children: [],
+            },
+            img.title
+              ? {
+                  type: 'element',
+                  tagName: 'figcaption',
+                  properties: {},
+                  children: [{ type: 'text', value: img.title }],
+                }
+              : null,
+          ].filter(Boolean),
+        },
+      };
+    });
+  };
+}
+
+
 /**
  * MarkdownContent Component
  *
@@ -349,7 +390,7 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
   return (
     <div className={`markdown-content ${className}`}>
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkFigure]}
         components={components}
       >
         {content}
