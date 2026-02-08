@@ -1,5 +1,6 @@
 'use client'
 
+import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Image from 'next/image'
@@ -83,13 +84,37 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     // Design: 20px base font optimized for older readers with 1.75 line height.
     // Max width of 650px prevents eye fatigue from long lines (60-75 chars).
     // Consistent mb-6 margins create vertical rhythm.
+    //
+    // Note: If the paragraph contains only a figure element (from our custom img
+    // component's block image rendering), we return the figure directly to avoid
+    // invalid HTML. <figure> cannot be nested inside <p> per HTML5 spec.
 
-    p: ({ ...props }) => (
-      <p
-        className="text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-[650px]"
-        {...props}
-      />
-    ),
+    p: ({ children, ...props }) => {
+      // Check if this paragraph contains only a single child that is a figure element.
+      // We need to handle both:
+      // 1. Direct figure element (React element with type 'figure')
+      // 2. Figure wrapped in a fragment (sometimes used by rehype plugins)
+      const childrenArray = React.Children.toArray(children)
+
+      const isSingleFigureChild =
+        childrenArray.length === 1 &&
+        React.isValidElement(childrenArray[0]) &&
+        (childrenArray[0].type === 'figure')
+
+      if (isSingleFigureChild) {
+        // Return just the figure, unwrapped from paragraph
+        return <>{children}</>
+      }
+
+      return (
+        <p
+          className="text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-[650px]"
+          {...props}
+        >
+          {children}
+        </p>
+      )
+    },
 
     // =========================================================================
     // LISTS
@@ -253,7 +278,7 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     // =========================================================================
     // IMAGES
     // =========================================================================
-    // Design: Wrapped in semantic <figure> element. Max width prevents excessive
+    // Design: Wrapped in semantic <figure> element for block images. Max width prevents excessive
     // width while maintaining aspect ratio. Caption displays alt text when available
     // for accessibility and context. Warm shadow and rounded corners add depth.
     //
@@ -264,9 +289,20 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     // Example: ![Photo](url "small left")
     // Defaults: medium size (700px), centered alignment
     // See: docs/guides/markdown-images.md
+    //
+    // Inline images: When used inline (within text), renders without <figure> wrapper.
+    // Block images: When standalone, wraps in <figure> with optional caption.
 
     img: ({ src, alt, title, ...props }) => {
       if (!src || typeof src !== 'string') return null
+
+      // Detect if we're in an inline context by checking the parent node type
+      // If parent is a paragraph with multiple children, we're inline
+      const node = (props as any).node
+      const isInline =
+        node?.parent?.type === 'paragraph' &&
+        node?.parent?.children &&
+        node.parent.children.length > 1
 
       // Parse size and alignment from title attribute
       // Supports: "small", "medium", "large", "full", "left", "center", "right"
@@ -276,6 +312,7 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
       let alignment = 'mx-auto'  // default centered
       let imgWidth = 800
       let imgHeight = 600
+      let inlineClass = ''  // For inline images
 
       // Parse modifiers (apply last one wins if multiple specified)
       for (const modifier of modifiers) {
@@ -284,16 +321,19 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
             maxWidth = 'max-w-[300px]'
             imgWidth = 400
             imgHeight = 300
+            inlineClass = 'w-[200px] h-auto inline-block align-middle mx-1'
             break
           case 'medium':
             maxWidth = 'max-w-[500px]'
             imgWidth = 600
             imgHeight = 450
+            inlineClass = 'w-[300px] h-auto inline-block align-middle mx-1'
             break
           case 'large':
             maxWidth = 'max-w-[900px]'
             imgWidth = 1000
             imgHeight = 750
+            inlineClass = 'w-[500px] h-auto inline-block align-middle mx-1'
             break
           case 'full':
             maxWidth = 'max-w-full'
@@ -312,6 +352,21 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
         }
       }
 
+      // Inline image: return just the img without figure wrapper
+      if (isInline) {
+        return (
+          <Image
+            src={src}
+            alt={alt || ''}
+            width={imgWidth}
+            height={imgHeight}
+            className={`rounded-lg shadow-warm-sm ${inlineClass}`}
+            style={{ objectFit: 'cover' }}
+          />
+        )
+      }
+
+      // Block image: wrap in figure with caption
       return (
         <figure className={`my-10 ${maxWidth} ${alignment}`}>
           <Image
