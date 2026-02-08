@@ -256,17 +256,69 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     // Design: Wrapped in semantic <figure> element. Max width prevents excessive
     // width while maintaining aspect ratio. Caption displays alt text when available
     // for accessibility and context. Warm shadow and rounded corners add depth.
+    //
+    // Size & Alignment: Use the title attribute with plain English modifiers:
+    // - Sizes: "small", "medium", "large", "full"
+    // - Alignment: "left", "center", "right"
+    // - Combine: "small left", "large center" (order doesn't matter)
+    // Example: ![Photo](url "small left")
+    // Defaults: medium size (700px), centered alignment
+    // See: docs/guides/markdown-images.md
 
-    img: ({ src, alt, ...props }) => {
+    img: ({ src, alt, title, ...props }) => {
       if (!src || typeof src !== 'string') return null
 
+      // Parse size and alignment from title attribute
+      // Supports: "small", "medium", "large", "full", "left", "center", "right"
+      const modifiers = title?.toLowerCase()?.trim()?.split(/\s+/) || []
+
+      let maxWidth = 'max-w-[700px]'
+      let alignment = 'mx-auto'  // default centered
+      let imgWidth = 800
+      let imgHeight = 600
+
+      // Parse modifiers (apply last one wins if multiple specified)
+      for (const modifier of modifiers) {
+        switch (modifier) {
+          case 'small':
+            maxWidth = 'max-w-[300px]'
+            imgWidth = 400
+            imgHeight = 300
+            break
+          case 'medium':
+            maxWidth = 'max-w-[500px]'
+            imgWidth = 600
+            imgHeight = 450
+            break
+          case 'large':
+            maxWidth = 'max-w-[900px]'
+            imgWidth = 1000
+            imgHeight = 750
+            break
+          case 'full':
+            maxWidth = 'max-w-full'
+            imgWidth = 1200
+            imgHeight = 900
+            break
+          case 'left':
+            alignment = 'mr-auto'
+            break
+          case 'center':
+            alignment = 'mx-auto'
+            break
+          case 'right':
+            alignment = 'ml-auto'
+            break
+        }
+      }
+
       return (
-        <figure className="my-10 max-w-[700px] mx-auto">
+        <figure className={`my-10 ${maxWidth} ${alignment}`}>
           <Image
             src={src}
             alt={alt || ''}
-            width={800}
-            height={600}
+            width={imgWidth}
+            height={imgHeight}
             className="rounded-xl shadow-warm-lg w-full h-auto"
             style={{ objectFit: 'cover' }}
           />
