@@ -25,6 +25,9 @@ function remarkFigure() {
         type: 'figure',
         data: {
           hName: 'figure',
+          hProperties: {
+            'data-modifiers': img.title || '', // Pass modifiers to figure component
+          },
           hChildren: [
             {
               type: 'element',
@@ -32,15 +35,16 @@ function remarkFigure() {
               properties: {
                 src: img.url,
                 alt: img.alt || '',
+                title: img.title || '', // Pass through for img component fallback
               },
               children: [],
             },
-            img.title
+            img.alt
               ? {
                   type: 'element',
                   tagName: 'figcaption',
                   properties: {},
-                  children: [{ type: 'text', value: img.title }],
+                  children: [{ type: 'text', value: img.alt }],
                 }
               : null,
           ].filter(Boolean),
@@ -292,54 +296,34 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     ),
 
     // =========================================================================
-    // IMAGES
+    // FIGURE (for standalone images)
     // =========================================================================
-    // Design: Wrapped in semantic <figure> element. Max width prevents excessive
-    // width while maintaining aspect ratio. Caption displays alt text when available
-    // for accessibility and context. Warm shadow and rounded corners add depth.
+    // Handles size and alignment for standalone images transformed by remarkFigure.
+    // Alt text becomes the caption. Title attribute contains size/alignment modifiers.
     //
-    // Size & Alignment: Use the title attribute with plain English modifiers:
-    // - Sizes: "small", "medium", "large", "full"
-    // - Alignment: "left", "center", "right"
-    // - Combine: "small left", "large center" (order doesn't matter)
-    // Example: ![Photo](url "small left")
-    // Defaults: medium size (700px), centered alignment
-    // See: docs/guides/markdown-images.md
+    // Modifiers: "small", "medium", "large", "full", "left", "center", "right"
+    // Example: ![Choir performance](url "small left")
+    // Defaults: medium size (500px), centered alignment
 
-    img: ({ src, alt, title, ...props }) => {
-      if (!src || typeof src !== 'string') return null
+    figure: ({ children, ...props }) => {
+      const modifiers = (props as any)['data-modifiers']?.toLowerCase()?.trim()?.split(/\s+/) || []
 
-      // Parse size and alignment from title attribute
-      // Supports: "small", "medium", "large", "full", "left", "center", "right"
-      const modifiers = title?.toLowerCase()?.trim()?.split(/\s+/) || []
-
-      let maxWidth = 'max-w-[700px]'
+      let maxWidth = 'max-w-[500px]'  // default medium
       let alignment = 'mx-auto'  // default centered
-      let imgWidth = 800
-      let imgHeight = 600
 
-      // Parse modifiers (apply last one wins if multiple specified)
       for (const modifier of modifiers) {
         switch (modifier) {
           case 'small':
             maxWidth = 'max-w-[300px]'
-            imgWidth = 400
-            imgHeight = 300
             break
           case 'medium':
             maxWidth = 'max-w-[500px]'
-            imgWidth = 600
-            imgHeight = 450
             break
           case 'large':
             maxWidth = 'max-w-[900px]'
-            imgWidth = 1000
-            imgHeight = 750
             break
           case 'full':
             maxWidth = 'max-w-full'
-            imgWidth = 1200
-            imgHeight = 900
             break
           case 'left':
             alignment = 'mr-auto'
@@ -355,20 +339,70 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
 
       return (
         <figure className={`my-10 ${maxWidth} ${alignment}`}>
-          <Image
-            src={src}
-            alt={alt || ''}
-            width={imgWidth}
-            height={imgHeight}
-            className="rounded-xl shadow-warm-lg w-full h-auto"
-            style={{ objectFit: 'cover' }}
-          />
-          {alt && (
-            <figcaption className="text-[18px] text-gray-600 text-center mt-3 italic">
-              {alt}
-            </figcaption>
-          )}
+          {children}
         </figure>
+      )
+    },
+
+    figcaption: ({ children, ...props }) => (
+      <figcaption
+        className="text-[18px] text-gray-600 text-center mt-3 italic"
+        {...props}
+      >
+        {children}
+      </figcaption>
+    ),
+
+    // =========================================================================
+    // IMAGES
+    // =========================================================================
+    // For standalone images: wrapped in <figure> by remarkFigure with caption
+    // For inline images: rendered directly without wrapper
+    //
+    // Size & Alignment: Use the title attribute with modifiers:
+    // - Sizes: "small", "medium", "large", "full"
+    // - Alignment: "left", "center", "right"
+    // Example: ![Alt text](url "small left")
+    // Defaults: 800x600, no wrapper for inline use
+
+    img: ({ src, alt, title, ...props }) => {
+      if (!src || typeof src !== 'string') return null
+
+      const modifiers = title?.toLowerCase()?.trim()?.split(/\s+/) || []
+
+      let imgWidth = 800
+      let imgHeight = 600
+
+      for (const modifier of modifiers) {
+        switch (modifier) {
+          case 'small':
+            imgWidth = 400
+            imgHeight = 300
+            break
+          case 'medium':
+            imgWidth = 600
+            imgHeight = 450
+            break
+          case 'large':
+            imgWidth = 1000
+            imgHeight = 750
+            break
+          case 'full':
+            imgWidth = 1200
+            imgHeight = 900
+            break
+        }
+      }
+
+      return (
+        <Image
+          src={src}
+          alt={alt || ''}
+          width={imgWidth}
+          height={imgHeight}
+          className="rounded-xl shadow-warm-lg w-full h-auto"
+          style={{ objectFit: 'cover' }}
+        />
       )
     },
 
