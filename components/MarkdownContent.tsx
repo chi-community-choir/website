@@ -131,7 +131,7 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
 
     p: ({ ...props }) => (
       <p
-        className="text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-[650px]"
+        className="text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-full"
         {...props}
       />
     ),
@@ -145,14 +145,14 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
 
     ul: ({ ...props }) => (
       <ul
-        className="list-disc list-outside text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-[650px] pl-8 space-y-3 marker:text-choir-coral"
+        className="list-disc list-outside text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-full pl-8 space-y-3 marker:text-choir-coral"
         {...props}
       />
     ),
 
     ol: ({ ...props }) => (
       <ol
-        className="list-decimal list-outside text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-[650px] pl-8 space-y-3 marker:text-choir-coral marker:font-semibold"
+        className="list-decimal list-outside text-[20px] leading-[1.75] text-gray-700 mb-6 max-w-full pl-8 space-y-3 marker:text-choir-coral marker:font-semibold"
         {...props}
       />
     ),
