@@ -11,13 +11,13 @@ audio:
   - label: "Full Arrangement"
     url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Jesu%2C%20meine%20Freude%2C%20BWV%20227.mp3"
   - label: "Soprano Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/soprano.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/soprano.mp3"
   - label: "Alto Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/alto.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/alto.mp3"
   - label: "Tenor Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/tenor.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/tenor.mp3"
   - label: "Bass Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/bass.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/bass.mp3"
 ---
 
 # Jesu, Meine Freude
@@ -66,13 +66,13 @@ To add more sheet music or audio files, copy and paste these lines:
 For sheet music:
 ```
   - label: "Description of this file"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/filename.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/filename.pdf"
 ```
 
 For audio:
 ```
   - label: "Description of this file"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/filename.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/filename.mp3"
 ```
 
 ### Common Tags

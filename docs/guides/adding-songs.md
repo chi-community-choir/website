@@ -16,10 +16,10 @@ Songs appear on the **Repertoire** page of your website. Each song can include:
 
 ### Step 1: Prepare Your Files (Optional)
 
-If you have sheet music PDFs or audio files (MP3), upload them to DigitalOcean Spaces first:
-- URL: https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/
+If you have sheet music PDFs or audio files (MP3), upload them to Vercel Blob Storage first:
+- URL: https://flhaurczyt40eicf.public.blob.vercel-storage.com/
 - Organize in folders: `/sheet-music/` and `/audio/`
-- Note the URLs - you'll need them in Step 4
+- Note the URLs — you'll need them in Step 4
 
 **Don't have files yet?** No problem! You can add the song without resources and add them later.
 
@@ -100,20 +100,20 @@ You can add one or multiple sheet music files:
 ```yaml
 sheetMusic:
   - label: "Full Score (SATB)"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/amazing-grace.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/amazing-grace.pdf"
 ```
 
 **Multiple files:**
 ```yaml
 sheetMusic:
   - label: "Full Score (SATB)"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/amazing-grace-full.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/amazing-grace-full.pdf"
   - label: "Soprano Part Only"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/amazing-grace-soprano.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/amazing-grace-soprano.pdf"
   - label: "Alto Part Only"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/amazing-grace-alto.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/amazing-grace-alto.pdf"
   - label: "Simplified Version"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/amazing-grace-simple.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/amazing-grace-simple.pdf"
 ```
 
 **Key points:**
@@ -129,15 +129,15 @@ You can add one or multiple audio files:
 ```yaml
 audio:
   - label: "Full Arrangement"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/amazing-grace-full.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/amazing-grace-full.mp3"
   - label: "Soprano Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/amazing-grace-soprano.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/amazing-grace-soprano.mp3"
   - label: "Alto Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/amazing-grace-alto.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/amazing-grace-alto.mp3"
   - label: "Tenor Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/amazing-grace-tenor.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/amazing-grace-tenor.mp3"
   - label: "Bass Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/amazing-grace-bass.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/amazing-grace-bass.mp3"
 ```
 
 **Advanced example with practice tracks:**
@@ -214,18 +214,18 @@ excerpt: "A beautiful, gentle lullaby with rich harmonies"
 tags: ["contemporary", "lullaby", "a cappella"]
 sheetMusic:
   - label: "Full Score (SATB)"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/seal-lullaby.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/seal-lullaby.pdf"
 audio:
   - label: "Full Arrangement"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/seal-lullaby-full.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/seal-lullaby-full.mp3"
   - label: "Soprano Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/seal-lullaby-soprano.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/seal-lullaby-soprano.mp3"
   - label: "Alto Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/seal-lullaby-alto.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/seal-lullaby-alto.mp3"
   - label: "Tenor Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/seal-lullaby-tenor.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/seal-lullaby-tenor.mp3"
   - label: "Bass Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/seal-lullaby-bass.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/seal-lullaby-bass.mp3"
 ---
 
 # About This Piece

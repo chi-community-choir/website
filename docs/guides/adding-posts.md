@@ -141,7 +141,7 @@ Here are the most useful formatting options:
 
 ### Images
 ```markdown
-![Image description](https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/your-image.jpg)
+![Image description](https://flhaurczyt40eicf.public.blob.vercel-storage.com/your-image.jpg)
 ```
 
 ## Common Tags

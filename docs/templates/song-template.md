@@ -6,20 +6,20 @@ excerpt: "A brief description of the piece (1-2 sentences)"
 tags: ["classical", "contemporary"]
 sheetMusic:
   - label: "Full Score (SATB)"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/your-file.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/your-file.pdf"
   - label: "Another Version (optional - delete if not needed)"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/your-file2.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/your-file2.pdf"
 audio:
   - label: "Full Arrangement"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/your-file.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/your-file.mp3"
   - label: "Soprano Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/soprano.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/soprano.mp3"
   - label: "Alto Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/alto.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/alto.mp3"
   - label: "Tenor Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/tenor.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/tenor.mp3"
   - label: "Bass Part"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/bass.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/bass.mp3"
 ---
 
 # About This Piece
@@ -60,13 +60,13 @@ To add more sheet music or audio files, copy and paste these lines:
 For sheet music:
 ```
   - label: "Description of this file"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/sheet-music/filename.pdf"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/sheet-music/filename.pdf"
 ```
 
 For audio:
 ```
   - label: "Description of this file"
-    url: "https://chicommunitychoir.lon1.cdn.digitaloceanspaces.com/audio/filename.mp3"
+    url: "https://flhaurczyt40eicf.public.blob.vercel-storage.com/audio/filename.mp3"
 ```
 
 ### Common Tags
