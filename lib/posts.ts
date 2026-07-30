@@ -81,7 +81,7 @@ export function getAllPosts(): Post[] {
   })
 }
 
-export async function getPostBySlug(slug: string): Promise<Post | null> {
+export function getPostBySlug(slug: string): Post | null {
   if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
     return null
   }

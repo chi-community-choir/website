@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params
-  const post = await getPostBySlug(slug)
+  const post = getPostBySlug(slug)
 
   if (!post) {
     return {
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function PostPage({ params }: PageProps) {
   const { slug } = await params
-  const post = await getPostBySlug(slug)
+  const post = getPostBySlug(slug)
 
   if (!post) {
     notFound()

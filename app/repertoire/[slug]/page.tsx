@@ -19,7 +19,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params
-  const song = await getSongBySlug(slug)
+  const song = getSongBySlug(slug)
 
   if (!song) {
     return {
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function SongPage({ params }: PageProps) {
   const { slug } = await params
-  const song = await getSongBySlug(slug)
+  const song = getSongBySlug(slug)
 
   if (!song) {
     notFound()

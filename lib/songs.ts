@@ -55,7 +55,7 @@ export function getAllSongs(): Song[] {
   })
 }
 
-export async function getSongBySlug(slug: string): Promise<Song | null> {
+export function getSongBySlug(slug: string): Song | null {
   if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
     return null
   }
