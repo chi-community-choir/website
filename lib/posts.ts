@@ -82,6 +82,10 @@ export function getAllPosts(): Post[] {
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
+    return null
+  }
+
   if (!fs.existsSync(postsDirectory)) {
     return null
   }

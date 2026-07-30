@@ -56,6 +56,10 @@ export function getAllSongs(): Song[] {
 }
 
 export async function getSongBySlug(slug: string): Promise<Song | null> {
+  if (!slug || !/^[a-z0-9-]+$/.test(slug)) {
+    return null
+  }
+
   if (!fs.existsSync(songsDirectory)) {
     return null
   }
