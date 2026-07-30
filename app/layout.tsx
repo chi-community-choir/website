@@ -22,7 +22,7 @@ const sourceSans = localFont({
   weight: '100 900',
 })
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://dev.chicommunitychoir.com' // TODO: correct SITE_URL when deploying publicly
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://chicommunitychoir.com'
 
 export const metadata: Metadata = {
   title: 'Chichester Community Choir',
