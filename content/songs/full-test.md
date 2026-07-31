@@ -22,13 +22,10 @@ audio:
 
 # Jesu, Meine Freude
 
-Here's a picture of the guy:
-![](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg)
+Here's a picture of Bach:
+![Bach](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Johann_Sebastian_Bach.jpg "medium")
 
-> He's looking pretty stoic here.
-
-Here's the mp3 again?
-![](https://flhaurczyt40eicf.public.blob.vercel-storage.com/images/repertoire/jesu%2C%20meine%20freude/Jesu%2C%20meine%20Freude%2C%20BWV%20227.mp3)
+> This is a blockquote, used as a caption
 
 Write details about the song here. You can include:
 - Historical background
