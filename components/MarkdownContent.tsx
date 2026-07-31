@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import Image from 'next/image'
 import type { Components } from 'react-markdown'
+import type { Root } from 'mdast'
 
 interface MarkdownContentProps {
   content: string
@@ -13,7 +14,7 @@ interface MarkdownContentProps {
  import { visit } from 'unist-util-visit';
 
 function remarkFigure() {
-  return (tree: any) => {
+  return (tree: Root) => {
     visit(tree, 'paragraph', (node, index, parent) => {
       if (!parent || index == null) return;
       if (node.children?.length !== 1) return;
@@ -200,9 +201,8 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     // Code blocks use dark background to reduce eye strain with coral accent border.
     // Monospace font clearly indicates code content.
 
-    code: ({ children, ...props }) => {
-      // Check if this is inline code (not inside pre tag)
-      const isInline = !(props as any).className?.includes('language-')
+    code: ({ children, className, ...props }) => {
+      const isInline = !className?.includes('language-')
 
       if (isInline) {
         return (
@@ -305,8 +305,8 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     // Example: ![Choir performance](url "small left")
     // Defaults: medium size (500px), centered alignment
 
-    figure: ({ children, ...props }) => {
-      const modifiers = (props as any)['data-modifiers']?.toLowerCase()?.trim()?.split(/\s+/) || []
+    figure: ({ 'data-modifiers': dataModifiers, children, ...props }) => {
+      const modifiers = dataModifiers?.toLowerCase()?.trim()?.split(/\s+/) || []
 
       let maxWidth = 'max-w-[500px]'  // default medium
       let alignment = 'mx-auto'  // default centered
