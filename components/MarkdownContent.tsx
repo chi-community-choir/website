@@ -22,7 +22,7 @@ function remarkFigure() {
       const img = node.children[0];
       if (img.type !== 'image') return;
 
-      parent.children[index] = {
+      (parent.children as any)[index] = {
         type: 'figure',
         data: {
           hName: 'figure',
@@ -318,7 +318,8 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     // Example: ![Choir performance](url "small left")
     // Defaults: medium size (500px), centered alignment
 
-    figure: ({ 'data-modifiers': dataModifiers, children, ...props }) => {
+    figure: ({ children, ...props }) => {
+      const dataModifiers = (props as Record<string, unknown>)['data-modifiers'] as string | undefined
       const modifiers = dataModifiers?.toLowerCase()?.trim()?.split(/\s+/) || []
 
       let maxWidth = 'max-w-[500px]'

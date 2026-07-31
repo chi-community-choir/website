@@ -75,7 +75,7 @@ export function getAllPosts(): Post[] {
         return null
       }
     })
-    .filter((post): post is Post => post !== null)
+    .filter((post) => post !== null) as Post[]
 
   // Sort posts by date
   return allPostsData.sort((a, b) => {

@@ -53,7 +53,7 @@ export function getAllSongs(): Song[] {
         return null
       }
     })
-    .filter((song): song is Song => song !== null)
+    .filter((song) => song !== null) as Song[]
 
   // Sort songs alphabetically by title (with numeric sorting)
   return allSongsData.sort((a, b) => {
