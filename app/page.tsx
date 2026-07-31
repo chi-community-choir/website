@@ -1,6 +1,11 @@
 import InfoBox from '@/components/InfoBox'
 import Image from 'next/image'
+import type { Metadata } from 'next'
 import { CHOIR_CONTACT, REHEARSAL, VENUE, SITE } from '@/lib/constants'
+
+export const metadata: Metadata = {
+  description: 'Chichester Community Choir — a friendly, non-auditioned SATB choir meeting Tuesdays at the University of Chichester. All are welcome.',
+};
 
 export default function Home() {
   return (
