@@ -32,22 +32,28 @@ export function getAllSongs(): Song[] {
   const allSongsData = fileNames
     .filter((fileName) => fileName.endsWith('.md'))
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '')
-      const fullPath = path.join(songsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
+      try {
+        const slug = fileName.replace(/\.md$/, '')
+        const fullPath = path.join(songsDirectory, fileName)
+        const fileContents = fs.readFileSync(fullPath, 'utf8')
+        const { data } = matter(fileContents)
 
-      return {
-        slug,
-        title: data.title || 'Untitled',
-        composer: data.composer || 'Unknown',
-        arranger: data.arranger,
-        excerpt: data.excerpt || '',
-        tags: data.tags || [],
-        sheetMusic: data.sheetMusic || [],
-        audio: data.audio || [],
+        return {
+          slug,
+          title: data.title || 'Untitled',
+          composer: data.composer || 'Unknown',
+          arranger: data.arranger,
+          excerpt: data.excerpt || '',
+          tags: data.tags || [],
+          sheetMusic: data.sheetMusic || [],
+          audio: data.audio || [],
+        }
+      } catch (error) {
+        console.error(`Error reading song "${fileName}":`, error instanceof Error ? error.message : error)
+        return null
       }
     })
+    .filter((song): song is Song => song !== null)
 
   // Sort songs alphabetically by title (with numeric sorting)
   return allSongsData.sort((a, b) => {
@@ -70,19 +76,24 @@ export function getSongBySlug(slug: string): Song | null {
     return null
   }
 
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const { data, content } = matter(fileContents)
+  try {
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const { data, content } = matter(fileContents)
 
-  return {
-    slug,
-    title: data.title || 'Untitled',
-    composer: data.composer || 'Unknown',
-    arranger: data.arranger,
-    excerpt: data.excerpt || '',
-    tags: data.tags || [],
-    sheetMusic: data.sheetMusic || [],
-    audio: data.audio || [],
-    content: content,
+    return {
+      slug,
+      title: data.title || 'Untitled',
+      composer: data.composer || 'Unknown',
+      arranger: data.arranger,
+      excerpt: data.excerpt || '',
+      tags: data.tags || [],
+      sheetMusic: data.sheetMusic || [],
+      audio: data.audio || [],
+      content: content,
+    }
+  } catch (error) {
+    console.error(`Error reading song "${slug}":`, error instanceof Error ? error.message : error)
+    return null
   }
 }
 

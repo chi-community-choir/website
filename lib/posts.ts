@@ -50,26 +50,32 @@ export function getAllPosts(): Post[] {
   const allPostsData = fileNames
     .filter((fileName) => fileName.endsWith('.md'))
     .map((fileName) => {
-      const slug = fileName.replace(/\.md$/, '')
-      const fullPath = path.join(postsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
+      try {
+        const slug = fileName.replace(/\.md$/, '')
+        const fullPath = path.join(postsDirectory, fileName)
+        const fileContents = fs.readFileSync(fullPath, 'utf8')
+        const { data } = matter(fileContents)
 
-      const date = data.date || ''
-      const { year, month, bucket } = deriveTimeBucket(date)
+        const date = data.date || ''
+        const { year, month, bucket } = deriveTimeBucket(date)
 
-      return {
-        slug,
-        title: data.title || 'Untitled',
-        date,
-        excerpt: data.excerpt || '',
-        author: data.author || '',
-        tags: data.tags || [],
-        year,
-        month,
-        bucket,
+        return {
+          slug,
+          title: data.title || 'Untitled',
+          date,
+          excerpt: data.excerpt || '',
+          author: data.author || '',
+          tags: data.tags || [],
+          year,
+          month,
+          bucket,
+        }
+      } catch (error) {
+        console.error(`Error reading post "${fileName}":`, error instanceof Error ? error.message : error)
+        return null
       }
     })
+    .filter((post): post is Post => post !== null)
 
   // Sort posts by date
   return allPostsData.sort((a, b) => {
@@ -96,17 +102,22 @@ export function getPostBySlug(slug: string): Post | null {
     return null
   }
 
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
-  const { data, content } = matter(fileContents)
+  try {
+    const fileContents = fs.readFileSync(fullPath, 'utf8')
+    const { data, content } = matter(fileContents)
 
-  return {
-    slug,
-    title: data.title || 'Untitled',
-    date: data.date || '',
-    excerpt: data.excerpt || '',
-    author: data.author || '',
-    tags: data.tags || [],
-    content: content,
+    return {
+      slug,
+      title: data.title || 'Untitled',
+      date: data.date || '',
+      excerpt: data.excerpt || '',
+      author: data.author || '',
+      tags: data.tags || [],
+      content: content,
+    }
+  } catch (error) {
+    console.error(`Error reading post "${slug}":`, error instanceof Error ? error.message : error)
+    return null
   }
 }
 
