@@ -232,7 +232,8 @@ export default function EventsClient({ posts }: EventsClientProps) {
     const bucketIndex = filteredPosts.findIndex(post => post.bucket === bucket)
 
     if (bucketIndex !== -1) {
-      setVisibleCount(Math.max(bucketIndex + 1, 20))
+      const effectivePageSize = searchQuery.trim() ? filteredPosts.length : 20
+      setVisibleCount(Math.max(bucketIndex + 1, effectivePageSize))
 
       // Wait for state update and DOM render, then scroll
       requestAnimationFrame(() => {
