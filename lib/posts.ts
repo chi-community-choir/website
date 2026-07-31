@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 
 const postsDirectory = path.join(process.cwd(), 'content/posts')
 
-function deriveTimeBucket(dateString: string): { year: string; month: string; bucket: string } {
+export function deriveTimeBucket(dateString: string): { year: string; month: string; bucket: string } {
   if (!dateString) {
     return { year: '', month: '', bucket: 'Unknown' }
   }
