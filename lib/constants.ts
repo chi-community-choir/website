@@ -10,8 +10,6 @@ export const REHEARSAL = {
 export const VENUE = {
   name: 'University of Chichester',
   address: 'College Ln, Chichester, PO19 6PF',
-  room: 'Mitre Lecture Theatre',
-  parkingApp: 'PayByPhone',
   parkingLocation: '808365',
 } as const;
 
@@ -21,5 +19,4 @@ export const MEMBERSHIP = {
 
 export const SITE = {
   name: 'Chichester Community Choir',
-  domain: 'chicommunitychoir.com',
 } as const;
