@@ -1,8 +1,8 @@
 import type { Config } from 'tailwindcss'
+import typography from '@tailwindcss/typography'
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
@@ -24,24 +24,24 @@ const config: Config = {
         'warm-2xl': '0 25px 50px -12px rgba(180, 130, 90, 0.25)',
       },
       colors: {
-        // Primary blues
+        // Primary brand colors — headings, navigation, CTAs
         'choir-blue-dark': '#1a365d',
         'choir-blue': '#2c5282',
         'choir-blue-light': '#4a6fa5',
 
-        // Warm accents
+        // Accent colors — buttons, links, highlights
         'choir-coral': '#7c082f',
         'choir-coral-dark': '#4a051C',
         'choir-peach': '#f4b088',
         'choir-gold': '#d4a574',
         'choir-sunshine': '#ffd816',
 
-        // Warm backgrounds
-        'choir-cream': '#f2eee4',
-        'choir-warm-white': '#e6dfcc',
-        'choir-warm-gray': '#ddd8cc',
-        'choir-peach-tint': '#fff5ee',
-        'choir-sand': '#f6ecd5',
+        // Warm neutral backgrounds
+        'choir-cream': '#f2eee4',       // page background
+        'choir-warm-white': '#e6dfcc',  // card backgrounds
+        'choir-warm-gray': '#ddd8cc',   // borders, dividers
+        'choir-peach-tint': '#fff5ee',  // subtle highlight backgrounds
+        'choir-sand': '#f6ecd5',        // alternate card backgrounds
       },
       typography: {
         DEFAULT: {
@@ -73,7 +73,7 @@ const config: Config = {
     },
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    typography,
   ],
 }
 

@@ -2,20 +2,27 @@ import type { NextConfig } from 'next'
 
 const isDev = process.env.NODE_ENV === 'development'
 
+// Content-Security-Policy for the choir website:
+// - 'unsafe-inline' in style-src is required for Tailwind CSS (generates inline styles)
+// - Vercel Blob Storage domains allowed for images and media
+// - frame-src allows Google Maps embed on the Find Us page
+// - Dev mode relaxes script-src and connect-src for Vercel preview toolbar
+// - Fonts are self-hosted (Lora, Source Sans 3) — no external font domains needed
+
 const devDirectives = [
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live;",
-  "connect-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com https://vercel.live;",
+  "connect-src 'self' https://vercel.live;",
 ]
 
 const prodDirectives = [
   "script-src 'self';",
-  "connect-src 'self' https://fonts.gstatic.com https://fonts.googleapis.com;",
+  "connect-src 'self';",
 ]
 
 const sharedDirectives = [
   "default-src 'self';",
-  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;",
-  "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;",
+  "style-src 'self' 'unsafe-inline';",
+  "font-src 'self';",
   "img-src 'self' data: blob: https://*.public.blob.vercel-storage.com;",
   "media-src 'self' data: blob: https://*.public.blob.vercel-storage.com;",
   "frame-src https://www.google.com;",
