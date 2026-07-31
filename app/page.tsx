@@ -1,5 +1,6 @@
 import InfoBox from '@/components/InfoBox'
 import Image from 'next/image'
+import { CHOIR_CONTACT, REHEARSAL, VENUE, SITE } from '@/lib/constants'
 
 export default function Home() {
   return (
@@ -24,7 +25,7 @@ export default function Home() {
       <section className="px-4">
         <div className="max-w-4xl mx-auto mb-12 p-8 bg-white rounded-lg text-center shadow-warm-md border-2 border-choir-warm-gray">
         <h1 className="text-choir-blue-dark text-4xl font-bold mb-6">
-          Welcome to Chichester Community Choir
+          Welcome to {SITE.name}
         </h1>
         <p className="text-lg text-gray-700">
           Join us in the joy of singing! No auditions required - just bring your enthusiasm and love for music.
@@ -36,14 +37,14 @@ export default function Home() {
       <section className="max-w-6xl mx-auto mb-12 px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <InfoBox title="Next Rehearsal" linkHref="/find-us" linkText="Find Us">
-            <p>
-              Every Tuesday<br />
-              6:45 PM - 8:15 PM<br />
-              University of Chichester
-            </p>
+              <p>
+                Every {REHEARSAL.day}<br />
+                {REHEARSAL.time}<br />
+                {VENUE.name}
+              </p>
           </InfoBox>
 
-          <InfoBox title="Want to Join?" linkHref="mailto:caroline@chicommunitychoir.com" linkText="Contact Us to Join">
+          <InfoBox title="Want to Join?" linkHref={`mailto:${CHOIR_CONTACT.email}`} linkText="Contact Us to Join">
             <p>
               Your first session is free!<br />
               Come along and give it a try.<br />

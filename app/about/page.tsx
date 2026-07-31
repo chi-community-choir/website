@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import type { Metadata } from 'next'
 import { MusicalDivider } from '@/components/MusicalDivider'
+import { CHOIR_CONTACT, REHEARSAL, VENUE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'About Us | Chichester Community Choir',
@@ -56,7 +57,7 @@ export default function AboutPage() {
           <h2 className="text-3xl mb-6 text-choir-blue-dark text-center">Our Choir</h2>
           <div className="max-w-4xl mx-auto">
             <p className="mb-6 text-lg text-center">
-              Meeting every Tuesday evening from 6:45 PM to 8:15 PM, we provide singers with the opportunity to explore a wide variety of musical styles. We perform in rich harmony using SATB voice parts: from madrigals to mash-ups, rounds to rock and canons to classical.
+              Meeting every {REHEARSAL.day} evening, {REHEARSAL.time}, we provide singers with the opportunity to explore a wide variety of musical styles. We perform in rich harmony using SATB voice parts: from madrigals to mash-ups, rounds to rock and canons to classical.
             </p>
             <div className="flex flex-wrap gap-8 justify-center mt-8">
               <ChoirFeature
@@ -86,18 +87,17 @@ export default function AboutPage() {
             <div className="flex-1 min-w-[300px] p-8 bg-choir-peach-tint rounded-lg m-4 border border-choir-warm-gray">
               <h3 className="text-2xl mb-4 text-choir-blue">When & Where</h3>
               <p className="mb-4">
-                Tuesday Evenings<br />
-                6:45 PM - 8:15 PM
-              </p>
+                  {REHEARSAL.day} Evenings<br />
+                  {REHEARSAL.time}
+                </p>
               <p className="mb-6">
-                University of Chichester<br />
-                College Ln<br />
-                PO19 6PF
-              </p>
+                  {VENUE.name}<br />
+                  {VENUE.address}
+                </p>
               <p>
                 For details on how to join us, email:{' '}
-                <a href="mailto:caroline@chicommunitychoir.com" className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
-                  caroline@chicommunitychoir.com
+                <a href={`mailto:${CHOIR_CONTACT.email}`} className="text-choir-blue hover:text-choir-blue-light underline transition-colors">
+                  {CHOIR_CONTACT.email}
                 </a>
               </p>
             </div>

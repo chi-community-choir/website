@@ -2,6 +2,7 @@ import Image from 'next/image'
 import type { Metadata } from 'next'
 import { SelectableEmailButton } from '@/components/SelectableEmailButton'
 import { MusicalDivider } from '@/components/MusicalDivider'
+import { CHOIR_CONTACT, REHEARSAL, VENUE } from '@/lib/constants'
 
 export const metadata: Metadata = {
   title: 'Find Us | Chichester Community Choir',
@@ -38,10 +39,10 @@ export default function FindUsPage() {
               />
             </div>
             <div className="p-4">
-              <h3 className="text-2xl text-choir-blue mb-2">University of Chichester</h3>
-              <p className="mb-4">College Ln, Chichester, PO19 6PF</p>
+              <h3 className="text-2xl text-choir-blue mb-2">{VENUE.name}</h3>
+              <p className="mb-4">{VENUE.address}</p>
               <p className="mb-4">
-                We rehearse every Tuesday evening from 6:45 PM to 8:15 PM in the cloisters at the University of Chichester.
+                We rehearse every {REHEARSAL.day} evening, {REHEARSAL.time}, in the cloisters at the {VENUE.name}.
                 The building is accessible via public transit, with parking also available on the university grounds.
               </p>
               <div className="mt-6">
@@ -113,7 +114,7 @@ export default function FindUsPage() {
                 </div>
                 <div className="bg-choir-peach-tint rounded-lg p-4 sm:flex-1 border border-choir-warm-gray">
                   <h4 className="text-choir-blue font-semibold mb-2">Location Number</h4>
-                  <p>808365</p>
+                  <p>{VENUE.parkingLocation}</p>
                 </div>
               </div>
             </div>
@@ -149,7 +150,7 @@ export default function FindUsPage() {
           <p className="text-xl mb-8 opacity-90">
             Have questions about parking, accessibility, or anything else? We&apos;re happy to help!
           </p>
-          <SelectableEmailButton email="caroline@chicommunitychoir.com" />
+          <SelectableEmailButton email={CHOIR_CONTACT.email} />
         </div>
       </section>
     </div>

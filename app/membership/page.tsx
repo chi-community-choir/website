@@ -1,5 +1,6 @@
 import { SelectableEmailButton } from '@/components/SelectableEmailButton'
 import { MusicalDivider } from '@/components/MusicalDivider';
+import { CHOIR_CONTACT, MEMBERSHIP } from '@/lib/constants'
 
 export const metadata = {
   title: 'Membership | Chichester Community Choir',
@@ -36,7 +37,7 @@ export default function MembershipPage() {
           <div className="max-w-3xl mx-auto bg-white border border-choir-warm-gray rounded-lg shadow-warm-md p-8 mb-8">
             <h3 className="text-2xl text-choir-blue text-center mb-4">Membership Information</h3>
             <div className="text-center mb-6 p-4 bg-choir-peach-tint rounded-lg border border-choir-warm-gray">
-              <span className="text-4xl font-bold text-choir-blue">£28</span>
+              <span className="text-4xl font-bold text-choir-blue">{MEMBERSHIP.monthlyFee}</span>
               <span className="text-xl text-gray-600 ml-2">per month</span>
             </div>
             <p className="text-center text-gray-600 mb-6">
@@ -74,8 +75,8 @@ export default function MembershipPage() {
             <div className="bg-gradient-to-br from-choir-blue to-choir-blue-light text-white p-6 rounded-lg text-center shadow-warm-md">
               <p className="font-bold text-xl mb-2">Payment Details</p>
               <p className="mb-1">Contact us for bank details:</p>
-              <a href="mailto:caroline@chicommunitychoir.com" className="underline hover:text-gray-200 transition-colors">
-                caroline@chicommunitychoir.com
+              <a href={`mailto:${CHOIR_CONTACT.email}`} className="underline hover:text-gray-200 transition-colors">
+                {CHOIR_CONTACT.email}
               </a>
             </div>
           </div>
@@ -135,7 +136,7 @@ export default function MembershipPage() {
           <p className="text-xl mb-8 opacity-90">
             If you have any questions about membership fees or payment options, feel free to get in touch!
           </p>
-          <SelectableEmailButton email="caroline@chicommunitychoir.com" />
+          <SelectableEmailButton email={CHOIR_CONTACT.email} />
         </div>
       </section>
     </div>
