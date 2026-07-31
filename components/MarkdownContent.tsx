@@ -22,6 +22,7 @@ function remarkFigure() {
       const img = node.children[0];
       if (img.type !== 'image') return;
 
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (parent.children as any)[index] = {
         type: 'figure',
         data: {
