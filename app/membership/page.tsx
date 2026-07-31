@@ -1,8 +1,9 @@
 import { SelectableEmailButton } from '@/components/SelectableEmailButton'
 import { MusicalDivider } from '@/components/MusicalDivider';
 import { CHOIR_CONTACT, MEMBERSHIP } from '@/lib/constants'
+import type { Metadata } from 'next'
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Membership | Chichester Community Choir',
   description: 'Information about joining our choir and membership fees',
 }
