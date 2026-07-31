@@ -17,9 +17,14 @@ Songs appear on the **Repertoire** page of your website. Each song can include:
 ### Step 1: Prepare Your Files (Optional)
 
 If you have sheet music PDFs or audio files (MP3), upload them to Vercel Blob Storage first:
-- URL: https://flhaurczyt40eicf.public.blob.vercel-storage.com/
-- Organize in folders: `/sheet-music/` and `/audio/`
-- Note the URLs — you'll need them in Step 4
+
+1. Go to the [Vercel Dashboard](https://vercel.com/dashboard)
+2. Select the `chi-comm-choir` project
+3. Navigate to **Storage** -> **Blob** -> **Upload**
+4. Copy the generated URL — it will look like `https://flhaurczyt40eicf.public.blob.vercel-storage.com/filename.pdf`
+5. Note the URLs — you'll need them in Step 4
+
+> **Note:** You cannot upload files through GitHub. Uploads must be done through the Vercel Dashboard. Contact a developer if you need access.
 
 **Don't have files yet?** No problem! You can add the song without resources and add them later.
 
@@ -268,7 +273,7 @@ tags: ["classical", "sacred", "christmas", "latin"]
 
 To update a song:
 
-1. Go to GitHub → `content` → `songs`
+1. Go to GitHub -> `content` -> `songs`
 2. Click on the file you want to edit
 3. Click the pencil icon (✏️) in the top right
 4. Make your changes
@@ -352,8 +357,5 @@ sheetMusic:          ← No spaces before
 - **Full Template**: See `docs/templates/song-template.md`
 - **Example Songs**: Look in `content/songs/` for complete examples
 - **YAML Guide**: https://yaml.org/spec/1.2.2/#chapter-2-language-overview
-- **Contact Developer**: [Your contact info]
+- **Contact Developer**: (TODO: developer email)
 
----
-
-*Last updated: 2026-01-11*

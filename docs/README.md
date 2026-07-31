@@ -8,13 +8,13 @@ This directory contains templates and guides for managing website content.
 
 ```
 docs/
-├── README.md           ← You are here
-├── templates/          ← Ready-to-use templates
-│   ├── post-template.md    - Blog post template
-│   └── song-template.md    - Repertoire song template
-└── guides/             ← Detailed how-to guides
-    ├── adding-posts.md     - Complete guide for blog posts
-    └── adding-songs.md     - Complete guide for repertoire songs
+├── README.md             - You are here
+├── templates/            - Ready-to-use templates
+│   ├── post-template.md
+│   └── song-template.md
+└── guides/               - Detailed how-to guides
+    ├── adding-posts.md
+    └── adding-songs.md
 ```
 
 ## Quick Start

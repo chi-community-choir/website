@@ -144,6 +144,8 @@ Here are the most useful formatting options:
 ![Image description](https://flhaurczyt40eicf.public.blob.vercel-storage.com/your-image.jpg)
 ```
 
+> **Note:** Images and files are hosted on Vercel Blob Storage. To upload a new image, go to the Vercel Dashboard -> select the project -> Storage -> Blob -> Upload. Copy the generated URL and use it in your markdown. If you need access to the Vercel Dashboard, contact a developer.
+
 ## Common Tags
 
 Choose tags that best describe your post:
@@ -174,7 +176,7 @@ tags: ["concert", "christmas", "announcement"]
 
 To edit a post you've already published:
 
-1. Go to GitHub → `content` → `posts`
+1. Go to GitHub -> `content` -> `posts`
 2. Click on the file you want to edit
 3. Click the pencil icon (✏️) in the top right
 4. Make your changes
@@ -185,7 +187,7 @@ The website will automatically update in 2-3 minutes.
 ## Troubleshooting
 
 ### "My post isn't showing up"
-- **Wait longer**: Deployment takes 2-5 minutes
+- **Wait longer**: Deployment can take around 5 minutes
 - **Check file name**: Must be `YYYY-MM-DD-title.md` format
 - **Check location**: File must be in `content/posts/` folder
 - **Check the date**: Posts with future dates will still appear (sorted by date)
@@ -213,8 +215,5 @@ The website will automatically update in 2-3 minutes.
 
 - **Markdown Guide**: https://www.markdownguide.org/basic-syntax/
 - **GitHub Help**: https://docs.github.com/en
-- **Contact Developer**: [Your contact info]
+- **Contact Developer**: (TODO: developer email)
 
----
-
-*Last updated: 2026-01-11*
