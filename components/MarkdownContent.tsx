@@ -73,6 +73,19 @@ function remarkFigure() {
  * Design Documentation: docs/design-specs/markdown-styling-specification.md
  */
 export default function MarkdownContent({ content, className = '' }: MarkdownContentProps) {
+  const IMAGE_SIZE_CONFIG = {
+    small: { figure: 'max-w-[300px]', img: { w: 400, h: 300 } },
+    medium: { figure: 'max-w-[500px]', img: { w: 600, h: 450 } },
+    large: { figure: 'max-w-[900px]', img: { w: 1000, h: 750 } },
+    full: { figure: 'max-w-full', img: { w: 1200, h: 900 } },
+  } as const;
+
+  const IMAGE_ALIGNMENT_CONFIG: Record<string, string> = {
+    left: 'mr-auto',
+    center: 'mx-auto',
+    right: 'ml-auto',
+  };
+
   const components: Components = {
     // =========================================================================
     // HEADINGS (h1-h6)
@@ -308,32 +321,14 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
     figure: ({ 'data-modifiers': dataModifiers, children, ...props }) => {
       const modifiers = dataModifiers?.toLowerCase()?.trim()?.split(/\s+/) || []
 
-      let maxWidth = 'max-w-[500px]'  // default medium
-      let alignment = 'mx-auto'  // default centered
+      let maxWidth = 'max-w-[500px]'
+      let alignment = 'mx-auto'
 
       for (const modifier of modifiers) {
-        switch (modifier) {
-          case 'small':
-            maxWidth = 'max-w-[300px]'
-            break
-          case 'medium':
-            maxWidth = 'max-w-[500px]'
-            break
-          case 'large':
-            maxWidth = 'max-w-[900px]'
-            break
-          case 'full':
-            maxWidth = 'max-w-full'
-            break
-          case 'left':
-            alignment = 'mr-auto'
-            break
-          case 'center':
-            alignment = 'mx-auto'
-            break
-          case 'right':
-            alignment = 'ml-auto'
-            break
+        if (modifier in IMAGE_SIZE_CONFIG) {
+          maxWidth = IMAGE_SIZE_CONFIG[modifier as keyof typeof IMAGE_SIZE_CONFIG].figure
+        } else if (modifier in IMAGE_ALIGNMENT_CONFIG) {
+          alignment = IMAGE_ALIGNMENT_CONFIG[modifier]
         }
       }
 
@@ -374,23 +369,10 @@ export default function MarkdownContent({ content, className = '' }: MarkdownCon
       let imgHeight = 600
 
       for (const modifier of modifiers) {
-        switch (modifier) {
-          case 'small':
-            imgWidth = 400
-            imgHeight = 300
-            break
-          case 'medium':
-            imgWidth = 600
-            imgHeight = 450
-            break
-          case 'large':
-            imgWidth = 1000
-            imgHeight = 750
-            break
-          case 'full':
-            imgWidth = 1200
-            imgHeight = 900
-            break
+        if (modifier in IMAGE_SIZE_CONFIG) {
+          const config = IMAGE_SIZE_CONFIG[modifier as keyof typeof IMAGE_SIZE_CONFIG]
+          imgWidth = config.img.w
+          imgHeight = config.img.h
         }
       }
 
