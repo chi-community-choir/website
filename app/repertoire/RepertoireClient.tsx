@@ -1,21 +1,17 @@
 'use client'
 
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useMemo } from 'react'
 import type { Song } from '@/lib/songs'
 import SongCard from '@/components/SongCard'
 import SearchInput from '@/components/SearchInput'
+import { useInfiniteScroll } from '@/lib/useInfiniteScroll'
 
 interface RepertoireClientProps {
   songs: Song[]
 }
 
-const ITEMS_PER_PAGE = 24
-
 export default function RepertoireClient({ songs }: RepertoireClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
-  const sentinelRef = useRef<HTMLDivElement>(null)
-  const observerRef = useRef<IntersectionObserver | null>(null)
 
   const filteredSongs = useMemo(() => {
     if (!searchQuery.trim()) {
@@ -31,52 +27,10 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
     )
   }, [songs, searchQuery])
 
-  const displayedSongs = useMemo(() => {
-    // When searching, show all filtered results
-    if (searchQuery.trim()) {
-      return filteredSongs
-    }
-    // When not searching, limit by visibleCount
-    return filteredSongs.slice(0, visibleCount)
-  }, [filteredSongs, searchQuery, visibleCount])
-
-  const hasMore = !searchQuery.trim() && visibleCount < filteredSongs.length
-
-  const loadMore = () => {
-    setVisibleCount(prev => prev + ITEMS_PER_PAGE)
-  }
-
-  // Set up IntersectionObserver for infinite scroll
-  useEffect(() => {
-    if (!sentinelRef.current) return
-
-    if (observerRef.current) {
-      observerRef.current.disconnect()
-    }
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries
-        if (entry.isIntersecting && hasMore) {
-          loadMore()
-        }
-      },
-      {
-        root: null,
-        rootMargin: '100px', // Start loading a bit before reaching the sentinel
-        threshold: 0.1,
-      }
-    )
-
-    observerRef.current.observe(sentinelRef.current)
-
-    // Cleanup
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-      }
-    }
-  }, [hasMore])
+  const { displayed, hasMore, loadMore, sentinelRef } = useInfiniteScroll(
+    filteredSongs,
+    { itemsPerPage: searchQuery.trim() ? filteredSongs.length : 24 }
+  )
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-12">
@@ -109,7 +63,7 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
             )}
           </div>
 
-          {displayedSongs.length === 0 ? (
+          {displayed.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-xl text-gray-600">
                 No songs found matching &ldquo;{searchQuery}&rdquo;
@@ -118,7 +72,7 @@ export default function RepertoireClient({ songs }: RepertoireClientProps) {
           ) : (
             <>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {displayedSongs.map((song) => (
+                {displayed.map((song) => (
                   <SongCard key={song.slug} song={song} />
                 ))}
               </div>

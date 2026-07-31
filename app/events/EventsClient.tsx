@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useState, useMemo, useEffect, useRef } from 'react'
+import React, { useState, useMemo } from 'react'
 import type { Post } from '@/lib/posts'
 import PostCard from '@/components/PostCard'
 import TimelineFilter from '@/components/TimelineFilter'
 import SearchInput from '@/components/SearchInput'
+import { useInfiniteScroll } from '@/lib/useInfiniteScroll'
 
 interface EventsClientProps {
   posts: Post[]
@@ -15,15 +16,11 @@ interface BucketGroup {
   posts: Post[]
 }
 
-const ITEMS_PER_PAGE = 20
 const SCROLL_OFFSET = 240
 
 export default function EventsClient({ posts }: EventsClientProps) {
   const [searchQuery, setSearchQuery] = useState('')
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
   const [activeBucket, setActiveBucket] = useState<string | null>(null)
-  const sentinelRef = useRef<HTMLDivElement>(null)
-  const observerRef = useRef<IntersectionObserver | null>(null)
 
   // Parse a search query to extract potential date patterns
   const parseDateQuery = (query: string): Date | null => {
@@ -178,14 +175,10 @@ export default function EventsClient({ posts }: EventsClientProps) {
     return filtered
   }, [posts, searchQuery])
 
-  const displayedPosts = useMemo(() => {
-    // When searching, show all filtered results
-    if (searchQuery.trim()) {
-      return filteredPosts
-    }
-    // When not searching, limit by visibleCount
-    return filteredPosts.slice(0, visibleCount)
-  }, [filteredPosts, searchQuery, visibleCount])
+  const { displayed, hasMore, loadMore, sentinelRef, setVisibleCount } = useInfiniteScroll(
+    filteredPosts,
+    { itemsPerPage: searchQuery.trim() ? filteredPosts.length : 20 }
+  )
 
   // Extract unique buckets in order of appearance
   const availableBuckets = useMemo(() => {
@@ -208,7 +201,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
     let currentBucket: string | null = null
     let currentGroup: Post[] = []
 
-    for (const post of displayedPosts) {
+    for (const post of displayed) {
       const bucket = post.bucket || 'Unknown'
 
       if (bucket !== currentBucket) {
@@ -230,45 +223,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
     }
 
     return groups
-  }, [displayedPosts])
-
-  const hasMore = !searchQuery.trim() && visibleCount < filteredPosts.length
-
-  const loadMore = () => {
-    setVisibleCount(prev => prev + ITEMS_PER_PAGE)
-  }
-
-  // Set up IntersectionObserver for infinite scroll
-  useEffect(() => {
-    if (!sentinelRef.current) return
-
-    if (observerRef.current) {
-      observerRef.current.disconnect()
-    }
-
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        const [entry] = entries
-        if (entry.isIntersecting && hasMore) {
-          loadMore()
-        }
-      },
-      {
-        root: null,
-        rootMargin: '100px', // Start loading a bit before reaching the sentinel
-        threshold: 0.1,
-      }
-    )
-
-    observerRef.current.observe(sentinelRef.current)
-
-    // Cleanup
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect()
-      }
-    }
-  }, [hasMore])
+  }, [displayed])
 
   const handleBucketClick = (bucket: string) => {
     setActiveBucket(bucket)
@@ -277,11 +232,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
     const bucketIndex = filteredPosts.findIndex(post => post.bucket === bucket)
 
     if (bucketIndex !== -1) {
-      // Ensure we show enough posts to include this bucket
-      const minVisible = bucketIndex + 1
-      if (visibleCount < minVisible) {
-        setVisibleCount(Math.max(minVisible, ITEMS_PER_PAGE))
-      }
+      setVisibleCount(Math.max(bucketIndex + 1, 20))
 
       // Wait for state update and DOM render, then scroll
       requestAnimationFrame(() => {
@@ -356,7 +307,7 @@ export default function EventsClient({ posts }: EventsClientProps) {
         </div>
       ) : (
         <div className="max-w-7xl mx-auto px-4 py-8">
-          {displayedPosts.length === 0 ? (
+          {displayed.length === 0 ? (
             <div className="text-center py-12">
               <p className="text-xl text-gray-600">
                 No events found matching &ldquo;{searchQuery}&rdquo;
